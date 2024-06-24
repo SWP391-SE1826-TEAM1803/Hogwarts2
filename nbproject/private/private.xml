@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Menu.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOTeacher.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOStudent.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Schedules.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculum.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/StudentSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategoryMenu.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculumDate.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DBConnect.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOStudentSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurDateAct.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Student.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOFeedback.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchoolYear.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/index.html</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Curriculum.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchedules.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/CurDateAct.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/TeacherSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Feedback.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClassCategoryMenu.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/User.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/CurriculumDate.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClassCategory.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Teacher.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOTeacherSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYear.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
+        </group>
+    </open-files>
 </project-private>

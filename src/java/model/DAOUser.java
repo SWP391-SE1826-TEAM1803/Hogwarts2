@@ -88,23 +88,7 @@ public class DAOUser extends DBConnect {
         return vector;
     }
 
-    public boolean login(String role, String email, String password) {
-        String sql = "select * from [User] where Email=? and Password=? and Role=?";
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, email);
-            pre.setString(2, password);
-            pre.setString(3, role);
-
-            ResultSet rs = pre.executeQuery();
-            if (rs.next()) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
+    
 
     public User getUserByID(int userID) {
         User user = null;
@@ -143,10 +127,44 @@ public class DAOUser extends DBConnect {
         }
         return count;
     }
+    
+    public boolean login(String email, String password) {
+        String sql = "select * from [User] where Email=? and Password=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, email);
+            pre.setString(2, password);
+
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public String getRoleByEmail(String email) {
+    String role = null;
+    String sql = "SELECT Role FROM [User] WHERE Email = ?";
+    try (PreparedStatement pre = conn.prepareStatement(sql)) {
+        pre.setString(1, email);
+        try (ResultSet rs = pre.executeQuery()) {
+            if (rs.next()) {
+                role = rs.getString("Role");
+            }
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return role;
+}
+
 
     public static void main(String[] args) {
         DAOUser dao = new DAOUser();
-        boolean check = dao.login("Parent", "PA001", "123");
+        boolean check = dao.login( "PA001", "123");
         if (check = true) {
             System.out.print("ok");
         }
