@@ -68,6 +68,21 @@ public class DAOMenu extends DBConnect {
         }
         return vector;
     }
+    
+    public int getMenuCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM [Menu]";
+        try (
+             PreparedStatement pre = conn.prepareStatement(sql);
+             ResultSet rs = pre.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return count;
+    }
 
     public Menu getMenuByID(int menuID) {
         Menu menu = null;

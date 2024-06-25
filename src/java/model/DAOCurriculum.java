@@ -89,4 +89,19 @@ public class DAOCurriculum extends DBConnect {
         }
         return curriculum;
     }
+    
+    public int getCurCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM [Curriculum]";
+        try (
+             PreparedStatement pre = conn.prepareStatement(sql);
+             ResultSet rs = pre.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return count;
+    }
 }
