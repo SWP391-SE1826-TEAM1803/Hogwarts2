@@ -23,8 +23,8 @@ public class DBConnect {
         }
    }
     public DBConnect() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=hw10",
-                "sa","12345678");
+        this("jdbc:sqlserver://localhost:1433;databaseName=Hogwart",
+                "sa","Truong7923@");
     }
     public ResultSet getData(String sql){
         ResultSet rs=null;

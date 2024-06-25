@@ -18,6 +18,15 @@ public class CurDateAct {
         this.CurDateID = CurDateID;
     }
 
+    public CurDateAct(String Act, String TimeStart, String TimeEnd, int CurDateID) {
+        this.Act = Act;
+        this.TimeStart = TimeStart;
+        this.TimeEnd = TimeEnd;
+        this.CurDateID = CurDateID;
+    }
+    
+    
+
     public int getCdtID() {
         return CdtID;
     }

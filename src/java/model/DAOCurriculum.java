@@ -53,7 +53,7 @@ public class DAOCurriculum extends DBConnect {
         return n;
     }
 
-    public Vector<Curriculum> getAllCurricula() {
+    public Vector<Curriculum> getAllCurriculum() {
         Vector<Curriculum> vector = new Vector<>();
         String sql = "SELECT * FROM Curriculum";
         try {
