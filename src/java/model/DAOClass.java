@@ -88,4 +88,19 @@ public class DAOClass extends DBConnect {
         }
         return cls;
     }
+    
+    public int getClassCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM [Class]";
+        try (
+             PreparedStatement pre = conn.prepareStatement(sql);
+             ResultSet rs = pre.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return count;
+    }
 }
