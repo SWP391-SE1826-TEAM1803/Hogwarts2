@@ -3,6 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/nntru/Hogwarts2/src/java/model/DBConnect.java</file>
+=======
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYearClass.java</file>
@@ -39,6 +42,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYear.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
+>>>>>>> 22b8da621e44544c830884c1bad06549356996de
         </group>
     </open-files>
 </project-private>

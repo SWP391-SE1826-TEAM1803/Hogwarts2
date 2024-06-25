@@ -14,6 +14,13 @@ public class CurriculumDate {
         this.CurID = CurID;
     }
 
+    public CurriculumDate(String DateNumber, int CurID) {
+        this.DateNumber = DateNumber;
+        this.CurID = CurID;
+    }
+    
+    
+
     public int getCurDateID() {
         return CurDateID;
     }
