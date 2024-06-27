@@ -25,11 +25,11 @@
                     </div>
                     <div class="form-group">
                         <label for="TimeStart">Time Start</label>
-                        <input type="text" class="form-control" id="TimeStart" name="TimeStart" required>
+                        <input type="time" class="form-control" id="TimeStart" name="TimeStart" required>
                     </div>
                     <div class="form-group">
                         <label for="TimeEnd">Time End</label>
-                        <input type="text" class="form-control" id="TimeEnd" name="TimeEnd" required>
+                        <input type="time" class="form-control" id="TimeEnd" name="TimeEnd" required>
                     </div>
                     <div class="form-group">
                         <label for="CurDateID">Curriculum Date ID</label>
