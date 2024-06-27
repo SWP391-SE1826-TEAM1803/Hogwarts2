@@ -3,6 +3,8 @@ package entity;
 public class StudentSchoolYearClass {
     private int StudentID;
     private int SyC_ID;
+    private Student student;
+    private SchoolYearClass schoolYearClass;
 
     public StudentSchoolYearClass() {
     }
@@ -26,5 +28,21 @@ public class StudentSchoolYearClass {
 
     public void setSyC_ID(int SyC_ID) {
         this.SyC_ID = SyC_ID;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public SchoolYearClass getSchoolYearClass() {
+        return schoolYearClass;
+    }
+
+    public void setSchoolYearClass(SchoolYearClass schoolYearClass) {
+        this.schoolYearClass = schoolYearClass;
     }
 }

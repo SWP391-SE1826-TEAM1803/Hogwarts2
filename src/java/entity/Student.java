@@ -1,3 +1,4 @@
+// Student.java
 package entity;
 
 import java.sql.Date;
@@ -9,17 +10,17 @@ public class Student {
     private String Gender;
     private String Address;
     private int UserID;
+    private User Parent;
 
-    public Student() {
-    }
+    public Student() {}
 
-    public Student(int StudentID, String FullName, Date DoB, String Gender, String Address, int UserID) {
+    public Student(int StudentID, String FullName, Date DoB, String Gender, String Address, User Parent) {
         this.StudentID = StudentID;
         this.FullName = FullName;
         this.DoB = DoB;
         this.Gender = Gender;
         this.Address = Address;
-        this.UserID = UserID;
+        this.Parent = Parent;
     }
 
     public int getStudentID() {
@@ -68,5 +69,13 @@ public class Student {
 
     public void setUserID(int UserID) {
         this.UserID = UserID;
+    }
+       
+    public User getParent() {
+        return Parent;
+    }
+
+    public void setParent(User Parent) {
+        this.Parent = Parent;
     }
 }

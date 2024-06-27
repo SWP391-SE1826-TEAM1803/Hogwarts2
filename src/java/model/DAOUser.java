@@ -160,7 +160,24 @@ public class DAOUser extends DBConnect {
     }
     return role;
 }
-
+    
+     public Vector<User> getAllParents() {
+        Vector<User> vector = new Vector<>();
+        String sql = "SELECT * FROM [User] WHERE Role = 'Parent'";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setFullName(rs.getString("FullName"));
+                vector.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
 
     public static void main(String[] args) {
         DAOUser dao = new DAOUser();
