@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYearClass.java</file>
@@ -43,6 +44,10 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYear.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
+=======
+            <file>file:/C:/Users/nntru/Hogwarts2/web/CurriculumManager.jsp</file>
+            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/CurriculumController.java</file>
+>>>>>>> 13a48fa900ace51dd0e2384e92a883fc473c4468
         </group>
     </open-files>
 </project-private>
