@@ -5,13 +5,13 @@ import java.sql.Date;
 public class SchoolYear {
     private int SyID;
     private String SyName;
-    private Date DateStart;
-    private Date DateEnd;
+    private String DateStart;
+    private String DateEnd;
 
     public SchoolYear() {
     }
 
-    public SchoolYear(int SyID, String SyName, Date DateStart, Date DateEnd) {
+    public SchoolYear(int SyID, String SyName, String DateStart, String DateEnd) {
         this.SyID = SyID;
         this.SyName = SyName;
         this.DateStart = DateStart;
@@ -34,19 +34,19 @@ public class SchoolYear {
         this.SyName = SyName;
     }
 
-    public Date getDateStart() {
+    public String getDateStart() {
         return DateStart;
     }
 
-    public void setDateStart(Date DateStart) {
+    public void setDateStart(String DateStart) {
         this.DateStart = DateStart;
     }
 
-    public Date getDateEnd() {
+    public String getDateEnd() {
         return DateEnd;
     }
 
-    public void setDateEnd(Date DateEnd) {
+    public void setDateEnd(String DateEnd) {
         this.DateEnd = DateEnd;
     }
 }

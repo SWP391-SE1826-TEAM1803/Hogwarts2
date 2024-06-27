@@ -3,20 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/model/DBConnect.java</file>
-=======
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Menu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOTeacher.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOStudent.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/HeaderAdmin.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Schedules.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculum.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/ManageUser.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/StudentSchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/HomeAdmin.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/UserController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategoryMenu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculumDate.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DBConnect.java</file>
@@ -42,7 +43,6 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYear.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
->>>>>>> 22b8da621e44544c830884c1bad06549356996de
         </group>
     </open-files>
 </project-private>

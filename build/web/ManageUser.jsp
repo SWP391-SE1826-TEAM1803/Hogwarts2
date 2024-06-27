@@ -55,7 +55,7 @@
     <%@include file="HeaderAdmin.jsp"%>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>User Management</h1>
+            <h1>Users Management</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="HomeAdmin.jsp">Home</a></li>
