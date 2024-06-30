@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="entity.StudentSchoolYearClass" %>
 <%@ page import="java.util.Vector" %>
 <!DOCTYPE html>
@@ -57,9 +57,9 @@
                                     <div class="input-group">
                                         <select class="form-control mr-2" name="year">
                                             <option value="">All</option>
-                                            <option value="2023-2024">2023-2024</option>
-                                            <option value="2022-2023">2022-2023</option>
-                                            <option value="2021-2022">2021-2022</option>
+                                            <option value="2023-2024" <%= "2023-2024".equals(request.getParameter("year")) ? "selected" : "" %>>2023-2024</option>
+                                            <option value="2022-2023" <%= "2022-2023".equals(request.getParameter("year")) ? "selected" : "" %>>2022-2023</option>
+                                            <option value="2021-2022" <%= "2021-2022".equals(request.getParameter("year")) ? "selected" : "" %>>2021-2022</option>
                                         </select>
                                         <button type="submit" class="btn btn-primary">Year</button>
                                     </div>
@@ -75,6 +75,7 @@
                                         <th scope="col">Gender</th>
                                         <th scope="col">Address</th>
                                         <th scope="col">Class Name</th>
+                                        <th>School Year</th>
                                         <th scope="col">Parent Name</th>
                                         <th scope="col" style="text-align: center;">Actions</th>
                                     </tr>
@@ -91,6 +92,7 @@
                                         <td><%= studentClass.getStudent().getGender() %></td>
                                         <td><%= studentClass.getStudent().getAddress() %></td>
                                         <td><%= studentClass.getSchoolYearClass().getClassObj().getClassName() %></td>
+                                        <td><%= studentClass.getSchoolYearClass().getSchoolYear().getSyName() %></td>
                                         <td><%= studentClass.getStudent().getParent().getFullName() %></td>
                                         <td style="text-align: center;">
                                             <a class="btn btn-outline-warning btn-sm" href="StudentControllerURL?service=showUpdateStudent&studentID=<%= studentClass.getStudent().getStudentID() %>">Update</a>
