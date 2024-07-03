@@ -56,8 +56,8 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
         return vector;
     }
 
-    public Vector<TeacherSchoolYearClass> getTeacherSchoolYearClassesBySyC_ID(int syC_ID) {
-        Vector<TeacherSchoolYearClass> vector = new Vector<>();
+    public TeacherSchoolYearClass getTeacherSchoolYearClassesBySyC_ID(int syC_ID) {
+       TeacherSchoolYearClass vector = null;
         String sql = "SELECT * FROM TeacherSchoolYearClass WHERE SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -65,8 +65,7 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 int teacherID = rs.getInt("TeacherID");
-                TeacherSchoolYearClass teacherSchoolYearClass = new TeacherSchoolYearClass(teacherID, syC_ID);
-                vector.add(teacherSchoolYearClass);
+                 vector = new TeacherSchoolYearClass(teacherID, syC_ID);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOTeacherSchoolYearClass.class.getName()).log(Level.SEVERE, null, ex);

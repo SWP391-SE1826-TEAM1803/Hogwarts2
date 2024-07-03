@@ -3,7 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYearClass.java</file>
@@ -14,14 +13,18 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Schedules.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculum.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/ManageUser.jsp</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/CurDateActManager.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/StudentSchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/HomeAdmin.jsp</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/SchoolYearClassController.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/SchoolYearDetail.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/UserController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategoryMenu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculumDate.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DBConnect.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/MenuList.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOStudentSchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurDateAct.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/LoginController.java</file>
@@ -34,6 +37,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/CurDateAct.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/Login.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/TeacherSchoolYearClass.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/SchoolYearController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Feedback.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClassCategoryMenu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/User.java</file>
@@ -43,11 +47,9 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOTeacherSchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYear.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/ManageSchoolYear.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
-=======
-            <file>file:/C:/Users/nntru/Hogwarts2/web/CurriculumManager.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/CurriculumController.java</file>
->>>>>>> 13a48fa900ace51dd0e2384e92a883fc473c4468
+            <file>file:/D:/SU24/Project1/Hogwarts/web/AddStudent.jsp</file>
         </group>
     </open-files>
 </project-private>

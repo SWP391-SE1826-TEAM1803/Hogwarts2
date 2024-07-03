@@ -54,9 +54,8 @@ public class DAOSchoolYearClass extends DBConnect {
         return n;
     }
 
-    public Vector<SchoolYearClass> getAllSchoolYearClasses() {
+    public Vector<SchoolYearClass> getAllSchoolYearClasses(String sql) {
         Vector<SchoolYearClass> vector = new Vector<>();
-        String sql = "SELECT * FROM SchoolYearClass";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
