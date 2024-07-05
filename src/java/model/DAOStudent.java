@@ -6,6 +6,8 @@ import entity.Class;
 import entity.SchoolYearClass;
 import entity.User;
 import entity.SchoolYear;
+import entity.Student1;
+import java.sql.Statement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -243,5 +245,7 @@ public class DAOStudent extends DBConnect {
             Logger.getLogger(DAOStudent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
 }

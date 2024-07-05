@@ -77,6 +77,26 @@ public class DAOCurDateAct extends DBConnect {
         }
         return vector;
     }
+    
+    public Vector<CurDateAct> getAllCurDateActs(String sql) {
+        Vector<CurDateAct> vector = new Vector<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int cdtID = rs.getInt("CdtID");
+                String act = rs.getString("Act");
+                String timeStart = rs.getString("TimeStart");
+                String timeEnd = rs.getString("TimeEnd");
+                int curDateID = rs.getInt("CurDateID");
+                CurDateAct curDateAct = new CurDateAct(cdtID, act, timeStart, timeEnd, curDateID);
+                vector.add(curDateAct);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCurDateAct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
 
     public CurDateAct getCurDateActByID(int cdtID) {
         CurDateAct curDateAct = null;

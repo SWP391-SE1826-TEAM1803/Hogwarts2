@@ -54,9 +54,8 @@ public class DAOSchedules extends DBConnect {
         return n;
     }
 
-    public Vector<Schedules> getAllSchedules() {
+    public Vector<Schedules> getAllSchedules(String sql) {
         Vector<Schedules> vector = new Vector<>();
-        String sql = "SELECT * FROM Schedules";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();

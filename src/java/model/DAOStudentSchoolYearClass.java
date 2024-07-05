@@ -4,6 +4,7 @@ import entity.StudentSchoolYearClass;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,6 +68,23 @@ public class DAOStudentSchoolYearClass extends DBConnect {
                 int studentID = rs.getInt("StudentID");
                 StudentSchoolYearClass studentSchoolYearClass = new StudentSchoolYearClass(studentID, syC_ID);
                 vector.add(studentSchoolYearClass);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStudentSchoolYearClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
+    
+     public Vector<StudentSchoolYearClass> getAllStudentSchoolYearClasses(String sql) {
+        Vector<StudentSchoolYearClass> vector = new Vector<>();
+        try {
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = state.executeQuery(sql);
+            while (rs.next()) {
+                int studentID = rs.getInt("StudentID");
+                int syC_ID = rs.getInt("SyC_ID");
+                StudentSchoolYearClass ssClass = new StudentSchoolYearClass(studentID, syC_ID);
+                vector.add(ssClass);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOStudentSchoolYearClass.class.getName()).log(Level.SEVERE, null, ex);
