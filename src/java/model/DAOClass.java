@@ -70,6 +70,24 @@ public class DAOClass extends DBConnect {
         }
         return vector;
     }
+    
+    public Vector<Class> getAllClasses(String sql) {
+        Vector<Class> vector = new Vector<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int classID = rs.getInt("ClassID");
+                String className = rs.getString("ClassName");
+                int cateID = rs.getInt("CateID");
+                Class cls = new Class(classID, className, cateID);
+                vector.add(cls);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
 
     public Class getClassByID(int classID) {
         Class cls = null;

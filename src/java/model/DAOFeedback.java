@@ -54,9 +54,8 @@ public class DAOFeedback extends DBConnect {
         return n;
     }
 
-    public Vector<Feedback> getAllFeedbacks() {
+    public Vector<Feedback> getAllFeedbacks(String sql) {
         Vector<Feedback> vector = new Vector<>();
-        String sql = "SELECT * FROM Feedback";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();

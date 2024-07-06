@@ -76,6 +76,25 @@ public class DAOClassCategoryMenu extends DBConnect {
         }
         return vector;
     }
+    
+    public Vector<ClassCategoryMenu> getAllClassCategoryMenus(String sql) {
+        Vector<ClassCategoryMenu> vector = new Vector<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int cateID = rs.getInt("CateID");
+                int menuID = rs.getInt("MenuID");
+                String date = rs.getString("Date");
+                String meal = rs.getString("Meal");
+                ClassCategoryMenu ccm = new ClassCategoryMenu(cateID, menuID, date, meal);
+                vector.add(ccm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOClassCategoryMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
 
     public ClassCategoryMenu getClassCategoryMenuByID(int cateID, int menuID) {
         ClassCategoryMenu ccm = null;

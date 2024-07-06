@@ -15,12 +15,7 @@
         response.sendRedirect("Login.jsp");
         return;
     }
-//    DAOUser daoUser = new DAOUser(); 
-//    
-//Vector<User> user = daoUser.getAllUsers("SELECT * FROM User WHERE Email ='"+userName+"'");
-//    DAOStudent daoStudent = new DAOStudent();
-//        Vector<Student> students = daoStudent.getAllStudents("SELECT * FROM Student WHERE UserID ='"+user.get(0).getUserID()+"'");
-//
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +24,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Home - Hogwarts</title>
+  <title>Header - Hogwarts</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

@@ -69,6 +69,23 @@ public class DAOMenu extends DBConnect {
         return vector;
     }
     
+    public Vector<Menu> getAllMenus(String sql) {
+        Vector<Menu> vector = new Vector<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int menuID = rs.getInt("MenuID");
+                String food = rs.getString("Food");
+                Menu menu = new Menu(menuID, food);
+                vector.add(menu);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
+    
     public int getMenuCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM [Menu]";

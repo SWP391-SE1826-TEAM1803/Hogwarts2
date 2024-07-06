@@ -109,16 +109,22 @@ public class StudentController extends HttpServlet {
             dao.deleteStudent(studentID);
             response.sendRedirect("StudentControllerURL?service=listAll");
         } else if (service.equals("listKid")) {           
-            String userName = (String) session.getAttribute("userName");
+             String userName = (String) session.getAttribute("userName");
+            String filterDate = request.getParameter("filterDate");
             Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='"+userName+"'");        
             Vector<Student1> students = dao1.getAllStudents("SELECT * FROM Student WHERE UserID ='"+user.get(0).getUserID()+"'");
             Student1 stu1 = students.get(0);
             request.setAttribute("stu", stu1);
             request.setAttribute("data", students);
+            request.setAttribute("filterDate", filterDate);
+                    request.setAttribute("service", "listKid");
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeParents.jsp");
             dispatcher.forward(request, response);
     } else if (service.equals("viewStudent")) {
         String userName = (String) session.getAttribute("userName");
+                    String filterDate = request.getParameter("filterDate");
+
             Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='"+userName+"'");        
             Vector<Student1> students = dao1.getAllStudents("SELECT * FROM Student WHERE UserID ='"+user.get(0).getUserID()+"'");
             int studentID = Integer.parseInt(request.getParameter("studentID"));
@@ -127,6 +133,10 @@ public class StudentController extends HttpServlet {
 
             request.setAttribute("stu", stu);
                         request.setAttribute("data", students);
+                                    request.setAttribute("filterDate", filterDate);
+
+        request.setAttribute("service", "viewStudent");
+        request.setAttribute("studentID", studentID);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeParents.jsp");
             dispatcher.forward(request, response);
