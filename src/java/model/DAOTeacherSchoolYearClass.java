@@ -26,7 +26,7 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
 
     public int deleteTeacherSchoolYearClass(int teacherID, int syC_ID) {
         int n = 0;
-        String sql = "DELETE FROM TeacherSchoolYearClass WHERE TeacherID = ? AND SyC_ID = ?";
+        String sql = "DELETE FROM Teacher_SchoolYear_Class WHERE TeacherID = ? AND SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, teacherID);
@@ -40,7 +40,7 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
 
     public Vector<TeacherSchoolYearClass> getTeacherSchoolYearClassesByTeacherID(int teacherID) {
         Vector<TeacherSchoolYearClass> vector = new Vector<>();
-        String sql = "SELECT * FROM TeacherSchoolYearClass WHERE TeacherID = ?";
+        String sql = "SELECT * FROM Teacher_SchoolYear_Class WHERE TeacherID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, teacherID);
@@ -58,7 +58,7 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
 
     public TeacherSchoolYearClass getTeacherSchoolYearClassesBySyC_ID(int syC_ID) {
        TeacherSchoolYearClass vector = null;
-        String sql = "SELECT * FROM TeacherSchoolYearClass WHERE SyC_ID = ?";
+        String sql = "SELECT * FROM Teacher_SchoolYear_Class WHERE SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, syC_ID);

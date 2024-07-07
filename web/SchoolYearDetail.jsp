@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector, entity.SchoolYearClass, entity.TeacherSchoolYearClass, entity.SchoolYear, entity.Class, model.DAOSchoolYear, model.DAOClass, model.DAOTeacherSchoolYearClass, model.DAOTeacher"%>
+<%@page import="java.util.Vector,entity.User,model.DAOUser, entity.SchoolYearClass, entity.TeacherSchoolYearClass, entity.SchoolYear, entity.Class,entity.Teacher ,model.DAOSchoolYearClass, model.DAOSchoolYear, model.DAOClass, model.DAOTeacherSchoolYearClass, model.DAOTeacher"%>
+<%@page import="entity.Curriculum, model.DAOCurriculum"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,17 +76,22 @@
                                 DAOClass dao = new DAOClass();
                                 DAOTeacherSchoolYearClass daoTSC = new DAOTeacherSchoolYearClass();
                                 DAOTeacher daoT = new DAOTeacher();
+                                DAOUser daoU = new DAOUser();
+                                DAOCurriculum daoC = new DAOCurriculum();
                                 Vector<SchoolYearClass> syClasses = (Vector<SchoolYearClass>) request.getAttribute("data");
                                 for (SchoolYearClass syClass : syClasses) {
                                     Class classObj = dao.getClassByID(syClass.getClassID());
                                     TeacherSchoolYearClass teachersObj = daoTSC.getTeacherSchoolYearClassesBySyC_ID(syClass.getSyC_ID());
+                                    Teacher teacher = daoT.getTeacherByID(teachersObj.getTeacherID());
+                                    User user = daoU.getUserByID(teacher.getUserID());
+                                    Curriculum cur = daoC.getCurriculumByID(syClass.getCurID());
                             %>
                             <tr>
                                 <td><%= syClass.getSyC_ID() %></td>
                                 <td><%= syClass.getClassID() %></td>
                                 <td><%= classObj != null ? classObj.getClassName() : "N/A" %></td>
-                                <td><%= syClass.getCurID() %></td>
-                                <td><%= teachersObj != null ? teachersObj.getTeacherID() : "N/A" %></td>
+                                <td><%= cur.getCurName() %></td>
+                                <td><%= user != null ? user.getFullName() : "N/A" %></td>
                                 <td style="text-align: center;">
                                     <a class="btn btn-outline-info btn-icon-text" href="SchoolYearClassDetail.jsp?SyC_ID=<%=syClass.getSyC_ID()%>">
                                         <i class="mdi mdi-information"></i> Detail

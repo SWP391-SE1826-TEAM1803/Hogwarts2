@@ -71,6 +71,24 @@ public class DAOTeacher extends DBConnect {
         return vector;
     }
     
+    public Vector<Teacher> getAllTeachers(String sql) {
+        Vector<Teacher> vector = new Vector<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int teacherID = rs.getInt("TeacherID");
+                int userID = rs.getInt("UserID");
+                String degree = rs.getString("Degree");
+                Teacher teacher = new Teacher(teacherID, userID, degree);
+                vector.add(teacher);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTeacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
+    
     public int getTeacherCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM Teacher";
