@@ -91,7 +91,7 @@
                                 <td><%= syClass.getClassID() %></td>
                                 <td><%= classObj != null ? classObj.getClassName() : "N/A" %></td>
                                 <td><%= cur.getCurName() %></td>
-                                <td><%= user != null ? user.getFullName() : "N/A" %></td>
+                                <td><%= teachersObj != null ? user.getFullName() : "N/A" %></td>
                                 <td style="text-align: center;">
                                     <a class="btn btn-outline-info btn-icon-text" href="SchoolYearClassDetail.jsp?SyC_ID=<%=syClass.getSyC_ID()%>">
                                         <i class="mdi mdi-information"></i> Detail
