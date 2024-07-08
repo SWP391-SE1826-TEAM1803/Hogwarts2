@@ -1,40 +1,61 @@
 package entity;
 
 public class Class {
-    private int ClassID;
-    private String ClassName;
-    private int CateID;
+    private int classID;
+    private String className;
+    private int cateID;
+    private String cateName;
 
     public Class() {
     }
+    
+    public Class(String className, int cateID) {
+        this.className = className;
+        this.cateID = cateID;
+    }
 
-    public Class(int ClassID, String ClassName, int CateID) {
-        this.ClassID = ClassID;
-        this.ClassName = ClassName;
-        this.CateID = CateID;
+    public Class(int classID, String className, int cateID) {
+        this.classID = classID;
+        this.className = className;
+        this.cateID = cateID;
+    }
+
+    public Class(int classID, String className, int cateID, String cateName) {
+        this.classID = classID;
+        this.className = className;
+        this.cateID = cateID;
+        this.cateName = cateName;
     }
 
     public int getClassID() {
-        return ClassID;
+        return classID;
     }
 
-    public void setClassID(int ClassID) {
-        this.ClassID = ClassID;
+    public void setClassID(int classID) {
+        this.classID = classID;
     }
 
     public String getClassName() {
-        return ClassName;
+        return className;
     }
 
-    public void setClassName(String ClassName) {
-        this.ClassName = ClassName;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public int getCateID() {
-        return CateID;
+        return cateID;
     }
 
-    public void setCateID(int CateID) {
-        this.CateID = CateID;
+    public void setCateID(int cateID) {
+        this.cateID = cateID;
+    }
+
+    public String getCateName() {
+        return cateName;
+    }
+
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
     }
 }
