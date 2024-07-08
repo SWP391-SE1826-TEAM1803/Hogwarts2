@@ -4,8 +4,16 @@
         <servlet-name>MenuController</servlet-name>
         <servlet-class>controller.MenuController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClassController</servlet-name>
+        <servlet-class>controller.ClassController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuController</servlet-name>
         <url-pattern>/MenuControllerURL</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassController</servlet-name>
+        <url-pattern>/ClassControllerURL</url-pattern>
     </servlet-mapping>
 </web-app>

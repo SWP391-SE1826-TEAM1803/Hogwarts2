@@ -12,7 +12,7 @@ public class DAOSchoolYearClass extends DBConnect {
 
     public int insertSchoolYearClass(SchoolYearClass schoolYearClass) {
         int n = 0;
-        String sql = "INSERT INTO SchoolYearClass (SyID, ClassID, CurID) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO SchoolYear_Class (SyID, ClassID, CurID) VALUES (?, ?, ?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, schoolYearClass.getSyID());
@@ -27,7 +27,7 @@ public class DAOSchoolYearClass extends DBConnect {
 
     public int updateSchoolYearClass(SchoolYearClass schoolYearClass) {
         int n = 0;
-        String sql = "UPDATE SchoolYearClass SET SyID = ?, ClassID = ?, CurID = ? WHERE SyC_ID = ?";
+        String sql = "UPDATE SchoolYear_Class SET SyID = ?, ClassID = ?, CurID = ? WHERE SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, schoolYearClass.getSyID());
@@ -43,7 +43,7 @@ public class DAOSchoolYearClass extends DBConnect {
 
     public int deleteSchoolYearClass(int syC_ID) {
         int n = 0;
-        String sql = "DELETE FROM SchoolYearClass WHERE SyC_ID = ?";
+        String sql = "DELETE FROM SchoolYear_Class WHERE SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, syC_ID);
@@ -75,7 +75,7 @@ public class DAOSchoolYearClass extends DBConnect {
 
     public SchoolYearClass getSchoolYearClassByID(int syC_ID) {
         SchoolYearClass schoolYearClass = null;
-        String sql = "SELECT * FROM SchoolYearClass WHERE SyC_ID = ?";
+        String sql = "SELECT * FROM SchoolYear_Class WHERE SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, syC_ID);

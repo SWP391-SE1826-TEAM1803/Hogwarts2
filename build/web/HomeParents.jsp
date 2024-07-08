@@ -69,7 +69,7 @@
         <%@include file="HeaderParents.jsp"%>
     
 <main id="main" class="main">
-    <h5><%=stu.getFullName()%></h5>
+    <h5>Student: <%=stu.getFullName()%></h5>
     <!-- Date Filter Form -->
        <form action="StudentControllerURL" method="get" class="mb-3">
             <input type="hidden" name="service" value="<%=service != null ? service : "listKid"%>">
