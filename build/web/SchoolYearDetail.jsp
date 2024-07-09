@@ -87,7 +87,7 @@
                                 <td><%= cur != null ? cur.getCurName() : "N/A" %></td>
                                 <td><%= teachersObj != null ? user.getFullName() : "N/A" %></td>
                                 <td style="text-align: center;">
-                                    <a class="btn btn-outline-info btn-icon-text" href="SchoolYearClassDetail.jsp?SyC_ID=<%=syClass.getSyC_ID()%>">
+                                    <a class="btn btn-outline-info btn-icon-text" href="StudentSYClassControllerURL?service=viewSYClass&SyC_ID=<%=syClass.getSyC_ID()%>&cID=<%=syClass.getClassID()%>&SyID=<%=syClass.getSyID()%>">
                                         <i class="mdi mdi-information"></i> Detail
                                     </a>                                    
                                 </td>

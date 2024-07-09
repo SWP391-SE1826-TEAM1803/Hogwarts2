@@ -17,6 +17,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/web/SchoolYearDetail.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/UserController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategoryMenu.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/StudentManager.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOStudentSchoolYearClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Student.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOFeedback.java</file>
@@ -32,6 +33,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/CurriculumDate.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClassCategory.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Teacher.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/StudentSYClassController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/SchoolYear.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/ManageSchoolYear.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/AddStudent.jsp</file>
@@ -47,6 +49,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculumDate.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DBConnect.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/MenuList.jsp</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/web/SchoolYearClassDetail.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/StudentClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurDateAct.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/LoginController.java</file>
