@@ -13,7 +13,7 @@ public class DAOClassCategoryMenu extends DBConnect {
 
     public int insertClassCategoryMenu(ClassCategoryMenu ccm) {
         int n = 0;
-        String sql = "INSERT INTO ClassCategoryMenu (CateID, MenuID, Date, Meal) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO ClassCategory_Menu (CateID, MenuID, Date, Meal) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, ccm.getCateID());
@@ -29,7 +29,7 @@ public class DAOClassCategoryMenu extends DBConnect {
 
     public int updateClassCategoryMenu(ClassCategoryMenu ccm) {
         int n = 0;
-        String sql = "UPDATE ClassCategoryMenu SET Date = ?, Meal = ? WHERE CateID = ? AND MenuID = ?";
+        String sql = "UPDATE ClassCategory_Menu SET Date = ?, Meal = ? WHERE CateID = ? AND MenuID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ccm.getDate());
@@ -45,7 +45,7 @@ public class DAOClassCategoryMenu extends DBConnect {
 
     public int deleteClassCategoryMenu(int cateID, int menuID) {
         int n = 0;
-        String sql = "DELETE FROM ClassCategoryMenu WHERE CateID = ? AND MenuID = ?";
+        String sql = "DELETE FROM ClassCategory_Menu WHERE CateID = ? AND MenuID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, cateID);
@@ -59,7 +59,7 @@ public class DAOClassCategoryMenu extends DBConnect {
 
     public Vector<ClassCategoryMenu> getAllClassCategoryMenus() {
         Vector<ClassCategoryMenu> vector = new Vector<>();
-        String sql = "SELECT * FROM ClassCategoryMenu";
+        String sql = "SELECT * FROM ClassCategory_Menu";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -98,7 +98,7 @@ public class DAOClassCategoryMenu extends DBConnect {
 
     public ClassCategoryMenu getClassCategoryMenuByID(int cateID, int menuID) {
         ClassCategoryMenu ccm = null;
-        String sql = "SELECT * FROM ClassCategoryMenu WHERE CateID = ? AND MenuID = ?";
+        String sql = "SELECT * FROM ClassCategory_Menu WHERE CateID = ? AND MenuID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, cateID);

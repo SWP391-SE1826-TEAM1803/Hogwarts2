@@ -3,7 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/CurDateActController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
@@ -12,6 +11,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/web/HeaderAdmin.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculum.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/CurDateActManager.jsp</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/ClassController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/HomeAdmin.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/SchoolYearDetail.jsp</file>
@@ -45,6 +45,7 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurriculumDate.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DBConnect.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/MenuList.jsp</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/StudentClass.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOCurDateAct.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/LoginController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/index.html</file>
@@ -57,13 +58,6 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/StudentController.java</file>
-=======
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP0807/Hogwarts2/src/java/model/DAOClass.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP0807/Hogwarts2/src/java/controller/ClassController.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP0807/Hogwarts2/src/java/controller/MenuController.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP0807/Hogwarts2/web/ClassList.jsp</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP0807/Hogwarts2/web/MenuList.jsp</file>
->>>>>>> 34d6cc64ecd74eceeaac067780bfc78c2ea9481b
         </group>
     </open-files>
 </project-private>

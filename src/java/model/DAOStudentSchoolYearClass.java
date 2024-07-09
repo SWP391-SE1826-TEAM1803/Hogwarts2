@@ -13,7 +13,7 @@ public class DAOStudentSchoolYearClass extends DBConnect {
 
     public int insertStudentSchoolYearClass(StudentSchoolYearClass studentSchoolYearClass) {
         int n = 0;
-        String sql = "INSERT INTO StudentSchoolYearClass (StudentID, SyC_ID) VALUES (?, ?)";
+        String sql = "INSERT INTO Student_SchoolYear_Class (StudentID, SyC_ID) VALUES (?, ?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, studentSchoolYearClass.getStudentID());
@@ -27,7 +27,7 @@ public class DAOStudentSchoolYearClass extends DBConnect {
 
     public int deleteStudentSchoolYearClass(int studentID, int syC_ID) {
         int n = 0;
-        String sql = "DELETE FROM StudentSchoolYearClass WHERE StudentID = ? AND SyC_ID = ?";
+        String sql = "DELETE FROM Student_SchoolYear_Class WHERE StudentID = ? AND SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, studentID);
@@ -41,7 +41,7 @@ public class DAOStudentSchoolYearClass extends DBConnect {
 
     public Vector<StudentSchoolYearClass> getStudentSchoolYearClassesByStudentID(int studentID) {
         Vector<StudentSchoolYearClass> vector = new Vector<>();
-        String sql = "SELECT * FROM StudentSchoolYearClass WHERE StudentID = ?";
+        String sql = "SELECT * FROM Student_SchoolYear_Class WHERE StudentID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, studentID);
@@ -59,7 +59,7 @@ public class DAOStudentSchoolYearClass extends DBConnect {
 
     public Vector<StudentSchoolYearClass> getStudentSchoolYearClassesBySyC_ID(int syC_ID) {
         Vector<StudentSchoolYearClass> vector = new Vector<>();
-        String sql = "SELECT * FROM StudentSchoolYearClass WHERE SyC_ID = ?";
+        String sql = "SELECT * FROM Student_SchoolYear_Class WHERE SyC_ID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, syC_ID);
