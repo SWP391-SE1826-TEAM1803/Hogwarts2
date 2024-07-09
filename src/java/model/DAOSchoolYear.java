@@ -54,16 +54,43 @@ public class DAOSchoolYear extends DBConnect {
     }
 
     public void copyClassesFromLastSchoolYear(int lastSyID, int newSyID) {
-        try {
-            String sql = "INSERT INTO SchoolYear_Class (SyID, ClassID, CurID) SELECT ?, ClassID, CurID FROM SchoolYear_Class WHERE SyID = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, newSyID);
-            ps.setInt(2, lastSyID);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try {
+        // Copy classes from the last school year
+        String sqlClasses = "INSERT INTO SchoolYear_Class (SyID, ClassID, CurID) SELECT ?, ClassID, CurID FROM SchoolYear_Class WHERE SyID = ?";
+        PreparedStatement psClasses = conn.prepareStatement(sqlClasses);
+        psClasses.setInt(1, newSyID);
+        psClasses.setInt(2, lastSyID);
+        psClasses.executeUpdate();
+
+        // Get the newly created SyC_IDs for the new school year
+        String sqlNewSyC_IDs = "SELECT SyC_ID, ClassID, CurID FROM SchoolYear_Class WHERE SyID = ?";
+        PreparedStatement psNewSyC_IDs = conn.prepareStatement(sqlNewSyC_IDs);
+        psNewSyC_IDs.setInt(1, newSyID);
+        ResultSet rsNewSyC_IDs = psNewSyC_IDs.executeQuery();
+
+        while (rsNewSyC_IDs.next()) {
+            int newSyC_ID = rsNewSyC_IDs.getInt("SyC_ID");
+            int classID = rsNewSyC_IDs.getInt("ClassID");
+            int curID = rsNewSyC_IDs.getInt("CurID");
+
+            // Copy teachers from the last school year to the new school year
+            String sqlTeachers = "INSERT INTO Teacher_SchoolYear_Class (TeacherID, SyC_ID) " +
+                                  "SELECT TeacherID, ? FROM Teacher_SchoolYear_Class " +
+                                  "JOIN SchoolYear_Class ON Teacher_SchoolYear_Class.SyC_ID = SchoolYear_Class.SyC_ID " +
+                                  "WHERE SchoolYear_Class.SyID = ? AND SchoolYear_Class.ClassID = ? AND SchoolYear_Class.CurID = ?";
+            PreparedStatement psTeachers = conn.prepareStatement(sqlTeachers);
+            psTeachers.setInt(1, newSyC_ID);
+            psTeachers.setInt(2, lastSyID);
+            psTeachers.setInt(3, classID);
+            psTeachers.setInt(4, curID);
+            psTeachers.executeUpdate();
         }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
+
 
     public int updateSchoolYear(SchoolYear schoolYear) {
         SchoolYear lastSchoolYear = getLastSchoolYear();

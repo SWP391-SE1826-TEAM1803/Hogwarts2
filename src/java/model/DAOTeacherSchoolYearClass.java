@@ -12,7 +12,7 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
 
     public int insertTeacherSchoolYearClass(TeacherSchoolYearClass teacherSchoolYearClass) {
         int n = 0;
-        String sql = "INSERT INTO TeacherSchoolYearClass (TeacherID, SyC_ID) VALUES (?, ?)";
+        String sql = "INSERT INTO Teacher_SchoolYear_Class (TeacherID, SyC_ID) VALUES (?, ?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, teacherSchoolYearClass.getTeacherID());

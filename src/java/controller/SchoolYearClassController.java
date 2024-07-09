@@ -27,19 +27,18 @@ public class SchoolYearClassController extends HttpServlet {
             service = "listAll";
         }
 
-//        if (service.equals("addSchoolYearClass")) {
-//            // Get data from request
-//            String SyC_ID = request.getParameter("SyC_ID");
-//            String SyID = request.getParameter("SyID");
-//            String ClassID = request.getParameter("ClassID");
-//            String CurID = request.getParameter("CurID");
-//            // Create SchoolYearClass object
-//            SchoolYearClass syClass = new SchoolYearClass(SyC_ID, SyID, ClassID, CurID);
-//            // Insert SchoolYearClass
-//            dao.insertSchoolYearClass(syClass);
-//            // Redirect to listAll
-//            response.sendRedirect("SchoolYearClassControllerURL?service=listAll");
-//        }
+        if (service.equals("addSchoolYearClass")) {
+            // Get data from request
+            int SyID = Integer.parseInt(request.getParameter("SyID"));
+            int ClassID = Integer.parseInt(request.getParameter("ClassID"));
+            int CurID = Integer.parseInt(request.getParameter("CurID"));
+            // Create SchoolYearClass object
+            SchoolYearClass syClass = new SchoolYearClass(0, SyID, ClassID, CurID);
+            // Insert SchoolYearClass
+            dao.insertSchoolYearClass(syClass);
+            // Redirect to listAll
+            response.sendRedirect("SchoolYearClassControllerURL?service=searchBySyID&SyID="+SyID);
+        }
 
         if (service.equals("listAll")) {
             // Get all school year classes
@@ -51,32 +50,35 @@ public class SchoolYearClassController extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-//        if (service.equals("updateSchoolYearClass")) {
-//            String submit = request.getParameter("submit");
-//            if (submit == null) {
-//                // Show update form
-//                String syC_ID = request.getParameter("SyC_ID");
-//                SchoolYearClass syClass = dao.getSchoolYearClassByID(syC_ID);
-//                request.setAttribute("syClass", syClass);
-//                RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateSchoolYearClass.jsp");
-//                dispatcher.forward(request, response);
-//            } else {
-//                // Update school year class data
-//                String SyC_ID = request.getParameter("SyC_ID");
-//                String SyID = request.getParameter("SyID");
-//                String ClassID = request.getParameter("ClassID");
-//                String CurID = request.getParameter("CurID");
-//                SchoolYearClass syClass = new SchoolYearClass(SyC_ID, SyID, ClassID, CurID);
-//                dao.updateSchoolYearClass(syClass);
-//                response.sendRedirect("SchoolYearClassControllerURL?service=listAll");
-//            }
-//        }
+        if (service.equals("updateSchoolYearClass")) {
+            String submit = request.getParameter("submit");
+            if (submit == null) {
+                // Show update form
+                int syC_ID = Integer.parseInt(request.getParameter("SyC_ID"));
+                SchoolYearClass syClass = dao.getSchoolYearClassByID(syC_ID);
+                request.setAttribute("syClass", syClass);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateSchoolYearClass.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                // Update school year class data
+                int SyC_ID = Integer.parseInt(request.getParameter("SyC_ID"));
+                int SyID = Integer.parseInt(request.getParameter("SyID"));
+            int ClassID = Integer.parseInt(request.getParameter("ClassID"));
+            int CurID = Integer.parseInt(request.getParameter("CurID"));
+                SchoolYearClass syClass = new SchoolYearClass(SyC_ID, SyID, ClassID, CurID);
+                dao.updateSchoolYearClass(syClass);
+                response.sendRedirect("SchoolYearClassControllerURL?service=listAll");
+            }
+        }
 
-//        if (service.equals("deleteSchoolYearClass")) {
-//            String syC_ID = request.getParameter("SyC_ID");
-//            dao.deleteSchoolYearClass(syC_ID);
-//            response.sendRedirect("SchoolYearClassControllerURL?service=listAll");
-//        }
+        if (service.equals("deleteSchoolYearClass")) {
+            String syID = request.getParameter("SyID");            
+
+            int syC_ID = Integer.parseInt(request.getParameter("SyC_ID"));
+
+            dao.deleteSchoolYearClass(syC_ID);
+            response.sendRedirect("SchoolYearClassControllerURL?service=searchBySyID&SyID="+syID);
+        }
         
         if (service.equals("searchBySyID")) {
             String syID = request.getParameter("SyID");            

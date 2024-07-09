@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Vector" %>
-<%@ page import="entity.Menu" %>
+<%@ page import="entity.Class" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>Menu List - Hogwarts</title>
+        <title>Class List - Hogwarts</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
 
@@ -37,11 +37,11 @@
         <%@include file="HeaderAdmin.jsp"%>
         <main id="main" class="main">
             <div class="pagetitle">
-                <h1>Menu List in Hogwarts</h1>
+                <h1>Class List</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="HomeAdmin.jsp">Home</a></li>
-                        <li class="breadcrumb-item active">Menu</li>
+                        <li class="breadcrumb-item active">Class List</li>
                     </ol>
                 </nav>
             </div>
@@ -52,41 +52,55 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <!-- Add New Menu Form -->
+                                <!-- Add New Class Form -->
                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <form action="MenuControllerURL" method="post" class="w-100">
-                                        <input type="hidden" name="service" value="addMenu">
+                                    <form action="ClassControllerURL" method="post" class="w-100">
+                                        <input type="hidden" name="service" value="addClass">
                                         <div class="form-group">
                                             <br>
-                                            <label for="Food">New Food</label>                                             
-                                            <input type="text" class="form-control" id="Food" name="Food" required>
+                                            <label for="className">Class Name</label>
+                                            <input type="text" class="form-control" id="className" name="className" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cateID"> Choose Category Class</label>
+                                            <select class="form-control" id="cateID" name="cateID" required>
+                                                <option value="1">Age 3</option>
+                                                <option value="2">Age 4</option>
+                                                <option value="3">Age 5</option>
+                                            </select>
                                         </div>
                                         <br>
-                                        <button type="submit" class="btn btn-primary">Add Food</button>
+                                        <button type="submit" class="btn btn-primary">Add Class</button>
                                     </form>
                                 </div>
 
-                                <!-- Menu List Table -->
+                                <!-- Class List Table -->
                                 <table class="table table-borderless datatable mt-3">
                                     <thead>
                                         <tr>
 <!--                                            <th scope="col">ID</th>-->
-                                            <th scope="col">Food Name</th>
+                                            <th scope="col">Class Name</th>
+                                            <th scope="col">Category Class</th>
+                                            <th scope="col">Detail</th>
                                             <th scope="col" style="text-align: center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            Vector<Menu> menus = (Vector<Menu>) request.getAttribute("data");
-                                            if (menus != null) {
-                                                for (Menu menu : menus) {
+                                            Vector<Class> classList = (Vector<Class>) request.getAttribute("classList");
+                                            if (classList != null) {
+                                                for (Class cls : classList) {
                                         %>
                                         <tr>
-                                            <!--<td><//%= menu.getMenuID() %></td>-->
-                                            <td><%= menu.getFood() %></td>
+<!--                                            <td><//%= cls.getClassID() %></td>-->
+                                            <td><%= cls.getClassName() %></td>
+                                            <td><%= cls.getCateName() %></td>
+                                            <td>
+                                                <a class="btn btn-outline-info btn-sm" href="ClassControllerURL?service=detailClass&classID=<%= cls.getClassID() %>">Detail</a>
+                                            </td>
                                             <td style="text-align: center;">
-                                                <a class="btn btn-outline-warning btn-sm" href="MenuControllerURL?service=update&MenuID=<%= menu.getMenuID() %>">Update</a>
-                                                <a class="btn btn-outline-danger btn-sm" href="MenuControllerURL?service=delete&MenuID=<%= menu.getMenuID() %>" onclick="return confirm('Are you sure you want to delete this menu?')">Delete</a>
+                                                <a class="btn btn-outline-warning btn-sm" href="ClassControllerURL?service=updateClass&classID=<%= cls.getClassID() %>">Update</a>
+                                                <a class="btn btn-outline-danger btn-sm" href="ClassControllerURL?service=deleteClass&classID=<%= cls.getClassID() %>" onclick="return confirm('Are you sure you want to delete this class?')">Delete</a>
                                             </td>
                                         </tr>
                                         <%
@@ -94,7 +108,7 @@
                                             } else {
                                         %>
                                         <tr>
-                                            <td colspan="3">No menus found.</td>
+                                            <td colspan="5">No classes found.</td>
                                         </tr>
                                         <%
                                             }
