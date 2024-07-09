@@ -128,8 +128,7 @@ public class DAOSchoolYear extends DBConnect {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
-    }
+        return -1;    }
 
     public Vector<SchoolYear> getAllSchoolYears(String sql) {
         Vector<SchoolYear> vector = new Vector<>();

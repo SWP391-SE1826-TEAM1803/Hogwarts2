@@ -1,5 +1,6 @@
 package controller;
 
+import entity.SchoolYear;
 import entity.SchoolYearClass;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.ResultSet;
 import java.util.Vector;
+import model.DAOSchoolYear;
 import model.DAOSchoolYearClass;
 
 @WebServlet(name = "SchoolYearClassController", urlPatterns = {"/SchoolYearClassControllerURL"})
@@ -21,7 +23,7 @@ public class SchoolYearClassController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         DAOSchoolYearClass dao = new DAOSchoolYearClass();
         HttpSession session = request.getSession(true);
-        
+        DAOSchoolYear daoSY = new DAOSchoolYear();
         String service = request.getParameter("service");
         if (service == null) {
             service = "listAll";
@@ -73,7 +75,7 @@ public class SchoolYearClassController extends HttpServlet {
 
         if (service.equals("deleteSchoolYearClass")) {
             String syID = request.getParameter("SyID");            
-
+            
             int syC_ID = Integer.parseInt(request.getParameter("SyC_ID"));
 
             dao.deleteSchoolYearClass(syC_ID);
@@ -81,7 +83,11 @@ public class SchoolYearClassController extends HttpServlet {
         }
         
         if (service.equals("searchBySyID")) {
-            String syID = request.getParameter("SyID");            
+            String syID = request.getParameter("SyID");     
+             Vector<SchoolYear> sy = daoSY.getAllSchoolYears("SELECT * FROM SchoolYear Where SyID = '" + syID + "'");
+             String syname = sy.get(0).getSyName();
+            request.setAttribute("syname", syname);
+
             // Get all school year classes
             Vector<SchoolYearClass> vector = dao.getAllSchoolYearClasses("SELECT * FROM SchoolYear_Class Where SyID = '" + syID + "'");
             // Set data to request

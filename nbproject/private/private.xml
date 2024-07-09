@@ -3,12 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/SchoolYearController.java</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/web/ManageSchoolYear.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/web/CurriculumManager.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/CurriculumController.java</file>
-=======
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/CurDateActController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/ClassCategory.java</file>
@@ -27,8 +21,10 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Student.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOFeedback.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchoolYear.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/CurriculumDateController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Curriculum.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOSchedules.java</file>
+            <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/CurriculumController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/HeaderParents.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/Login.jsp</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Feedback.java</file>
@@ -64,7 +60,6 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/entity/Class.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/StudentController.java</file>
->>>>>>> 1a7609ac7129ba1a16465bf4c495d1a51468b8c0
         </group>
     </open-files>
 </project-private>

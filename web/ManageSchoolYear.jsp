@@ -49,7 +49,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="HomeAdmin.jsp">Home</a></li>
-                    <li class="breadcrumb-item active">Manage School Years</li>
+                    <li class="breadcrumb-item active">School Years</li>
                 </ol>
             </nav>
         </div>

@@ -1,14 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector,entity.User,model.DAOUser, entity.SchoolYearClass, entity.TeacherSchoolYearClass, entity.SchoolYear, entity.Class,entity.Teacher ,model.DAOSchoolYearClass, model.DAOSchoolYear, model.DAOClass, model.DAOTeacherSchoolYearClass, model.DAOTeacher"%>
 <%@page import="entity.Curriculum, model.DAOCurriculum"%>
-
+<% String syname = (String) request.getAttribute("syname");%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Admin - Hogwarts</title>
+  <title><%=syname%> - Hogwarts</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -42,7 +42,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="HomeAdmin.jsp">Home</a></li>
                     <li class="breadcrumb-item"><a href="SchoolYearControllerURL?service=listAll">School Years</a></li>
-                    <li class="breadcrumb-item active">Detail</li>
+                    <li class="breadcrumb-item active"><%=syname%></li>
                 </ol>
             </nav>
         </div>
