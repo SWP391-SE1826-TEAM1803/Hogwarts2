@@ -53,7 +53,7 @@ public class StudentController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("StudentManager.jsp");
             dispatcher.forward(request, response);
         } else if (service.equals("showAddStudent")) {
-            Vector<Class> classes = daoClass.getAllClasses();
+            Vector<Class> classes = daoClass.getAllClassesWithCategory();
             Vector<User> users = daoUser.getAllParents();
             request.setAttribute("classes", classes);
             request.setAttribute("users", users);
@@ -75,12 +75,12 @@ public class StudentController extends HttpServlet {
             student.setUserID(userID);
 
             dao.addStudent(student, classID);
-            
+
             response.sendRedirect("StudentControllerURL?service=listAll");
         } else if (service.equals("showUpdateStudent")) {
             int studentID = Integer.parseInt(request.getParameter("studentID"));
             StudentSchoolYearClass studentClass = dao.getStudentById(studentID);
-            Vector<Class> classes = daoClass.getAllClasses();
+            Vector<Class> classes = daoClass.getAllClassesWithCategory();
             Vector<User> users = daoUser.getAllParents();
             request.setAttribute("studentClass", studentClass);
             request.setAttribute("classes", classes);
@@ -110,35 +110,35 @@ public class StudentController extends HttpServlet {
             int studentID = Integer.parseInt(request.getParameter("studentID"));
             dao.deleteStudent(studentID);
             response.sendRedirect("StudentControllerURL?service=listAll");
-        } else if (service.equals("listKid")) {           
-             String userName = (String) session.getAttribute("userName");
+        } else if (service.equals("listKid")) {
+            String userName = (String) session.getAttribute("userName");
             String filterDate = request.getParameter("filterDate");
-            Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='"+userName+"'");        
-            Vector<Student1> students = dao1.getAllStudents("SELECT * FROM Student WHERE UserID ='"+user.get(0).getUserID()+"'");
+            Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='" + userName + "'");
+            Vector<Student1> students = dao1.getAllStudents("SELECT * FROM Student WHERE UserID ='" + user.get(0).getUserID() + "'");
             Student1 stu1 = students.get(0);
             request.setAttribute("stu", stu1);
             request.setAttribute("data", students);
             request.setAttribute("filterDate", filterDate);
-                    request.setAttribute("service", "listKid");
+            request.setAttribute("service", "listKid");
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeParents.jsp");
             dispatcher.forward(request, response);
-    } else if (service.equals("viewStudent")) {
-        String userName = (String) session.getAttribute("userName");
-                    String filterDate = request.getParameter("filterDate");
+        } else if (service.equals("viewStudent")) {
+            String userName = (String) session.getAttribute("userName");
+            String filterDate = request.getParameter("filterDate");
 
-            Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='"+userName+"'");        
-            Vector<Student1> students = dao1.getAllStudents("SELECT * FROM Student WHERE UserID ='"+user.get(0).getUserID()+"'");
+            Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='" + userName + "'");
+            Vector<Student1> students = dao1.getAllStudents("SELECT * FROM Student WHERE UserID ='" + user.get(0).getUserID() + "'");
             int studentID = Integer.parseInt(request.getParameter("studentID"));
-            Vector<Student1> student = dao1.getAllStudents("SELECT * FROM Student WHERE StudentID ='"+studentID+"'");
-                        Student1 stu = student.get(0);
+            Vector<Student1> student = dao1.getAllStudents("SELECT * FROM Student WHERE StudentID ='" + studentID + "'");
+            Student1 stu = student.get(0);
 
             request.setAttribute("stu", stu);
-                        request.setAttribute("data", students);
-                                    request.setAttribute("filterDate", filterDate);
+            request.setAttribute("data", students);
+            request.setAttribute("filterDate", filterDate);
 
-        request.setAttribute("service", "viewStudent");
-        request.setAttribute("studentID", studentID);
+            request.setAttribute("service", "viewStudent");
+            request.setAttribute("studentID", studentID);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeParents.jsp");
             dispatcher.forward(request, response);
@@ -154,7 +154,7 @@ public class StudentController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeTeachers.jsp");
             dispatcher.forward(request, response);
         }
-        
+
     }
 
     @Override

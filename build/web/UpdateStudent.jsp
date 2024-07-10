@@ -71,7 +71,7 @@
                         <div class="row mb-3">
                             <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                             <div class="col-sm-10">
-                                <select class="form-control select2" id="gender" name="gender" required>
+                                <select class="form-control " id="gender" name="gender" required>
                                     <option value="" disabled>Select Gender</option>
                                     <option value="Male" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getGender().equals("Male") ? "selected" : "" %>>Male</option>
                                     <option value="Female" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getGender().equals("Female") ? "selected" : "" %>>Female</option>
@@ -95,7 +95,7 @@
                                         if (classes != null) {
                                             for (Class cl : classes) {
                                     %>
-                                    <option value="<%= cl.getClassID() %>" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getSchoolYearClass().getClassObj().getClassID() == cl.getClassID() ? "selected" : "" %>><%= cl.getClassName() %></option>
+                                    <option value="<%= cl.getClassID() %>" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getSchoolYearClass().getClassObj().getClassID() == cl.getClassID() ? "selected" : "" %>><%= cl.getClassName() %> - <%= cl.getCateName() %></option>
                                     <% 
                                             }
                                         }

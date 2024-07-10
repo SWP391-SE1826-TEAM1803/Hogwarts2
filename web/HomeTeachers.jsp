@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="entity.Student, entity.StudentSchoolYearClass, model.DAOStudentSchoolYearClass, model.DAOStudent" %>
+<%@ page import="entity.StudentSchoolYearClass" %>
 <%@ page import="java.util.Vector" %>
 
 <!DOCTYPE html>
