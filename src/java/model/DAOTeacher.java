@@ -121,4 +121,20 @@ public class DAOTeacher extends DBConnect {
         }
         return teacher;
     }
+    
+     public int getTeacherIDByUserID(int userID) {
+    int teacherID = -1;
+    String sql = "SELECT TeacherID FROM Teacher WHERE UserID = ?";
+    try {
+        PreparedStatement pre = conn.prepareStatement(sql);
+        pre.setInt(1, userID);
+        ResultSet rs = pre.executeQuery();
+        if (rs.next()) {
+            teacherID = rs.getInt("TeacherID");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(DAOTeacher.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return teacherID;
+}
 }

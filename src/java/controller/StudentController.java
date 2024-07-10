@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Vector;
 import model.DAOStudent1;
+import model.DAOTeacher;
 
 @WebServlet(name = "StudentController", urlPatterns = {"/StudentControllerURL"})
 public class StudentController extends HttpServlet {
@@ -31,6 +32,7 @@ public class StudentController extends HttpServlet {
         DAOStudent1 dao1 = new DAOStudent1();
         DAOClass daoClass = new DAOClass();
         DAOUser daoUser = new DAOUser();
+        DAOTeacher daoTeacher = new DAOTeacher();
         HttpSession session = request.getSession(true);
 
         String service = request.getParameter("service");
@@ -139,6 +141,17 @@ public class StudentController extends HttpServlet {
         request.setAttribute("studentID", studentID);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeParents.jsp");
+            dispatcher.forward(request, response);
+        } else if (service.equals("listTeacherKid")) {
+            String userName = (String) session.getAttribute("userName");
+            Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='" + userName + "'");
+            int teacherID = daoTeacher.getTeacherIDByUserID(user.get(0).getUserID());
+            Vector<StudentSchoolYearClass> students = dao.getAllStudentsByLastYearAndTeacherID(teacherID);
+
+            request.setAttribute("data", students);
+            request.setAttribute("service", "listTeacherKid");
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("HomeTeachers.jsp");
             dispatcher.forward(request, response);
         }
         
