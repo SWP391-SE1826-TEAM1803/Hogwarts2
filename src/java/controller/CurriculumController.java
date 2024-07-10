@@ -29,7 +29,7 @@ public class CurriculumController extends HttpServlet {
         if (service.equals("addCurriculum")) {
             String curName = request.getParameter("CurName");
             int cateID = Integer.parseInt(request.getParameter("CateID"));
-            Curriculum curriculum = new Curriculum(curName, cateID);
+            Curriculum curriculum = new Curriculum(0, curName, cateID);
             dao.insertCurriculum(curriculum);
             response.sendRedirect("CurriculumControllerURL?service=listAll");
         }

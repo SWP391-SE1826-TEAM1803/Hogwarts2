@@ -29,7 +29,7 @@ public class CurriculumDateController extends HttpServlet {
         if (service.equals("addCurriculumDate")) {
             String dateNumber = request.getParameter("DateNumber");
             int curID = Integer.parseInt(request.getParameter("CurID"));
-            CurriculumDate curriculumDate = new CurriculumDate(dateNumber, curID);
+            CurriculumDate curriculumDate = new CurriculumDate(0, dateNumber, curID);
             dao.insertCurriculumDate(curriculumDate);
             response.sendRedirect("CurriculumDateControllerURL?service=listAll");
         }
@@ -64,6 +64,17 @@ public class CurriculumDateController extends HttpServlet {
             dao.deleteCurriculumDate(curDateID);
             response.sendRedirect("CurriculumDateControllerURL?service=listAll");
         }
+
+        if (service.equals("searchByID")) {
+            int curID = Integer.parseInt(request.getParameter("CurID"));
+            CurriculumDate curriculumDate = dao.getCurriculumDateByID(curID);
+            if (curriculumDate != null) {
+                request.setAttribute("curriculumDate", curriculumDate);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("CurriculumDateManager.jsp");
+                dispatcher.forward(request, response);
+            }
+        }
+
     }
 
     @Override

@@ -14,10 +14,7 @@ public class Curriculum {
         this.CateID = CateID;
     }
 
-    public Curriculum(String CurName, int CateID) {
-        this.CurName = CurName;
-        this.CateID = CateID;
-    }
+    
     
     
 

@@ -31,7 +31,7 @@ public class CurDateActController extends HttpServlet {
             String timeStart = request.getParameter("TimeStart");
             String timeEnd = request.getParameter("TimeEnd");
             int curDateID = Integer.parseInt(request.getParameter("CurDateID"));
-            CurDateAct curDateAct = new CurDateAct(act, timeStart, timeEnd, curDateID);
+            CurDateAct curDateAct = new CurDateAct(0, act, timeStart, timeEnd, curDateID);
             dao.insertCurDateAct(curDateAct);
             response.sendRedirect("CurDateActControllerURL?service=listAll");
         }

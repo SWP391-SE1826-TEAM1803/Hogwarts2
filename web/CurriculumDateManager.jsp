@@ -82,8 +82,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="curriculumDate" items="${data}">
-                                        <tr>
+                                    <% Vector <CurriculumDate> curDates = (Vector<CurriculumDate)request.getAttribute("curriculumDate") %>
+                                    for(CurriculumDate curDate : curDates){
+                                        
+                                    <tr>
                                             <td>${curriculumDate.curDateID}</td>
                                             <td>${curriculumDate.dateNumber}</td>
                                             <td>${curriculumDate.curID}</td>
@@ -91,8 +93,8 @@
                                                 <a href="CurDateActControllerURL" class="btn btn-primary btn-sm">Details</a>
                                                 <a href="CurriculumDateControllerURL?service=delete&CurDateID=${curriculumDate.curDateID}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                             </td>
-                                        </tr>
-                                    </c:forEach>
+                                        </]tr>
+                                        <%%>
                                 </tbody>
                             </table>
                         </div>
