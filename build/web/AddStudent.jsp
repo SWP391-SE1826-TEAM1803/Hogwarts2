@@ -69,7 +69,7 @@
                         <div class="row mb-3">
                             <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                             <div class="col-sm-10">
-                                <select class="form-control select2" id="gender" name="gender" required>
+                                <select class="form-control " id="gender" name="gender" required>
                                     <option value="" disabled selected>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -93,7 +93,7 @@
                                         if (classes != null) {
                                             for (Class cl : classes) {
                                     %>
-                                    <option value="<%= cl.getClassID() %>"><%= cl.getClassName() %></option>
+                                    <option value="<%= cl.getClassID() %>"><%= cl.getClassName() %> - <%= cl.getCateName() %></option>
                                     <% 
                                             }
                                         }
