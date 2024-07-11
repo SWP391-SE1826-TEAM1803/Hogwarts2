@@ -61,7 +61,7 @@ public class FeedbackController extends HttpServlet {
 
             dao.addFeedbackForAllStudents(teacherID, date, content);
 
-            response.sendRedirect("StudentControllerURL?service=listTeacherKid");
+            response.sendRedirect("FeedbackControllerURL?service=listTeacherKid");
         } else if (service.equals("updateFeedback")) {
             int id = Integer.parseInt(request.getParameter("id"));
             String dateStr = request.getParameter("date");
@@ -71,7 +71,7 @@ public class FeedbackController extends HttpServlet {
 
             dao.updateFeedback(id, date, content);
 
-            response.sendRedirect("StudentControllerURL?service=listTeacherKid");
+            response.sendRedirect("FeedbackControllerURL?service=listTeacherKid");
         } 
 
     }
