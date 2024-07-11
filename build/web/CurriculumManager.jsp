@@ -94,8 +94,8 @@
                                             <td><%= curriculum.getCurName() %></td>
                                             <td><%= cc.getCateName() %></td>
                                             <td>
-                                                <a href="CurriculumDateControllerURL?service=searchByID&CurID=<%= curriculum.getCurID() %>" class="btn btn-primary btn-sm">Details</a>
-                                                <a href="CurriculumControllerURL?service=delete&CurID=<%= curriculum.getCurID() %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this curriculum?')">Delete</a>
+                                                <a href="CurriculumDateControllerURL?service=searchByID&CurID=<%= curriculum.getCurID() %>" class="btn btn-outline-warning btn-sm">Details</a>
+                                                <a href="CurriculumControllerURL?service=delete&CurID=<%= curriculum.getCurID() %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this curriculum?')">Delete</a>
                                             </td>
                                         </tr>
                                         <%

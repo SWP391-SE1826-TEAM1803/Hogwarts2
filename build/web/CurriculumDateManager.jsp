@@ -106,8 +106,8 @@
                                         <td><%= curDateAct.getTimeEnd() %></td>
                                         <td><%= curDateAct.getAct() %></td>
                                         <td>
-                                                        <a href="CurDateActControllerURL?service=update&CdtID=<%= curDateAct.getCdtID() %>" class="btn btn-warning btn-sm">Update</a>
-                                            <a href="CurriculumDateControllerURL?service=delete&CurDateID=<%= curDate.getCurDateID() %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                                        <a href="CurDateActControllerURL?service=update&CdtID=<%= curDateAct.getCdtID() %>" class="btn btn-outline-warning btn-sm">Update</a>
+                                            <a href="CurriculumDateControllerURL?service=delete&CurDateID=<%= curDate.getCurDateID() %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                         </td>
                                     </tr>
                                     <%
