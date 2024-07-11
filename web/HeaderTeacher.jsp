@@ -159,7 +159,7 @@
                 </li><!-- End Profile Page Nav -->         
                 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="FeedbackControllerURL?service=viewFeedBack&sID=">
+                    <a class="nav-link collapsed" href="FeedbackControllerURL?service=listAll">
                         <i class="bi bi-chat-left-dots"></i>
                         <span>Feedback</span>
                     </a>

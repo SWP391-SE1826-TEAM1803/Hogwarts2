@@ -1,6 +1,14 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="entity.StudentSchoolYearClass" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="entity.StudentSchoolYearClass, entity.Feedback, model.DAOFeedback" %>
 <%@ page import="java.util.Vector" %>
+
+<%
+    String filterDate = (String) request.getAttribute("filterDate");
+    if (filterDate == null || filterDate.isEmpty()) {
+        filterDate = java.time.LocalDate.now().toString();
+    }
+    Vector<StudentSchoolYearClass> students = (Vector<StudentSchoolYearClass>) request.getAttribute("data");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +16,6 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <title>Home - Hogwarts</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -33,6 +40,17 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
+    <!-- Custom CSS for equal column widths -->
+    <style>
+        .equal-width th, .equal-width td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .equal-width {
+            table-layout: fixed;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,8 +62,13 @@
             <h1>Student Class List</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="HomeTeachers.jsp">Home</a></li>
-                    <li class="breadcrumb-item active">Student Class List</li>
+                    <li class="breadcrumb-item"><a href="StudentControllerURL?service=listTeacherKid">Home</a></li>
+                    <li class="breadcrumb-item active">
+                        <%= students != null && !students.isEmpty() ? students.get(0).getSchoolYearClass().getSchoolYear().getSyName() : "" %>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <%= students != null && !students.isEmpty() ? students.get(0).getSchoolYearClass().getClassObj().getClassName() : "" %>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -55,27 +78,30 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Class Details</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <a href="AddFeedback.jsp" class="btn btn-success">Feedback All Student</a>
+                            </div>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table equal-width">
                                     <thead>
                                         <tr>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Date of Birth</th>
                                             <th scope="col">Gender</th>
                                             <th scope="col">Address</th>
-                                            <th scope="col">Phone </th>
+                                            <th scope="col">Phone</th>
                                             <th scope="col">Parent Name</th>
-                                            <th scope="col">Class Name</th>
-                                            <th scope="col">School Year</th>
-                                            
+                                            <th scope="col">Feedback</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            Vector<StudentSchoolYearClass> students = (Vector<StudentSchoolYearClass>) request.getAttribute("data");
                                             if (students != null && !students.isEmpty()) {
+                                                DAOFeedback daoF = new DAOFeedback();
                                                 for (StudentSchoolYearClass studentClass : students) {
+                                                    Vector<Feedback> feedbacks = daoF.getAllFeedbacks("SELECT * FROM Feedback WHERE StudentID = '" + studentClass.getStudent().getStudentID() + "' AND Date = '" + filterDate + "'");
+                                                    Feedback feedback = feedbacks.isEmpty() ? null : feedbacks.get(0);
                                         %>
                                         <tr>
                                             <td><%= studentClass.getStudent().getFullName() %></td>
@@ -84,22 +110,27 @@
                                             <td><%= studentClass.getStudent().getAddress() %></td>
                                             <td><%= studentClass.getStudent().getParent().getPhone() %></td>
                                             <td><%= studentClass.getStudent().getParent().getFullName() %></td>
-                                            <td><%= studentClass.getSchoolYearClass().getClassObj().getClassName() %></td>
-                                            <td><%= studentClass.getSchoolYearClass().getSchoolYear().getSyName() %></td>
-                                            
+                                            <td><%= feedback != null ? feedback.getContent() : "No Feedback" %></td>
+                                            <td>
+                                                <a href="FeedbackDetails.jsp?studentId=<%= studentClass.getStudent().getStudentID() %>" class="btn btn-primary btn-sm">Details</a>
+                                            </td>
                                         </tr>
                                         <%
                                                 }
+                                            } else {
+                                        %>
+                                        <tr>
+                                            <td colspan="8" class="text-center">No students found for the selected date.</td>
+                                        </tr>
+                                        <%
                                             }
                                         %>
                                     </tbody>
                                 </table>
                             </div>
-                            <%
-                                if (students != null) {
-                                    out.println("Number of students: " + students.size());
-                                }
-                            %>
+                            <div class="mt-3">
+                                <p>Number of students: <%= students != null ? students.size() : 0 %></p>
+                            </div>
                         </div>
                     </div>
                 </div>

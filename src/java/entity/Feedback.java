@@ -7,11 +7,19 @@ public class Feedback {
     private Date Date;
     private String Content;
     private int StudentID;
+    private String FullName;
 
     public Feedback() {
     }
 
     public Feedback(int FeedbackID, Date Date, String Content, int StudentID) {
+        this.FeedbackID = FeedbackID;
+        this.Date = Date;
+        this.Content = Content;
+        this.StudentID = StudentID;
+    }
+    
+    public Feedback(int FeedbackID, Date Date, String Content, int StudentID, String FullName) {
         this.FeedbackID = FeedbackID;
         this.Date = Date;
         this.Content = Content;
@@ -49,4 +57,14 @@ public class Feedback {
     public void setStudentID(int StudentID) {
         this.StudentID = StudentID;
     }
+
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String FullName) {
+        this.FullName = FullName;
+    }
+    
+    
 }

@@ -28,8 +28,9 @@ public class DBConnect {
     }
 
     public DBConnect() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=hw10",
+        this("jdbc:sqlserver://localhost:1433;databaseName=hw11",
                 "sa","12345678");
+
     }
     
     public static void main(String[] args) {
