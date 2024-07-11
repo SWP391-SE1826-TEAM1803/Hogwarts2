@@ -40,8 +40,8 @@
                 <h1>Add Feedback</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="Home.jsp">Home</a></li>
-                        <li class="breadcrumb-item active">Add Feedback</li>
+                        <li class="breadcrumb-item"><a href="FeedbackControllerURL?service=listAll">Home FeedBack</a></li>
+                        <li class="breadcrumb-item active">Update Feedback</li>
                     </ol>
                 </nav>
             </div>

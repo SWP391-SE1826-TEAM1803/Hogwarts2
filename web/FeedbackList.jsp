@@ -40,8 +40,8 @@
             <h1>Feedback List</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="Home.jsp">Home</a></li>
-                    <li class="breadcrumb-item active">Feedbacks</li>
+                    <li class="breadcrumb-item"><a href="Home.jsp">Home FeedBack</a></li>
+<!--                    <li class="breadcrumb-item active">Feedbacks</li>-->
                 </ol>
             </nav>
         </div>
