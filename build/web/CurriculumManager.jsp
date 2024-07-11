@@ -1,6 +1,6 @@
 
 <%@ page import="java.util.Vector" %>
-<%@ page import="entity.Curriculum" %>
+<%@ page import="entity.Curriculum, entity.ClassCategory, model.DAOClassCategory" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,23 +76,23 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Name</th>
-                                            <th>Category ID</th>
+                                            <th>Category</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
+                                            DAOClassCategory daoCC = new DAOClassCategory();
                                             // Retrieve the curriculum data from the request attribute
                                             Vector<Curriculum> curriculums = (Vector<Curriculum>) request.getAttribute("data");
                                             if (curriculums != null && !curriculums.isEmpty()) {
                                                 for (Curriculum curriculum : curriculums) {
+                                               ClassCategory cc = daoCC.getClassCategoryByID(curriculum.getCateID());
                                         %>
                                         <tr>
-                                            <td><%= curriculum.getCurID() %></td>
                                             <td><%= curriculum.getCurName() %></td>
-                                            <td><%= curriculum.getCateID() %></td>
+                                            <td><%= cc.getCateName() %></td>
                                             <td>
                                                 <a href="CurriculumDateControllerURL?service=searchByID&CurID=<%= curriculum.getCurID() %>" class="btn btn-primary btn-sm">Details</a>
                                                 <a href="CurriculumControllerURL?service=delete&CurID=<%= curriculum.getCurID() %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this curriculum?')">Delete</a>

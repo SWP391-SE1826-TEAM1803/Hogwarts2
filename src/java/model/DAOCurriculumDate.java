@@ -53,9 +53,8 @@ public class DAOCurriculumDate extends DBConnect {
         return n;
     }
 
-    public Vector<CurriculumDate> getAllCurriculumDates() {
+    public Vector<CurriculumDate> getAllCurriculumDates(String sql) {
         Vector<CurriculumDate> vector = new Vector<>();
-        String sql = "SELECT * FROM CurriculumDate";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();

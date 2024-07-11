@@ -35,7 +35,7 @@ public class CurriculumDateController extends HttpServlet {
         }
 
         if (service.equals("listAll")) {
-            Vector<CurriculumDate> vector = dao.getAllCurriculumDates();
+            Vector<CurriculumDate> vector = dao.getAllCurriculumDates("Select * from CurriculumDate");
             request.setAttribute("data", vector);
             RequestDispatcher dispatcher = request.getRequestDispatcher("CurriculumDateManager.jsp");
             dispatcher.forward(request, response);
@@ -66,13 +66,12 @@ public class CurriculumDateController extends HttpServlet {
         }
 
         if (service.equals("searchByID")) {
-            int curID = Integer.parseInt(request.getParameter("CurID"));
-            CurriculumDate curriculumDate = dao.getCurriculumDateByID(curID);
-            if (curriculumDate != null) {
+            String curID =request.getParameter("CurID");
+            Vector <CurriculumDate> curriculumDate = dao.getAllCurriculumDates("Select * from CurriculumDate where CurID = '"+curID+"'");
                 request.setAttribute("curriculumDate", curriculumDate);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("CurriculumDateManager.jsp");
                 dispatcher.forward(request, response);
-            }
+            
         }
 
     }
