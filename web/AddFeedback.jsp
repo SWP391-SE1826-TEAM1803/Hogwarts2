@@ -1,4 +1,11 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.time.LocalDate" %>
+<%
+    String filterDate = (String) request.getAttribute("filterDate");
+    if (filterDate == null || filterDate.isEmpty()) {
+        filterDate = LocalDate.now().toString();
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,11 +42,11 @@
     <%@include file="HeaderTeacher.jsp"%>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Add Feedback</h1>
+            <h1>Feedback</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="FeedbackControllerURL?service=listAll">Home FeedBack</a></li>
-                    <li class="breadcrumb-item active">Add Feedback</li>
+                    <li class="breadcrumb-item"><a href="StudentControllerURL?service=listTeacherKid">Home </a></li>
+                    <li class="breadcrumb-item active">Feedback</li>
                 </ol>
             </nav>
         </div>
@@ -52,7 +59,7 @@
                             <form action="FeedbackControllerURL?service=addFeedback" method="post">
                                 <div class="form-group">
                                     <label for="date">Date:</label>
-                                    <input type="date" id="date" name="date" class="form-control" required>
+                                    <input type="date" id="date" name="date" class="form-control" value="<%= filterDate %>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="content">Content:</label>

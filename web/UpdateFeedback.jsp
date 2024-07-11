@@ -37,10 +37,10 @@
         <%@include file="HeaderTeacher.jsp"%>
         <main id="main" class="main">
             <div class="pagetitle">
-                <h1>Add Feedback</h1>
+                <h1>Update Feedback</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="FeedbackControllerURL?service=listAll">Home FeedBack</a></li>
+                        <li class="breadcrumb-item"><a href="StudentControllerURL?service=listTeacherKid">Home</a></li>
                         <li class="breadcrumb-item active">Update Feedback</li>
                     </ol>
                 </nav>

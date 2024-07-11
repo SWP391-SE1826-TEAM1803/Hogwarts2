@@ -112,7 +112,11 @@
                                             <td><%= studentClass.getStudent().getParent().getFullName() %></td>
                                             <td><%= feedback != null ? feedback.getContent() : "No Feedback" %></td>
                                             <td>
-                                                <a href="FeedbackDetails.jsp?studentId=<%= studentClass.getStudent().getStudentID() %>" class="btn btn-primary btn-sm">Details</a>
+                                                 <% if (feedback != null) { %>
+                                                <a class="btn btn-outline-warning btn-sm" href="UpdateFeedback.jsp?id=<%= feedback.getFeedbackID() %>">Update</a>
+                                                <% } else { %>
+                                                <span class="text-muted">Update FeedBack</span>
+                                                <% } %>
                                             </td>
                                         </tr>
                                         <%

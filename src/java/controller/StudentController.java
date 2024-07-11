@@ -143,15 +143,13 @@ public class StudentController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("HomeParents.jsp");
             dispatcher.forward(request, response);
         } else if (service.equals("listTeacherKid")) {
-                        String filterDate = request.getParameter("filterDate");
-
+            String filterDate = request.getParameter("filterDate");
             String userName = (String) session.getAttribute("userName");
             Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='" + userName + "'");
             int teacherID = daoTeacher.getTeacherIDByUserID(user.get(0).getUserID());
             Vector<StudentSchoolYearClass> students = dao.getAllStudentsByLastYearAndTeacherID(teacherID);
-                        request.setAttribute("filterDate", filterDate);
-
-
+            
+            request.setAttribute("filterDate", filterDate);
             request.setAttribute("data", students);
             request.setAttribute("service", "listTeacherKid");
 
