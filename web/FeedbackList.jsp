@@ -51,9 +51,9 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="AddFeedback.jsp" class="btn btn-success">Add New Feedback For All Student</a>
-                            </div>
+<!--                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="AddFeedback.jsp" class="btn btn-success">Feedback All Student</a>
+                            </div>-->
 
                             <table class="table table-borderless datatable mt-3">
                                 <thead>

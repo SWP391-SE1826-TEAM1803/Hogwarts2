@@ -65,7 +65,7 @@ public class FeedbackController extends HttpServlet {
             dao.updateFeedback(id, date, content);
 
             response.sendRedirect("FeedbackControllerURL?service=listAll");
-        }
+        } 
 
     }
     

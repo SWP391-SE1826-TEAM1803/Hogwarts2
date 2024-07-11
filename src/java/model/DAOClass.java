@@ -76,7 +76,7 @@ public class DAOClass extends DBConnect {
     public Vector<Class> getAllClassesWithCategory() {
         Vector<Class> vector = new Vector<>();
         String sql = "SELECT c.ClassID, c.ClassName, cc.CateID, cc.CateName "
-                   + "FROM Class c JOIN ClassCategory cc ON c.CateID = cc.CateID";
+                + "FROM Class c JOIN ClassCategory cc ON c.CateID = cc.CateID";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -93,7 +93,7 @@ public class DAOClass extends DBConnect {
         }
         return vector;
     }
-    
+
     public Vector<Class> getAllClasses(String sql) {
         Vector<Class> vector = new Vector<>();
         try {
@@ -154,8 +154,7 @@ public class DAOClass extends DBConnect {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM Class";
         try (
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery()) {
+                PreparedStatement pre = conn.prepareStatement(sql); ResultSet rs = pre.executeQuery()) {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -164,33 +163,33 @@ public class DAOClass extends DBConnect {
         }
         return count;
     }
-    
+
     public Vector<StudentClass> getStudentsByClassForLatestSchoolYear(int classID) {
         Vector<StudentClass> studentclass = new Vector<>();
-        String sql = "SELECT " +
-                     "    s.StudentID, " +
-                     "    s.FullName AS StudentName, " +
-                     "    s.DoB AS DateOfBirth, " +
-                     "    s.Gender, " +
-                     "    s.Address, " +
-                     "    u.Phone AS ParentPhone, " +
-                     "    u.Email AS ParentEmail, " +
-                     "    c.ClassName, " +
-                     "    sy.SyName AS SchoolYear " +
-                     "FROM " +
-                     "    Student s " +
-                     "    INNER JOIN [User] u ON s.UserID = u.UserID " +
-                     "    INNER JOIN ( " +
-                     "        SELECT TOP 1 sy.SyID " +
-                     "        FROM SchoolYear sy " +
-                     "        ORDER BY sy.SyID DESC " +
-                     "    ) maxSy ON 1=1 " +
-                     "    INNER JOIN SchoolYear_Class syc ON maxSy.SyID = syc.SyID " +
-                     "    INNER JOIN Class c ON syc.ClassID = c.ClassID " +
-                     "    INNER JOIN Student_SchoolYear_Class ssc ON s.StudentID = ssc.StudentID AND ssc.SyC_ID = syc.SyC_ID " +
-                     "    INNER JOIN SchoolYear sy ON syc.SyID = sy.SyID " +
-                     "WHERE " +
-                     "    c.ClassID = ?";
+        String sql = "SELECT "
+                + "    s.StudentID, "
+                + "    s.FullName AS StudentName, "
+                + "    s.DoB AS DateOfBirth, "
+                + "    s.Gender, "
+                + "    s.Address, "
+                + "    u.Phone AS ParentPhone, "
+                + "    u.Email AS ParentEmail, "
+                + "    c.ClassName, "
+                + "    sy.SyName AS SchoolYear "
+                + "FROM "
+                + "    Student s "
+                + "    INNER JOIN [User] u ON s.UserID = u.UserID "
+                + "    INNER JOIN ( "
+                + "        SELECT TOP 1 sy.SyID "
+                + "        FROM SchoolYear sy "
+                + "        ORDER BY sy.SyID DESC "
+                + "    ) maxSy ON 1=1 "
+                + "    INNER JOIN SchoolYear_Class syc ON maxSy.SyID = syc.SyID "
+                + "    INNER JOIN Class c ON syc.ClassID = c.ClassID "
+                + "    INNER JOIN Student_SchoolYear_Class ssc ON s.StudentID = ssc.StudentID AND ssc.SyC_ID = syc.SyC_ID "
+                + "    INNER JOIN SchoolYear sy ON syc.SyID = sy.SyID "
+                + "WHERE "
+                + "    c.ClassID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, classID);
@@ -213,4 +212,29 @@ public class DAOClass extends DBConnect {
         }
         return studentclass;
     }
+
+    public Vector<Class> getClassesByTeacherID(int teacherID) {
+        Vector<Class> vector = new Vector<>();
+        String sql = "SELECT c.ClassID, c.ClassName "
+                + "FROM Class c "
+                + "INNER JOIN SchoolYear_Class sc ON c.ClassID = sc.ClassID "
+                + "INNER JOIN Teacher_SchoolYear_Class tsc ON sc.SyC_ID = tsc.SyC_ID "
+                + "INNER JOIN SchoolYear sy ON sc.SyID = sy.SyID "
+                + "WHERE tsc.TeacherID = ? AND sy.SyID = (SELECT MAX(SyID) FROM SchoolYear WHERE DateEnd < GETDATE())";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setInt(1, teacherID);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Class cls = new Class();
+                    cls.setClassID(rs.getInt("ClassID"));
+                    cls.setClassName(rs.getString("ClassName"));
+                    vector.add(cls);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
+
 }
