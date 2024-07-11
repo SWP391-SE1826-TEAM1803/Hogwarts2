@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Feedback;
+import entity.StudentSchoolYearClass;
 import entity.User;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.Vector;
 import model.DAOFeedback;
+import model.DAOStudent;
 import model.DAOTeacher;
 import model.DAOUser;
 
@@ -26,21 +28,26 @@ public class FeedbackController extends HttpServlet {
         DAOFeedback dao = new DAOFeedback();
         DAOUser daoUser = new DAOUser();
         DAOTeacher daoTeacher = new DAOTeacher();
+        DAOStudent daoStu = new DAOStudent();
         HttpSession session = request.getSession(true);
 
         String service = request.getParameter("service");
         if (service == null) {
-            service = "listAll";
+            service = "listTeacherKid";
         }
 
-        if (service.equals("listAll")) {
+        if (service.equals("listTeacherKid")) {
+            String filterDate = request.getParameter("filterDate");
             String userName = (String) session.getAttribute("userName");
             Vector<User> user = daoUser.getAllUsers("SELECT * FROM [User] WHERE Email ='" + userName + "'");
             int teacherID = daoTeacher.getTeacherIDByUserID(user.get(0).getUserID());
-            Vector<Feedback> vector = dao.getAllFeedback(teacherID);
+            Vector<StudentSchoolYearClass> students = daoStu.getAllStudentsByLastYearAndTeacherID(teacherID);
+            
+            request.setAttribute("filterDate", filterDate);
+            request.setAttribute("data", students);
+            request.setAttribute("service", "listTeacherKid");
 
-            request.setAttribute("data", vector);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("FeedbackList.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("HomeTeachers.jsp");
             dispatcher.forward(request, response);
         } else if (service.equals("addFeedback")) {
             String dateStr = request.getParameter("date");
