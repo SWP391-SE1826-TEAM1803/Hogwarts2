@@ -299,5 +299,119 @@ public class DAOStudent extends DBConnect {
     }
     return vector;
 }
+public Vector<StudentSchoolYearClass> searchStudentsByName(String name) {
+    Vector<StudentSchoolYearClass> vector = new Vector<>();
+    String sql = "SELECT s.StudentID, s.FullName, s.DoB, s.Gender, s.Address, s.UserID, c.ClassID, c.ClassName, u.FullName as ParentName, sy.SyName "
+            + "FROM Student s "
+            + "INNER JOIN Student_SchoolYear_Class ssc ON s.StudentID = ssc.StudentID "
+            + "INNER JOIN SchoolYear_Class sc ON ssc.SyC_ID = sc.SyC_ID "
+            + "INNER JOIN Class c ON sc.ClassID = c.ClassID "
+            + "INNER JOIN [User] u ON s.UserID = u.UserID "
+            + "INNER JOIN SchoolYear sy ON sc.SyID = sy.SyID "
+            + "WHERE s.FullName LIKE ?";
+    try (PreparedStatement pre = conn.prepareStatement(sql)) {
+        pre.setString(1, "%" + name + "%");
+        try (ResultSet rs = pre.executeQuery()) {
+            while (rs.next()) {
+                Student student = new Student();
+                student.setStudentID(rs.getInt("StudentID"));
+                student.setFullName(rs.getString("FullName"));
+                student.setDoB(rs.getDate("DoB"));
+                student.setGender(rs.getString("Gender"));
+                student.setAddress(rs.getString("Address"));
+
+                User parent = new User();
+                parent.setUserID(rs.getInt("UserID"));
+                parent.setFullName(rs.getString("ParentName"));
+                student.setParent(parent);
+
+                Class cl = new Class();
+                cl.setClassID(rs.getInt("ClassID"));
+                cl.setClassName(rs.getString("ClassName"));
+
+                SchoolYear sy = new SchoolYear();
+                sy.setSyName(rs.getString("SyName"));
+
+                SchoolYearClass syc = new SchoolYearClass();
+                syc.setClassObj(cl);
+                syc.setSchoolYear(sy);
+
+                StudentSchoolYearClass stuClass = new StudentSchoolYearClass();
+                stuClass.setStudent(student);
+                stuClass.setSchoolYearClass(syc);
+
+                vector.add(stuClass);
+            }
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(DAOStudent.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return vector;
+}
+
+public Vector<StudentSchoolYearClass> searchStudentsByNameAndYear(String name, String year) {
+    Vector<StudentSchoolYearClass> vector = new Vector<>();
+    String sql = "SELECT s.StudentID, s.FullName, s.DoB, s.Gender, s.Address, s.UserID, c.ClassID, c.ClassName, u.FullName as ParentName, sy.SyName "
+            + "FROM Student s "
+            + "INNER JOIN Student_SchoolYear_Class ssc ON s.StudentID = ssc.StudentID "
+            + "INNER JOIN SchoolYear_Class sc ON ssc.SyC_ID = sc.SyC_ID "
+            + "INNER JOIN Class c ON sc.ClassID = c.ClassID "
+            + "INNER JOIN [User] u ON s.UserID = u.UserID "
+            + "INNER JOIN SchoolYear sy ON sc.SyID = sy.SyID "
+            + "WHERE s.FullName LIKE ? AND sy.SyName = ?";
+    try (PreparedStatement pre = conn.prepareStatement(sql)) {
+        pre.setString(1, "%" + name + "%");
+        pre.setString(2, year);
+        try (ResultSet rs = pre.executeQuery()) {
+            while (rs.next()) {
+                Student student = new Student();
+                student.setStudentID(rs.getInt("StudentID"));
+                student.setFullName(rs.getString("FullName"));
+                student.setDoB(rs.getDate("DoB"));
+                student.setGender(rs.getString("Gender"));
+                student.setAddress(rs.getString("Address"));
+
+                User parent = new User();
+                parent.setUserID(rs.getInt("UserID"));
+                parent.setFullName(rs.getString("ParentName"));
+                student.setParent(parent);
+
+                Class cl = new Class();
+                cl.setClassID(rs.getInt("ClassID"));
+                cl.setClassName(rs.getString("ClassName"));
+
+                SchoolYear sy = new SchoolYear();
+                sy.setSyName(rs.getString("SyName"));
+
+                SchoolYearClass syc = new SchoolYearClass();
+                syc.setClassObj(cl);
+                syc.setSchoolYear(sy);
+
+                StudentSchoolYearClass stuClass = new StudentSchoolYearClass();
+                stuClass.setStudent(student);
+                stuClass.setSchoolYearClass(syc);
+
+                vector.add(stuClass);
+            }
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(DAOStudent.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return vector;
+}
+public Vector<SchoolYear> getAllSchoolYears() {
+    Vector<SchoolYear> schoolYears = new Vector<>();
+    String sql = "SELECT SyName FROM SchoolYear";
+    try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        while (rs.next()) {
+            SchoolYear sy = new SchoolYear();
+            sy.setSyName(rs.getString("SyName"));
+            schoolYears.add(sy);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(DAOStudent.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return schoolYears;
+}
 
 }
