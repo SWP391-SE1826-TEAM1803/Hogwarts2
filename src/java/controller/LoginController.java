@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
                         response.sendRedirect("StudentControllerURL?service=listKid&filterDate=" + java.time.LocalDate.now());
                         break;
                     case "Teacher":
-                        response.sendRedirect("HomeTeachers.jsp");
+                        response.sendRedirect("FeedbackControllerURL?service=listTeacherKid&filterDate="+ java.time.LocalDate.now());
                         break;
                     default:
                         response.sendRedirect("Login.jsp");

@@ -3,17 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/nntru/Hogwarts2/web/CurriculumDateManager.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/web/CurriculumManager.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/CurriculumController.java</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/model/DAOCurriculumDate.java</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/CurriculumDateController.java</file>
-=======
-            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/controller/StudentController.java</file>
-            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/model/DBConnect.java</file>
-            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/model/DAOTeacher.java</file>
->>>>>>> 8fed85570d36816753228dbda808d8ea6741353e
+            <file>file:/D:/FULearning/Summer24/SWP391/CodeProject/Hogwarts2/web/UpdateFeedback.jsp</file>
         </group>
     </open-files>
 </project-private>

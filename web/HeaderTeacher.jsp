@@ -140,7 +140,7 @@
             <ul class="sidebar-nav" id="sidebar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link " href="StudentControllerURL?service=listTeacherKid">
+                    <a class="nav-link " href="FeedbackControllerURL?service=listTeacherKid">
                         <i class="bi bi-house"></i>
                         <span>Home</span>
                     </a>
@@ -158,12 +158,6 @@
                     </a>
                 </li><!-- End Profile Page Nav -->         
                 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="FeedbackControllerURL?service=viewFeedBack&sID=">
-                        <i class="bi bi-chat-left-dots"></i>
-                        <span>Feedback</span>
-                    </a>
-                </li>
             </ul>
 
         </aside><!-- End Sidebar-->

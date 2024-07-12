@@ -1,10 +1,8 @@
 <%@ page import="java.util.Vector" %>
-<%@ page import="entity.CurriculumDate" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="entity.CurriculumDate, entity.CurDateAct, model.DAOCurDateAct" %>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -28,6 +26,18 @@
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- Custom CSS for equal column and row sizes -->
+    <style>
+        .equal-table th, .equal-table td {
+            width: 25%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .equal-table {
+            table-layout: fixed;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,33 +80,44 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Curriculum Date List</h5>
                             <!-- Curriculum Date List Table -->
-                            <table class="table table-bordered">
+                            <%
+                                DAOCurDateAct daoCDA = new DAOCurDateAct();
+                                Vector<CurriculumDate> curDates = (Vector<CurriculumDate>) request.getAttribute("curriculumDate");
+                                for (CurriculumDate curDate : curDates) {
+                            %>
+                            <h5 class="card-title"><%= curDate.getDateNumber() %></h5>
+                            <table class="table table-bordered equal-table">
                                 <thead>
                                     <tr>
-                                        <th>Date ID</th>
-                                        <th>Date Number</th>
-                                        <th>Curriculum ID</th>
+                                        <th>Time Start</th>
+                                        <th>Time End</th>
+                                        <th>Activity</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% Vector <CurriculumDate> curDates = (Vector<CurriculumDate)request.getAttribute("curriculumDate") %>
-                                    for(CurriculumDate curDate : curDates){
-                                        
+                                    <%
+                                        Vector<CurDateAct> vectorCurDateAct = daoCDA.getAllCurDateActs("SELECT * FROM CurDateAct WHERE CurDateID = '" + curDate.getCurDateID() + "'");
+                                        for (CurDateAct curDateAct : vectorCurDateAct) {
+                                    %>
                                     <tr>
-                                            <td>${curriculumDate.curDateID}</td>
-                                            <td>${curriculumDate.dateNumber}</td>
-                                            <td>${curriculumDate.curID}</td>
-                                            <td>
-                                                <a href="CurDateActControllerURL" class="btn btn-primary btn-sm">Details</a>
-                                                <a href="CurriculumDateControllerURL?service=delete&CurDateID=${curriculumDate.curDateID}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-                                            </td>
-                                        </]tr>
-                                        <%%>
+                                        <td><%= curDateAct.getTimeStart() %></td>
+                                        <td><%= curDateAct.getTimeEnd() %></td>
+                                        <td><%= curDateAct.getAct() %></td>
+                                        <td>
+                                                        <a href="CurDateActControllerURL?service=update&CdtID=<%= curDateAct.getCdtID() %>" class="btn btn-outline-warning btn-sm">Update</a>
+                                            <a href="CurriculumDateControllerURL?service=delete&CurDateID=<%= curDate.getCurDateID() %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
                                 </tbody>
                             </table>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -119,5 +140,4 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 </body>
-
 </html>
