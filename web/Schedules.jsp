@@ -49,7 +49,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Schedules List</h5>
 
-                                <a href="SchedulesControllerURL?service=addSchedule" class="btn btn-success mb-3">Add New Schedule</a>
+                                <a href="SchedulesControllerURL?service=addSchedule" class="btn btn-success mb-3">Choose New Schedule</a>
                                 <table class="table table-bordered equal-table">
                                     <thead>
                                         <tr>
@@ -64,8 +64,8 @@
                                                 <td style="text-align: center;">${schedule.date}</td>
                                                 <td style="text-align: center;">${schedule.dateNumber}</td>
                                                 <td style="text-align: center;">
-                                                    <a href="SchedulesControllerURL?service=editSchedule&schedulesID=${schedule.schedulesID}" class="btn btn-primary">Edit</a>
-                                                    <a href="SchedulesControllerURL?service=deleteSchedule&schedulesID=${schedule.schedulesID}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this schedule?');">Delete</a>
+                                                    <a href="SchedulesControllerURL?service=editSchedule&schedulesID=${schedule.schedulesID}" class="btn btn-outline-info btn-sm">Edit</a>
+                                                    <a href="SchedulesControllerURL?service=deleteSchedule&schedulesID=${schedule.schedulesID}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this schedule?');">Delete</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

@@ -95,7 +95,6 @@
                                                 for (Class cls : classList) {
                                         %>
                                         <tr>
-                                            <!--                                            <td><//%= cls.getClassID() %></td>-->
                                             <td><%= cls.getClassName() %></td>
                                             <td><%= cls.getCateName() %></td>
                                             <td>

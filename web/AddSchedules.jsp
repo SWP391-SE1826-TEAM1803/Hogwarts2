@@ -103,7 +103,7 @@
                                             </c:forEach>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Add Schedule</button>
+                                    <button type="submit" class="btn btn-primary">Submit Schedule</button>
                                 </form>
                             </div>
                         </div>

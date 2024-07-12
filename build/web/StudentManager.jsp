@@ -79,10 +79,10 @@
                                         <button type="submit" class="btn btn-primary">Year</button>
                                     </div>
                                 </form>
-                            </div>
+
 
                             <!-- Add New Student Button -->
-                            <div class="mt-3">
+
                                 <a href="StudentControllerURL?service=showAddStudent" class="btn btn-success">Add New Student</a>
                             </div>
 
