@@ -51,26 +51,28 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-
+                                <h5 class="card-title">Add New Food</h5>
                                 <!-- Add New Menu Form -->
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <form action="MenuControllerURL" method="post" class="w-100">
-                                        <input type="hidden" name="service" value="addMenu">
-                                        <div class="form-group">
-                                            <br>
-                                            <label for="Food">New Food</label>                                             
-                                            <input type="text" class="form-control" id="Food" name="Food" required>
-                                        </div>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Add Food</button>
-                                    </form>
-                                </div>
+                                <form action="MenuControllerURL" method="post" class="w-100">
+                                    <input type="hidden" name="service" value="addMenu">
+                                    <div class="mb-3">
+                                        <label for="Food" class="form-label">Food Name</label>                                             
+                                        <input type="text" class="form-control" id="Food" name="Food" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Food</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Menu List</h5>
                                 <!-- Menu List Table -->
                                 <table class="table table-borderless datatable mt-3">
                                     <thead>
                                         <tr>
-<!--                                            <th scope="col">ID</th>-->
                                             <th scope="col">Food Name</th>
                                             <th scope="col" style="text-align: center;">Actions</th>
                                         </tr>

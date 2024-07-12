@@ -152,7 +152,7 @@
 
                 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="SchoolYearControllerURL?service=listAll">
+                    <a class="nav-link collapsed" href="SchedulesControllerURL?service=listAll">
                         <i class="bi bi-calendar"></i>
                         <span>Schedules</span>
                     </a>
