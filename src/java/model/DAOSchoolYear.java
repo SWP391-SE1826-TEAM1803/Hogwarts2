@@ -93,7 +93,10 @@ public class DAOSchoolYear extends DBConnect {
 
 
     public int updateSchoolYear(SchoolYear schoolYear) {
-       
+        SchoolYear lastSchoolYear = getLastSchoolYear();
+        if (isOverlapping(schoolYear, lastSchoolYear)) {
+            return -1; // Return -1 if the date range is overlapping
+        }
         int n = 0;
         String sql = "UPDATE [dbo].[SchoolYear] SET [SyName] = ?, [DateStart] = ?, [DateEnd] = ? WHERE [SyID] = ?";
         try {
