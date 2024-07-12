@@ -10,7 +10,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOMenu extends DBConnect {
+    
+    public Vector<Menu> getAllMenus1() {
+        Vector<Menu> menus = new Vector<>();
+        String query = "SELECT * FROM Menu";
 
+        try (PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Menu menu = new Menu();
+                menu.setMenuID(rs.getInt("MenuID"));
+                menu.setFood(rs.getString("Food"));
+                menus.add(menu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return menus;
+    }
+    
     public int insertMenu(Menu menu) {
         int n = 0;
         String sql = "INSERT INTO Menu (Food) VALUES (?)";

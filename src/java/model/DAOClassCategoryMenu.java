@@ -1,6 +1,9 @@
 package model;
 
+import entity.ClassCategory;
+import entity.ClassCategoryListMenu;
 import entity.ClassCategoryMenu;
+import entity.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +13,71 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOClassCategoryMenu extends DBConnect {
+    
+     public Vector<ClassCategoryMenu> getMenusByCategory(int cateID) {
+        Vector<ClassCategoryMenu> classCategoryMenus = new Vector<>();
+        String query = "SELECT * FROM ClassCategory_Menu WHERE CateID = ?";
 
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, cateID);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ClassCategoryMenu menu = new ClassCategoryMenu();
+                    menu.setCateID(rs.getInt("CateID"));
+                    menu.setMenuID(rs.getInt("MenuID"));
+                    menu.setDate(rs.getString("Date"));
+                    menu.setMeal(rs.getString("Meal"));
+                    classCategoryMenus.add(menu);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return classCategoryMenus;
+    }
+
+    public void addMenuForClass(ClassCategoryMenu classCategoryMenu) {
+        String query = "INSERT INTO ClassCategory_Menu (CateID, MenuID, Date, Meal) VALUES (?, ?, ?, ?)";
+        
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, classCategoryMenu.getCateID());
+            ps.setInt(2, classCategoryMenu.getMenuID());
+            ps.setString(3, classCategoryMenu.getDate());
+            ps.setString(4, classCategoryMenu.getMeal());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Vector<ClassCategoryListMenu> getClassCategoryMenuByDate(String date) {
+        Vector<ClassCategoryListMenu> classCategoryMenuList = new Vector<>();
+        String query = "SELECT cc.CateName, ccm.Date, ccm.Meal, m.Food "
+                + "FROM ClassCategory_Menu ccm "
+                + "JOIN Menu m ON ccm.MenuID = m.MenuID "
+                + "JOIN ClassCategory cc ON ccm.CateID = cc.CateID "
+                + "WHERE ccm.Date = ?";
+        try {
+            // Ensure conn is initialized properly (inherited or set explicitly)
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, date);
+            ResultSet rs = pre.executeQuery();
+
+            while (rs.next()) {
+                String cateName = rs.getString("CateName");
+                String dateStr = rs.getString("Date");
+                String meal = rs.getString("Meal");
+                String food = rs.getString("Food");
+                classCategoryMenuList.add(new ClassCategoryListMenu(cateName, dateStr, meal, food));
+            }
+            conn.close(); // Close connection after use (consider using try-with-resources)
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return classCategoryMenuList;
+    }
+    
     public int insertClassCategoryMenu(ClassCategoryMenu ccm) {
         int n = 0;
         String sql = "INSERT INTO ClassCategory_Menu (CateID, MenuID, Date, Meal) VALUES (?, ?, ?, ?)";
@@ -113,5 +180,38 @@ public class DAOClassCategoryMenu extends DBConnect {
             Logger.getLogger(DAOClassCategoryMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ccm;
+    }
+    
+  
+
+    public Vector<Menu> getMenusForMeal(int cateID, String meal) {
+        Vector<Menu> menus = new Vector<>();
+        String query = "SELECT m.MenuID, m.Food FROM Menu m JOIN ClassCategory_Menu cm ON m.MenuID = cm.MenuID WHERE cm.CateID = ? AND cm.Meal = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, cateID);
+            ps.setString(2, meal);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Menu menu = new Menu();
+                    menu.setMenuID(rs.getInt("MenuID"));
+                    menu.setFood(rs.getString("Food"));
+                    menus.add(menu);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return menus;
+    }
+    
+    public static void main(String[] args) {
+        DAOClassCategory dao = new DAOClassCategory();
+        DAOClassCategoryMenu dao1 = new DAOClassCategoryMenu();
+        Vector<ClassCategory> vc = dao.getAllCategories();
+        Vector<ClassCategoryMenu> vc1 = dao1.getMenusByCategory(1);
+        for(ClassCategoryMenu c : vc1){
+            System.out.println(c);
+        }
     }
 }
