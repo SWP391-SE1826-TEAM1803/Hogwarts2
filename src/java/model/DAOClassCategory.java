@@ -22,7 +22,25 @@ public class DAOClassCategory extends DBConnect {
         }
         return n;
     }
+    
+      public Vector<ClassCategory> getAllCategories() {
+        Vector<ClassCategory> categories = new Vector<>();
+        String query = "SELECT * FROM ClassCategory";
 
+        try (PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                ClassCategory category = new ClassCategory();
+                category.setCateID(rs.getInt("CateID"));
+                category.setCateName(rs.getString("CateName"));
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
+    
     public int updateClassCategory(ClassCategory classCategory) {
         int n = 0;
         String sql = "UPDATE ClassCategory SET CateName = ? WHERE CateID = ?";
@@ -83,5 +101,13 @@ public class DAOClassCategory extends DBConnect {
             Logger.getLogger(DAOClassCategory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return classCategory;
+    }
+    
+    public static void main(String[] args) {
+        DAOClassCategory dao = new DAOClassCategory();
+        Vector<ClassCategory> vc = dao.getAllCategories();
+        for(ClassCategory c : vc){
+            System.out.println(c);
+        }
     }
 }
