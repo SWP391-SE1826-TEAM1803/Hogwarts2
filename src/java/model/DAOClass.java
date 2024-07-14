@@ -11,7 +11,44 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOClass extends DBConnect {
+    
+    public boolean isClassNameExists(String className) {
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean exists = false;
 
+        try {
+            
+            String query = "SELECT * FROM Class WHERE ClassName=?";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, className);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+           
+        }
+
+        return exists;
+    }
+     public boolean insertClass1(Class classObj) {
+        String sql = "INSERT INTO Class (ClassName, CateID) VALUES (?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, classObj.getClassName());
+            ps.setInt(2, classObj.getCateID());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public int insertClass(Class cls) {
         int n = 0;
         String sql = "INSERT INTO Class (ClassName, CateID) VALUES (?, ?)";
