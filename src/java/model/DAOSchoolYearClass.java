@@ -91,4 +91,24 @@ public class DAOSchoolYearClass extends DBConnect {
         }
         return schoolYearClass;
     }
+
+    public int getSycIDByTeacherID(int teacherID) {
+        int syC_ID = -1;
+        String sql = "SELECT syc.Syc_ID FROM SchoolYear_Class syc\n"
+                + "	INNER JOIN Teacher_SchoolYear_class tsc ON tsc.Syc_ID = syc.Syc_ID\n"
+                + "	INNER JOIN Teacher t ON t.TeacherID = tsc.TeacherID\n"
+                + "	WHERE tsc.TeacherID = ?\n"
+                + "	AND syc.SyID = (SELECT MAX(SyID) FROM SchoolYear_Class)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, teacherID);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                syC_ID = rs.getInt("SyC_ID");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTeacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return syC_ID;
+    }
 }

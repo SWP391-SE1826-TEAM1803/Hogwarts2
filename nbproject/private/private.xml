@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/nntru/Hogwarts2/src/java/model/DAOUser.java</file>
             <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/UserController.java</file>
             <file>file:/C:/Users/nntru/Hogwarts2/web/Changepassword.jsp</file>
             <file>file:/C:/Users/nntru/Hogwarts2/web/Login.jsp</file>
             <file>file:/C:/Users/nntru/Hogwarts2/web/HeaderAdmin.jsp</file>
+=======
+            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/model/DBConnect.java</file>
+            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/model/DAOTeacherSchoolYearClass.java</file>
+>>>>>>> 8c942e38cc89e991dea4a2e6fd87ec8032f21f9f
         </group>
     </open-files>
 </project-private>

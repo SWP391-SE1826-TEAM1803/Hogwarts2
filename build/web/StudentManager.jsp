@@ -1,5 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="entity.StudentSchoolYearClass" %>
+<%@ page import="entity.StudentSchoolYearClass, entity.SchoolYear" %>
 <%@ page import="java.util.Vector" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,19 +51,38 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-
                             <div class="d-flex justify-content-between align-items-center">
                                 <form class="form-inline" action="StudentControllerURL" method="get">
                                     <div class="input-group">
+                                        <input type="hidden" name="service" value="listAll">
+                                        <input type="hidden" name="year" value="<%= request.getParameter("year") != null ? request.getParameter("year") : "" %>">
+                                        <input type="text" class="form-control mr-2" name="name" placeholder="Search by name" value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </form>
+
+                                <form class="form-inline" action="StudentControllerURL" method="get">
+                                    <div class="input-group">
+                                        <input type="hidden" name="service" value="listAll">
+                                        <input type="hidden" name="name" value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>">
                                         <select class="form-control mr-2" name="year">
                                             <option value="">All</option>
-                                            <option value="2023-2024" <%= "2023-2024".equals(request.getParameter("year")) ? "selected" : "" %>>2023-2024</option>
-                                            <option value="2022-2023" <%= "2022-2023".equals(request.getParameter("year")) ? "selected" : "" %>>2022-2023</option>
-                                            <option value="2021-2022" <%= "2021-2022".equals(request.getParameter("year")) ? "selected" : "" %>>2021-2022</option>
+                                            <%
+                                                Vector<SchoolYear> schoolYears = (Vector<SchoolYear>) request.getAttribute("schoolYears");
+                                                for (SchoolYear sy : schoolYears) {
+                                            %>
+                                            <option value="<%= sy.getSyName() %>" <%= sy.getSyName().equals(request.getParameter("year")) ? "selected" : "" %>><%= sy.getSyName() %></option>
+                                            <%
+                                                }
+                                            %>
                                         </select>
                                         <button type="submit" class="btn btn-primary">Year</button>
                                     </div>
                                 </form>
+
+
+                            <!-- Add New Student Button -->
+
                                 <a href="StudentControllerURL?service=showAddStudent" class="btn btn-success">Add New Student</a>
                             </div>
 
