@@ -197,12 +197,42 @@ public class DAOUser extends DBConnect {
                 User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setFullName(rs.getString("FullName"));
+                user.setPhone(rs.getString("Phone"));
+                user.setEmail(rs.getString("Email"));
                 vector.add(user);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vector;
+    }
+     
+     public boolean changePassword(String email, String oldPassword, String newPassword) {
+        String sql = "SELECT Password FROM [User] WHERE Email = ?";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, email);
+            try (ResultSet rs = pre.executeQuery()) {
+                if (rs.next()) {
+                    String currentPassword = rs.getString("Password");
+                    if (currentPassword.equals(oldPassword)) {
+                        String updateSql = "UPDATE [User] SET Password = ? WHERE Email = ?";
+                        try (PreparedStatement updatePre = conn.prepareStatement(updateSql)) {
+                            updatePre.setString(1, newPassword);
+                            updatePre.setString(2, email);
+                            int rowsAffected = updatePre.executeUpdate();
+                            return rowsAffected > 0;
+                        }
+                    } else {
+                        return false; // Old password does not match
+                    }
+                } else {
+                    return false; // User not found
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public static void main(String[] args) {
