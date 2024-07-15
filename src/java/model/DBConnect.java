@@ -28,16 +28,12 @@ public class DBConnect {
     }
 
     public DBConnect() {
-<<<<<<< HEAD
-        this("jdbc:sqlserver://localhost:1433;databaseName=hw10",
-                "sa","123123");
-=======
-        this("jdbc:sqlserver://localhost:1433;databaseName=Hogwart",
-                "sa","12345678");
 
->>>>>>> fea1e6a80145972132f235d26c73de184bcfc602
+        this("jdbc:sqlserver://localhost:1433;databaseName=Hogwart",
+                "sa", "12345678");
+
     }
-    
+
     public static void main(String[] args) {
         new DBConnect();
     }
