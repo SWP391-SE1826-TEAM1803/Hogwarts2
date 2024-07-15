@@ -9,9 +9,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Add Student</title>
     
-       <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -56,7 +55,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">New Student Information</h5>
-                    <form action="StudentControllerURL" method="post">
+                    <form id="addStudentForm" action="StudentControllerURL" method="post">
                         <input type="hidden" name="service" value="addStudent">
                         <div class="row mb-3">
                             <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
@@ -73,7 +72,7 @@
                         <div class="row mb-3">
                             <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                             <div class="col-sm-10">
-                                <select class="form-control " id="gender" name="gender" required>
+                                <select class="form-control" id="gender" name="gender" required>
                                     <option value="" disabled selected>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -125,7 +124,7 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
                         </div>
                     </form>
                 </div>
@@ -152,11 +151,21 @@
     
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: "Select an option",
+            $('#classID').select2({
+                placeholder: "Select Class",
+                allowClear: false 
+            });
+            $('#userID').select2({
+                placeholder: "Select a parent",
                 allowClear: false 
             });
         });
+
+        function resetForm() {
+            $('#addStudentForm')[0].reset();
+            $('#classID').val(null).trigger('change'); // Reset the Select2 element for class selection
+            $('#userID').val(null).trigger('change'); // Reset the Select2 element for parent selection
+        }
     </script>
 </body>
 </html>

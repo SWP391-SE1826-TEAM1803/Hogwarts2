@@ -149,11 +149,16 @@
     
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: "Select an option",
+            $('#classID').select2({
+                placeholder: "Select Class",
+                allowClear: false 
+            });
+            $('#userID').select2({
+                placeholder: "Select a parent",
                 allowClear: false 
             });
         });
+
     </script>
 </body>
 </html>
