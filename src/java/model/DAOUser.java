@@ -1,6 +1,7 @@
 package model;
 
 import entity.User;
+import entity.UserAdd;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,32 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOUser extends DBConnect {
+    
+     
+    public int insertUser1(UserAdd user) {
+        int userID = 0;
+        String sql = "INSERT INTO [User] (FullName, Gender, Address, Phone, Email, Role, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pre.setString(1, user.getFullName());
+            pre.setString(2, user.getGender());
+            pre.setString(3, user.getAddress());
+            pre.setString(4, user.getPhone());
+            pre.setString(5, user.getEmail());
+            pre.setString(6, user.getRole());
+            pre.setString(7, user.getPassword());
+            pre.executeUpdate();
 
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) {
+                userID = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userID;
+    }
+    
     public int insertUser(User user) {
         int n = 0;
         String sql = "INSERT INTO [User] (FullName, Gender, Address, Phone, Email, Role, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
