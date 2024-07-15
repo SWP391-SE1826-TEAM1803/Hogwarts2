@@ -1,5 +1,7 @@
 package model;
 
+import entity.ClassCategory;
+import entity.ClassCategoryMenu;
 import entity.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -134,5 +136,14 @@ public class DAOMenu extends DBConnect {
             Logger.getLogger(DAOMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
         return menu;
+    }
+    
+    public static void main(String[] args) {
+        DAOClassCategory dao = new DAOClassCategory();
+        DAOMenu me = new DAOMenu();
+        Vector<Menu> vc1 = me.getAllMenus1();
+        for(Menu c : vc1){
+            System.out.println(c);
+        }
     }
 }

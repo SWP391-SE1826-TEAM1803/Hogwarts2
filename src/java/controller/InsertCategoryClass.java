@@ -19,11 +19,15 @@ public class InsertCategoryClass extends HttpServlet {
 
         if ("insertCategory".equals(action)) {
             String cateName = request.getParameter("cateName");
+            DAOClassCategory daoClassCategory = new DAOClassCategory();
+            if (daoClassCategory.isCategoryNameExists(cateName)) {
+                request.setAttribute("message", "Category name already exists. Please choose a different name.");
+                request.getRequestDispatcher("InsertClassCategory.jsp").forward(request, response);
+                return;
+            }
 
             ClassCategory classCategory = new ClassCategory();
             classCategory.setCateName(cateName);
-
-            DAOClassCategory daoClassCategory = new DAOClassCategory();
             int cateID = daoClassCategory.insertCategory(classCategory);
 
             if (cateID != -1) {
@@ -38,11 +42,16 @@ public class InsertCategoryClass extends HttpServlet {
             String className = request.getParameter("className");
             int cateID = Integer.parseInt(request.getParameter("cateID"));
 
+            DAOClass daoClass = new DAOClass();
+            if (daoClass.isClassNameExists(className)) {
+                request.setAttribute("message", "Class name already exists. Please choose a different name.");
+                request.getRequestDispatcher("InsertClassCategory.jsp").forward(request, response);
+                return;
+            }
+
             Class classObj = new Class();
             classObj.setClassName(className);
             classObj.setCateID(cateID);
-
-            DAOClass daoClass = new DAOClass();
             boolean result = daoClass.insertClass1(classObj);
 
             if (result) {
@@ -51,6 +60,16 @@ public class InsertCategoryClass extends HttpServlet {
                 request.setAttribute("message", "Error inserting class.");
             }
             request.getRequestDispatcher("InsertClassCategory.jsp").forward(request, response);
+        } else if ("checkCategory".equals(action)) {
+            String cateName = request.getParameter("cateName");
+            DAOClassCategory daoClassCategory = new DAOClassCategory();
+            boolean exists = daoClassCategory.isCategoryNameExists(cateName);
+            response.getWriter().write(String.valueOf(exists));
+        } else if ("checkClass".equals(action)) {
+            String className = request.getParameter("className");
+            DAOClass daoClass = new DAOClass();
+            boolean exists = daoClass.isClassNameExists(className);
+            response.getWriter().write(String.valueOf(exists));
         }
     }
 }
