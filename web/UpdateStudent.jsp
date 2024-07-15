@@ -113,7 +113,7 @@
                                         if (users != null) {
                                             for (User user : users) {
                                     %>
-                                    <option value="<%= user.getUserID() %>" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getParent().getUserID() == user.getUserID() ? "selected" : "" %>><%= user.getUserID() %>-<%= user.getFullName() %></option>
+                                    <option value="<%= user.getUserID() %>" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getParent().getUserID() == user.getUserID() ? "selected" : "" %>><%= user.getFullName() %> - <%= user.getPhone() %></option>
                                     <% 
                                             }
                                         }

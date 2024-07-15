@@ -115,7 +115,7 @@
                                         if (users != null) {
                                             for (User user : users) {
                                     %>
-                                    <option value="<%= user.getUserID() %>"><%= user.getUserID() %>-<%= user.getFullName() %></option>
+                                    <option value="<%= user.getUserID() %>"><%= user.getFullName() %> - <%= user.getPhone() %></option>
                                     <% 
                                             }
                                         }

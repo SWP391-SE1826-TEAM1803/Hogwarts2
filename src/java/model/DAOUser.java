@@ -197,6 +197,8 @@ public class DAOUser extends DBConnect {
                 User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setFullName(rs.getString("FullName"));
+                user.setPhone(rs.getString("Phone"));
+                user.setEmail(rs.getString("Email"));
                 vector.add(user);
             }
         } catch (SQLException ex) {
