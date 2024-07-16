@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Class;
+import entity.SchoolYear;
 import entity.Student;
 import entity.Student1;
 import entity.StudentSchoolYearClass;
@@ -42,14 +43,23 @@ public class StudentController extends HttpServlet {
 
         if (service.equals("listAll")) {
             String year = request.getParameter("year");
+            String name = request.getParameter("name");
             Vector<StudentSchoolYearClass> students;
 
-            if (year == null || year.isEmpty()) {
+            if ((year == null || year.isEmpty()) && (name == null || name.isEmpty())) {
                 students = dao.getAllStudents();
-            } else {
+            } else if (year != null && !year.isEmpty() && (name == null || name.isEmpty())) {
                 students = dao.getAllStudentsByYear(year);
+            } else if ((year == null || year.isEmpty()) && name != null && !name.isEmpty()) {
+                students = dao.searchStudentsByName(name);
+            } else {
+                students = dao.searchStudentsByNameAndYear(name, year);
             }
             request.setAttribute("data", students);
+
+            // Fetch the list of available school years
+            Vector<SchoolYear> schoolYears = dao.getAllSchoolYears();
+            request.setAttribute("schoolYears", schoolYears);
             RequestDispatcher dispatcher = request.getRequestDispatcher("StudentManager.jsp");
             dispatcher.forward(request, response);
         } else if (service.equals("showAddStudent")) {

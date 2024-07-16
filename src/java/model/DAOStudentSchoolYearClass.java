@@ -106,4 +106,19 @@ public class DAOStudentSchoolYearClass extends DBConnect {
         }
         return count;
     }
+    
+   
+    public void addStudentToClass(int studentId, int SyC_ID) {
+        String sql = "INSERT INTO Student_SchoolYear_Class (StudentID, SyC_ID) VALUES (?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, studentId);
+            ps.setInt(2, SyC_ID); // Adjust if you have a different way to determine SyC_ID
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

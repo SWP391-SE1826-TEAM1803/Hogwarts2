@@ -6,6 +6,9 @@ public class CurDateAct {
     private String TimeStart;
     private String TimeEnd;
     private int CurDateID;
+    private String DateNumber;
+    
+    
 
     public CurDateAct() {
     }
@@ -17,6 +20,26 @@ public class CurDateAct {
         this.TimeEnd = TimeEnd;
         this.CurDateID = CurDateID;
     }
+
+    public CurDateAct(int CdtID, String Act, String TimeStart, String TimeEnd, int CurDateID, String DateNumber) {
+        this.CdtID = CdtID;
+        this.Act = Act;
+        this.TimeStart = TimeStart;
+        this.TimeEnd = TimeEnd;
+        this.CurDateID = CurDateID;
+        this.DateNumber = DateNumber;
+    }
+
+    public String getDateNumber() {
+        return DateNumber;
+    }
+
+    public void setDateNumber(String DateNumber) {
+        this.DateNumber = DateNumber;
+    }
+    
+    
+    
 
     
     

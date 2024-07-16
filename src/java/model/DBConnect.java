@@ -32,7 +32,7 @@ public class DBConnect {
                 "sa","12345678");
 
     }
-    
+
     public static void main(String[] args) {
         new DBConnect();
     }

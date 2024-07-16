@@ -9,7 +9,47 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOClassCategory extends DBConnect {
+        
+    
+    public boolean isCategoryNameExists(String cateName) {
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean exists = false;
 
+        try {
+            
+            String query = "SELECT * FROM ClassCategory WHERE CateName=?";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cateName);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+           
+        }
+
+        return exists;
+    }
+      public int insertCategory(ClassCategory classCategory) {
+        String sql = "INSERT INTO ClassCategory (CateName) VALUES (?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, classCategory.getCateName());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     public int insertClassCategory(ClassCategory classCategory) {
         int n = 0;
         String sql = "INSERT INTO ClassCategory (CateName) VALUES (?)";

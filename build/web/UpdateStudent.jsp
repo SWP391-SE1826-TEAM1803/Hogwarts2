@@ -113,7 +113,7 @@
                                         if (users != null) {
                                             for (User user : users) {
                                     %>
-                                    <option value="<%= user.getUserID() %>" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getParent().getUserID() == user.getUserID() ? "selected" : "" %>><%= user.getUserID() %>-<%= user.getFullName() %></option>
+                                    <option value="<%= user.getUserID() %>" <%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getParent().getUserID() == user.getUserID() ? "selected" : "" %>><%= user.getFullName() %> - <%= user.getPhone() %></option>
                                     <% 
                                             }
                                         }
@@ -149,11 +149,16 @@
     
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: "Select an option",
+            $('#classID').select2({
+                placeholder: "Select Class",
+                allowClear: false 
+            });
+            $('#userID').select2({
+                placeholder: "Select a parent",
                 allowClear: false 
             });
         });
+
     </script>
 </body>
 </html>

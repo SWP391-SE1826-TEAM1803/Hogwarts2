@@ -51,34 +51,37 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-
+                                <h5 class="card-title">Add New Class</h5>
                                 <!-- Add New Class Form -->
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <form action="ClassControllerURL" method="post" class="w-100">
-                                        <input type="hidden" name="service" value="addClass">
-                                        <div class="form-group">
-                                            <br>
-                                            <label for="className">Class Name</label>
-                                            <input type="text" class="form-control" id="className" name="className" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="cateID"> Choose Category Class</label>
-                                            <select class="form-control" id="cateID" name="cateID" required>
-                                                <option value="1">Age 3</option>
-                                                <option value="2">Age 4</option>
-                                                <option value="3">Age 5</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Add Class</button>
-                                    </form>
-                                </div>
+                                <form action="ClassControllerURL" method="post" class="w-100">
+                                    <input type="hidden" name="service" value="addClass">
+                                    <div class="mb-3">
+                                        <label for="className" class="form-label">Class Name</label>
+                                        <input type="text" class="form-control" id="className" name="className" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cateID" class="form-label"> Choose Category Class</label>
+                                        <select class="form-control" id="cateID" name="cateID" required>
+                                            <option value="1">Age 3</option>
+                                            <option value="2">Age 4</option>
+                                            <option value="3">Age 5</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Class</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Class List</h5>
                                 <!-- Class List Table -->
                                 <table class="table table-borderless datatable mt-3">
                                     <thead>
                                         <tr>
-<!--                                            <th scope="col">ID</th>-->
+                                            <!--                                            <th scope="col">ID</th>-->
                                             <th scope="col">Class Name</th>
                                             <th scope="col">Category Class</th>
                                             <th scope="col">Detail</th>
@@ -92,7 +95,6 @@
                                                 for (Class cls : classList) {
                                         %>
                                         <tr>
-<!--                                            <td><//%= cls.getClassID() %></td>-->
                                             <td><%= cls.getClassName() %></td>
                                             <td><%= cls.getCateName() %></td>
                                             <td>

@@ -7,6 +7,7 @@ public class Schedules {
     private String Date;
     private int CurDateID;
     private int SyC_ID;
+    private String DateNumber;
 
     public Schedules() {
     }
@@ -16,6 +17,22 @@ public class Schedules {
         this.Date = Date;
         this.CurDateID = CurDateID;
         this.SyC_ID = SyC_ID;
+    }
+    
+    public Schedules(int SchedulesID, String Date, int CurDateID, int SyC_ID, String DateNumber) {
+        this.SchedulesID = SchedulesID;
+        this.Date = Date;
+        this.CurDateID = CurDateID;
+        this.SyC_ID = SyC_ID;
+        this.DateNumber = DateNumber;
+    }
+
+    public String getDateNumber() {
+        return DateNumber;
+    }
+
+    public void setDateNumber(String DateNumber) {
+        this.DateNumber = DateNumber;
     }
 
     public int getSchedulesID() {

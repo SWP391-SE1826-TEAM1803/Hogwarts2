@@ -93,7 +93,35 @@ public class DAOClassCategoryMenu extends DBConnect {
         }
         return n;
     }
-
+    
+     public int insertClassCategoryMenu1(ClassCategoryMenu ccm) {
+        int n = 0;
+        String sqlCheck = "SELECT * FROM ClassCategory_Menu WHERE CateID = ? AND MenuID = ? AND Date = ? AND Meal = ?";
+        String sqlInsert = "INSERT INTO ClassCategory_Menu (CateID, MenuID, Date, Meal) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement preCheck = conn.prepareStatement(sqlCheck);
+            preCheck.setInt(1, ccm.getCateID());
+            preCheck.setInt(2, ccm.getMenuID());
+            preCheck.setString(3, ccm.getDate());
+            preCheck.setString(4, ccm.getMeal());
+            ResultSet rs = preCheck.executeQuery();
+            if (rs.next()) {
+                // Entry already exists
+                n = -1; // Indicate a duplicate entry
+            } else {
+                PreparedStatement preInsert = conn.prepareStatement(sqlInsert);
+                preInsert.setInt(1, ccm.getCateID());
+                preInsert.setInt(2, ccm.getMenuID());
+                preInsert.setString(3, ccm.getDate());
+                preInsert.setString(4, ccm.getMeal());
+                n = preInsert.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOClassCategoryMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+    
     public int updateClassCategoryMenu(ClassCategoryMenu ccm) {
         int n = 0;
         String sql = "UPDATE ClassCategory_Menu SET Date = ?, Meal = ? WHERE CateID = ? AND MenuID = ?";

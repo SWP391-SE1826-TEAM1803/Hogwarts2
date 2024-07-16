@@ -54,6 +54,27 @@ public class DAOSchedules extends DBConnect {
         return n;
     }
 
+    public Vector<Schedules> getAllSchedulesBySycID(int syC_ID) {
+        Vector<Schedules> vector = new Vector<>();
+        String sql = "SELECT * FROM Schedules JOIN CurriculumDate ON Schedules.CurDateID = CurriculumDate.CurDateID WHERE Schedules.SyC_ID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, syC_ID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int schedulesID = rs.getInt("SchedulesID");
+                String date = rs.getString("Date");
+                int curDateID = rs.getInt("CurDateID");
+                String dateNumber = rs.getString("DateNumber");
+                Schedules schedule = new Schedules(schedulesID, date, curDateID, syC_ID, dateNumber);
+                vector.add(schedule);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOSchedules.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
+
     public Vector<Schedules> getAllSchedules(String sql) {
         Vector<Schedules> vector = new Vector<>();
         try {
@@ -90,5 +111,74 @@ public class DAOSchedules extends DBConnect {
             Logger.getLogger(DAOSchedules.class.getName()).log(Level.SEVERE, null, ex);
         }
         return schedule;
+    }
+
+    public static void main(String[] args) {
+        DAOSchedules daos = new DAOSchedules();
+        Vector<Schedules> x = daos.getAllSchedulesBySycID(1);
+        for (Schedules e : x) {
+            System.out.println(e);
+        }
+    }
+
+    public Vector<Schedules> getAllSchedulesBySycIDAndTeacherID(int teacherID) {
+        Vector<Schedules> vector = new Vector<>();
+        String sql = "SELECT \n"
+                + "    sch.*, cd.DateNumber\n"
+                + "FROM schedules sch\n"
+                + "INNER JOIN CurriculumDate cd ON cd.CurDateID = sch.CurDateID\n"
+                + "INNER JOIN SchoolYear_Class syc ON syc.Syc_ID = sch.Syc_ID\n"
+                + "INNER JOIN Teacher_SchoolYear_class tsc ON tsc.Syc_ID = syc.Syc_ID\n"
+                + "INNER JOIN SchoolYear sy ON sy.SyID = syc.SyID\n"
+                + "WHERE \n"
+                + "    tsc.TeacherID = ? \n"
+                + "    AND syc.SyID = (SELECT MAX(SyID) FROM SchoolYear_Class)\n"
+                + "    AND sch.Date >= sy.DateStart \n"
+                + "    AND sch.Date <= sy.DateEnd;";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, teacherID);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    int schedulesID = rs.getInt("SchedulesID");
+                    String date = rs.getString("Date");
+                    int curDateID = rs.getInt("CurDateID");
+                    int syC_ID = rs.getInt("SyC_ID");
+                    String dateNumber = rs.getString("DateNumber");
+                    Schedules schedule = new Schedules(schedulesID, date, curDateID, syC_ID, dateNumber);
+                    vector.add(schedule);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOSchedules.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vector;
+    }
+
+    public boolean isDuplicateDate(String date, int syC_ID) {
+        String sql = "SELECT * FROM Schedules WHERE Date = ? AND SycID = ?";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, date);
+            pre.setInt(2, syC_ID);
+            ResultSet rs = pre.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOSchedules.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return false;
+    }
+
+    public boolean isDuplicateDateNumber(String dateNumber, int syC_ID) {
+        String sql = "SELECT * FROM Schedules WHERE DateNumber = ? AND SycID = ?";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, dateNumber);
+            pre.setInt(2, syC_ID);
+            ResultSet rs = pre.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOSchedules.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

@@ -20,7 +20,7 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         DAOUser dao = new DAOUser();
         HttpSession session = request.getSession(true);
-        
+
         String service = request.getParameter("service");
         if (service == null) {
             service = "listAll";
@@ -94,18 +94,34 @@ public class UserController extends HttpServlet {
                 dao.deleteUser(userID);
                 response.sendRedirect("UserControllerURL?service=listAll");
                 break;
-                
+
             case "addUserForm":
                 RequestDispatcher addDispatcher = request.getRequestDispatcher("ManageUser.jsp?service=addUserForm");
                 addDispatcher.forward(request, response);
                 break;
 
             case "updateUserForm":
-                int userIDToUpdate =Integer.parseInt(request.getParameter("UserID"));
+                int userIDToUpdate = Integer.parseInt(request.getParameter("UserID"));
                 User userToUpdateForm = dao.getUserByID(userIDToUpdate);
                 request.setAttribute("user", userToUpdateForm);
                 RequestDispatcher updateFormDispatcher = request.getRequestDispatcher("ManageUser.jsp?service=updateUserForm");
                 updateFormDispatcher.forward(request, response);
+                break;
+
+            case "changepassword":
+                String email = request.getParameter("email");
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+
+                boolean result = dao.changePassword(email, oldPassword, newPassword);
+                if (result) {
+                    response.sendRedirect("Login.jsp");
+                } else {
+                    request.setAttribute("message", "Failed to change password. Please check your current password.");
+                    dispatcher = request.getRequestDispatcher("Changepassword.jsp");
+                dispatcher.forward(request, response);
+                }
+                
                 break;
 
             default:
