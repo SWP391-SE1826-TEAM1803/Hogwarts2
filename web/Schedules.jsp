@@ -1,5 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Vector" %>
+<%@ page import="entity.CurriculumDate, entity.CurDateAct, model.DAOCurDateAct" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    String filterDate = (String) request.getAttribute("filterDate");
+    if (filterDate == null || filterDate.isEmpty()) {
+        filterDate = LocalDate.now().toString();
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,6 +38,12 @@
 
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet">
+        <style>
+            .equal-table th, .equal-table td {
+                width: 25%; /* Adjust this value as needed */
+                text-align: center;
+            }
+        </style>
     </head>
 
     <body>
@@ -72,6 +87,65 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Search Curriculum Date</h5>
+                            <form action="SchedulesControllerURL" method="get" class="w-100">
+                                <input type="hidden" name="service" value="search">
+                                <div class="mb-3">
+                                    <label for="searchDateNumber" class="form-label">Date Number:</label>
+                                    <input type="text" id="searchDateNumber" name="searchDateNumber" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Curriculum Detail Today</h5>
+                            <!-- Curriculum Date List Table -->
+                            <%
+                                DAOCurDateAct daoCDA = new DAOCurDateAct();
+                                Vector<CurriculumDate> curDates = (Vector<CurriculumDate>) request.getAttribute("curriculumDates");
+                                if (curDates != null) {
+                                    for (CurriculumDate curDate : curDates) {
+                            %>
+                            <h5 class="card-title"><%= curDate.getDateNumber() %></h5>
+                            <table class="table table-bordered equal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time Start</th>
+                                        <th>Time End</th>
+                                        <th>Activity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        Vector<CurDateAct> vectorCurDateAct = daoCDA.getAllCurDateActs("SELECT * FROM CurDateAct WHERE CurDateID = '" + curDate.getCurDateID() + "'");
+                                        for (CurDateAct curDateAct : vectorCurDateAct) {
+                                    %>
+                                    <tr>
+                                        <td><%= curDateAct.getTimeStart() %></td>
+                                        <td><%= curDateAct.getTimeEnd() %></td>
+                                        <td><%= curDateAct.getAct() %></td>
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
+                                </tbody>
+                            </table>
+                            <%
+                                    }
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
