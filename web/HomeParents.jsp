@@ -4,10 +4,12 @@
     Author     : Admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="entity.Student1" %>
 <%@ page import="java.util.Vector, entity.Schedules, entity.CurriculumDate, entity.CurDateAct, entity.Menu, entity.ClassCategoryMenu, entity.Class, entity.SchoolYearClass,entity.Feedback" %>
-<%@ page import=" model.DAOSchedules, model.DAOCurriculumDate, model.DAOCurDateAct, model.DAOStudentSchoolYearClass, model.DAOSchoolYearClass, model.DAOClass, model.DAOClassCategoryMenu, model.DAOMenu, model.DAOFeedback" %>
+<%@ page import="model.DAOSchedules, model.DAOCurriculumDate, model.DAOCurDateAct, model.DAOStudentSchoolYearClass, model.DAOSchoolYearClass, model.DAOClass, model.DAOClassCategoryMenu, model.DAOMenu, model.DAOFeedback" %>
+<%@ page import="java.util.Map, java.util.HashMap, java.util.List, java.util.ArrayList" %>
+<%@ page import="java.util.Map.Entry" %>
  <%
      Student1 stu = (Student1) request.getAttribute("stu");
     String filterDate = (String) request.getAttribute("filterDate");
@@ -125,33 +127,57 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Menu</h5>
-                        <table class="table table-borderless datatable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Meal</th>
-                                    <th scope="col">Food</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    Vector<SchoolYearClass> vectorSC = daoSC.getAllSchoolYearClasses("select * from SchoolYear_Class where SyC_ID = '" + SSyClass.getSyC_ID() + "'");
-                                    Vector<Class> vectorC = daoC.getAllClasses("select * from Class where ClassID = '" + vectorSC.get(0).getClassID() + "'");
-                                    Vector<ClassCategoryMenu> vectorCCM = daoCCM.getAllClassCategoryMenus("select * from ClassCategory_Menu where CateID = '" + vectorC.get(0).getCateID() + "'");
-                                    for (ClassCategoryMenu ccMenu : vectorCCM) {
-                                        if (!ccMenu.getDate().equals(filterDate)) {
-                                            continue;
-                                        }
-                                        Vector<Menu> menu = daoM.getAllMenus("select * from [Menu] where MenuID = '" + ccMenu.getMenuID() + "'");
-                                %>
-                                <tr>
-                                    <td><%= ccMenu.getMeal() %></td>
-                                    <td><%= menu.get(0).getFood() %></td>
-                                </tr>
-                                <%
-                                    }
-                                %>
-                            </tbody>
-                        </table>
+<table class="table table-borderless datatable">
+    <thead>
+        <tr>
+            <th scope="col">Meal</th>
+            <th scope="col">Food</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%
+            // Retrieve the SchoolYearClass
+            Vector<SchoolYearClass> vectorSC = daoSC.getAllSchoolYearClasses("select * from SchoolYear_Class where SyC_ID = '" + SSyClass.getSyC_ID() + "'");
+            Vector<Class> vectorC = daoC.getAllClasses("select * from Class where ClassID = '" + vectorSC.get(0).getClassID() + "'");
+            Vector<ClassCategoryMenu> vectorCCM = daoCCM.getAllClassCategoryMenus("select * from ClassCategory_Menu where CateID = '" + vectorC.get(0).getCateID() + "'");
+            
+            // Map to store meals and their corresponding food items
+            Map<String, List<String>> mealToFoodsMap = new HashMap<>();
+            
+            // Collect food items for each meal
+            for (ClassCategoryMenu ccMenu : vectorCCM) {
+                if (!ccMenu.getDate().equals(filterDate)) {
+                    continue;
+                }
+                
+                Vector<Menu> menuVector = daoM.getAllMenus("select * from [Menu] where MenuID = '" + ccMenu.getMenuID() + "'");
+                
+                String meal = ccMenu.getMeal();
+                if (!mealToFoodsMap.containsKey(meal)) {
+                    mealToFoodsMap.put(meal, new ArrayList<>());
+                }
+                
+                for (Menu menu : menuVector) {
+                    mealToFoodsMap.get(meal).add(menu.getFood());
+                }
+            }
+            
+            // Display the meals and their corresponding food items
+            for (Map.Entry<String, List<String>> entry : mealToFoodsMap.entrySet()) {
+                String meal = entry.getKey();
+                List<String> foods = entry.getValue();
+                String foodList = String.join(", ", foods);
+        %>
+        <tr>
+            <td><%= meal %></td>
+            <td><%= foodList %></td>
+        </tr>
+        <%
+            }
+        %>
+    </tbody>
+</table>
+
                     </div>
                 </div>
             </div>
