@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Vector" %>
-<%@ page import="entity.CurriculumDate, entity.CurDateAct, model.DAOCurDateAct" %>
+<%@ page import="entity.CurriculumDate, entity.CurDateAct, model.DAOCurDateAct, entity.Schedules" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -74,16 +74,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="schedule" items="${schedulesList}">
+                                        <%
+                                                     Vector<Schedules> schedulesList = (Vector<Schedules>) request.getAttribute("schedulesList");
+                                                     for (Schedules sche : schedulesList) {
+
+                                        %>
                                             <tr>
-                                                <td style="text-align: center;">${schedule.date}</td>
-                                                <td style="text-align: center;">${schedule.dateNumber}</td>
+                                                <td style="text-align: center;"><%=sche.getDate()%></td>
+                                                <td style="text-align: center;"><%=sche.getDateNumber()%></td>
                                                 <td style="text-align: center;">
-                                                    <a href="SchedulesControllerURL?service=editSchedule&schedulesID=${schedule.schedulesID}" class="btn btn-outline-info btn-sm">Edit</a>
-                                                    <a href="SchedulesControllerURL?service=deleteSchedule&schedulesID=${schedule.schedulesID}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this schedule?');">Delete</a>
+                                                    <a href="SchedulesControllerURL?service=editSchedule&schedulesID=<%=sche.getSchedulesID()%>" class="btn btn-outline-info btn-sm">Edit</a>
+                                                    <a href="SchedulesControllerURL?service=deleteSchedule&schedulesID=<%=sche.getSchedulesID()%>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this schedule?');">Delete</a>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
+                                            
+                                            <%}%>
                                     </tbody>
                                 </table>
                             </div>
