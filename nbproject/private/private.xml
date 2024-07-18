@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/CurDateActController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOUser.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/FeedbackController.java</file>
@@ -84,6 +85,9 @@
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/model/DAOMenu.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/src/java/controller/StudentController.java</file>
             <file>file:/D:/SU24/Project1/Hogwarts/web/Changepassword.jsp</file>
+=======
+            <file>file:/D:/FULearning/Summer24/SWP391/Code/Hogwarts2/web/AddStudent.jsp</file>
+>>>>>>> bd516c350015c7d1df8ef8bb7dedbe2b83bb8822
         </group>
     </open-files>
 </project-private>

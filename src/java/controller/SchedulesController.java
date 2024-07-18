@@ -51,13 +51,15 @@ public class SchedulesController extends HttpServlet {
 
                 Vector<Schedules> schedulesList = dao.getAllSchedulesBySycIDAndTeacherID(teacherID);
                 request.setAttribute("schedulesList", schedulesList);
+                Vector<CurriculumDate> curriculumDates = daoCurriculumDate.getAllCurriculumDatesWithCurName(teacherID);
+                request.setAttribute("curriculumDates", curriculumDates);
                 dispatcher = request.getRequestDispatcher("Schedules.jsp");
                 dispatcher.forward(request, response);
                 break;
 
             case "addSchedule":
 
-                Vector<CurriculumDate> curriculumDates = daoCurriculumDate.getAllCurriculumDatesWithCurName(teacherID);
+                curriculumDates = daoCurriculumDate.getAllCurriculumDatesWithCurName(teacherID);
                 request.setAttribute("curriculumDates", curriculumDates);
                 dispatcher = request.getRequestDispatcher("AddSchedules.jsp");
                 dispatcher.forward(request, response);
@@ -67,7 +69,7 @@ public class SchedulesController extends HttpServlet {
                 String date = request.getParameter("date");
                 int curDateID = Integer.parseInt(request.getParameter("curDateID"));
                 int syC_ID = daoSchoolYearClass.getSycIDByTeacherID(teacherID);
-
+                
                 Schedules schedule = new Schedules(0, date, curDateID, syC_ID);
                 dao.insertSchedule(schedule);
                 response.sendRedirect("SchedulesControllerURL?service=listAll");
