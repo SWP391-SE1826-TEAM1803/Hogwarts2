@@ -26,7 +26,7 @@
     DAOMenu daoM = new DAOMenu();
     DAOFeedback daoF = new DAOFeedback();
 
-    Vector<StudentSchoolYearClass> vectorSSC = daoSSC.getAllStudentSchoolYearClasses("select * from Student_SchoolYear_Class where StudentID = '" + stu.getStudentID() + "'");
+    Vector<StudentSchoolYearClass> vectorSSC = daoSSC.getAllStudentSchoolYearClasses("select * from Student_SchoolYear_Class where StudentID = '" + stu.getStudentID() + "' ORDER BY SyC_ID DESC");
     StudentSchoolYearClass SSyClass = vectorSSC.get(0);
 %>
 

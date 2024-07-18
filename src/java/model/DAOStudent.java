@@ -257,7 +257,7 @@ public class DAOStudent extends DBConnect {
             + "INNER JOIN SchoolYear sy ON sc.SyID = sy.SyID "
             + "INNER JOIN Teacher_SchoolYear_Class tsc ON sc.SyC_ID = tsc.SyC_ID "
             + "WHERE tsc.TeacherID = ? "
-            + "AND sy.SyID = (SELECT MAX(SyID) FROM SchoolYear WHERE DateEnd < GETDATE())";
+            + "AND sy.SyID = (SELECT MAX(SyID) FROM SchoolYear)";
 
     try (PreparedStatement pre = conn.prepareStatement(sql)) {
         pre.setInt(1, teacherID);       

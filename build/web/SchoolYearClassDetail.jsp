@@ -7,47 +7,47 @@
 <% 
     String SyC_ID = (String) request.getAttribute("SyC_ID");
     String cName = (String) request.getAttribute("cName");
-String syID = (String) request.getAttribute("syID");
-DAOStudent1 daoS = new DAOStudent1();
-        DAOSchoolYear daoSY = new DAOSchoolYear();
+    String cID = (String) request.getAttribute("cID");
+    String syID = (String) request.getAttribute("syID");
+    DAOStudent1 daoS = new DAOStudent1();
+    DAOSchoolYear daoSY = new DAOSchoolYear();
 
-             Vector<SchoolYear> sy = daoSY.getAllSchoolYears("SELECT * FROM SchoolYear Where SyID = '" + syID + "'");
-             String syname = sy.get(0).getSyName();
-
+    Vector<SchoolYear> sy = daoSY.getAllSchoolYears("SELECT * FROM SchoolYear Where SyID = '" + syID + "'");
+    String syname = sy.get(0).getSyName();
 %>
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title><%=cName%> - Hogwarts</title>
-        <meta content="" name="description">
-        <meta content="" name="keywords">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title><%=cName%> - Hogwarts</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-        <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.gstatic.com" rel="preconnect">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-        <!-- Vendor CSS Files -->
-        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-        <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-        <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-        <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-        <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-        <!-- Template Main CSS File -->
-        <link href="assets/css/style.css" rel="stylesheet">
-    </head>
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
 
-    <body>
-        <%@include file="HeaderAdmin.jsp"%>
+<body>
+    <%@include file="HeaderAdmin.jsp"%>
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Class Detail</h1>
@@ -77,21 +77,29 @@ DAOStudent1 daoS = new DAOStudent1();
                                         <th scope="col">Date of Birth</th>
                                         <th scope="col">Gender</th>
                                         <th scope="col">Address</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% Vector<StudentSchoolYearClass> students = (Vector<StudentSchoolYearClass>) request.getAttribute("data");
+                                    <% 
+                                       Vector<StudentSchoolYearClass> students = (Vector<StudentSchoolYearClass>) request.getAttribute("data");
                                        if (students != null) {
                                            for (StudentSchoolYearClass student : students) {
-                                               Vector<Student1> stu = daoS.getAllStudents("select * from Student where StudentID = '"+student.getStudentID()+"'");
+                                               Vector<Student1> stu = daoS.getAllStudents("SELECT * FROM Student WHERE StudentID = '" + student.getStudentID() + "'");
                                     %>
                                     <tr>
                                         <td><%= stu.get(0).getFullName() %></td>
                                         <td><%= stu.get(0).getDoB() %></td>
                                         <td><%= stu.get(0).getGender() %></td>
                                         <td><%= stu.get(0).getAddress() %></td>
+                                        <td>
+                                            <a class="btn btn-outline-danger btn-icon-text" href="StudentSYClassControllerURL?service=delete&studentId=<%= stu.get(0).getStudentID() %>&SyC_ID=<%=SyC_ID%>">
+                                                <i class="mdi mdi-delete-forever"></i> Delete
+                                            </a>
+                                        </td>
                                     </tr>
-                                    <%     }
+                                    <% 
+                                           }
                                        }
                                     %>
                                 </tbody>
@@ -103,7 +111,7 @@ DAOStudent1 daoS = new DAOStudent1();
         </section>
     </main>
 
-   <!-- Modal for adding students -->
+    <!-- Modal for adding students -->
     <div class="modal fade" id="addStudentsModal" tabindex="-1" aria-labelledby="addStudentsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -114,17 +122,17 @@ DAOStudent1 daoS = new DAOStudent1();
                 <div class="modal-body">
                     <!-- Filter input for year of birth -->
                     <div class="mb-3">
-    <label for="filterYear" class="form-label">Filter by Year of Birth</label>
-    <select class="form-select" id="filterYear" onchange="filterStudents()">
-        <option value="">All</option>
-        <% 
-            int currentYear = 2023; // Năm hiện tại
-            for (int year = currentYear - 6; year <= currentYear; year++) { 
-        %>
-            <option value="<%= year %>"><%= year %></option>
-        <% } %>
-    </select>
-</div>
+                        <label for="filterYear" class="form-label">Filter by Year of Birth</label>
+                        <select class="form-select" id="filterYear" onchange="filterStudents()">
+                            <option value="">All</option>
+                            <% 
+                                int currentYear = 2023; // Năm hiện tại
+                                for (int year = currentYear - 6; year <= currentYear; year++) { 
+                            %>
+                            <option value="<%= year %>"><%= year %></option>
+                            <% } %>
+                        </select>
+                    </div>
 
                     <form id="addStudentsForm" action="StudentSYClassControllerURL" method="post">
                         <input type="hidden" name="service" value="addStudents">
@@ -142,7 +150,14 @@ DAOStudent1 daoS = new DAOStudent1();
                             <tbody>
                                 <% 
                                     DAOStudent1 daoStudent = new DAOStudent1();
-                                    Vector<Student1> students2 = daoStudent.getAllStudents("SELECT * FROM Student");
+                                    Vector<Student1> students2 = daoStudent.getAllStudents("SELECT s.StudentID, s.FullName, s.DoB, s.Gender, s.Address, s.UserID F"
+                                            + "ROM Student s "
+                                            + "LEFT JOIN Student_SchoolYear_Class ssc ON s.StudentID = ssc.StudentID AND ssc.SyC_ID IN ("
+                                            + "    SELECT SyC_ID"
+                                            + "    FROM SchoolYear_Class"
+                                            + "    WHERE SyID = " + syID + ""
+                                            + ")"
+                                            + "WHERE ssc.SyC_ID IS NULL;");
                                     for (Student1 student : students2) {
                                 %>
                                 <tr>
@@ -167,21 +182,19 @@ DAOStudent1 daoS = new DAOStudent1();
 
     <%@include file="Footer.jsp"%>
 
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
 
-
-        <!-- Vendor JS Files -->
-        <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/vendor/chart.js/chart.umd.js"></script>
-        <script src="assets/vendor/echarts/echarts.min.js"></script>
-        <script src="assets/vendor/quill/quill.js"></script>
-        <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-        <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-        <script src="assets/vendor/php-email-form/validate.js"></script>
-
-        <!-- Template Main JS File -->
-        <script src="assets/js/main.js"></script>
-        <script>
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script>
         function filterStudents() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("filterYear");
@@ -202,6 +215,6 @@ DAOStudent1 daoS = new DAOStudent1();
             }
         }
     </script>
-    </body>
+</body>
 
 </html>

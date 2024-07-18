@@ -88,10 +88,7 @@ public class DAOSchoolYear extends DBConnect {
     }
 
     public int updateSchoolYear(SchoolYear schoolYear) {
-        SchoolYear lastSchoolYear = getLastSchoolYear();
-        if (isOverlapping(schoolYear, lastSchoolYear)) {
-            return -1; // Return -1 if the date range is overlapping
-        }
+       
         int n = 0;
         String sql = "UPDATE [dbo].[SchoolYear] SET [SyName] = ?, [DateStart] = ?, [DateEnd] = ? WHERE [SyID] = ?";
         try {
@@ -108,36 +105,67 @@ public class DAOSchoolYear extends DBConnect {
     }
 
     public void removeSchoolYear(int syID) {
+    String deleteSchedules = "DELETE FROM Schedules WHERE SyC_ID IN (SELECT SyC_ID FROM SchoolYear_Class WHERE SyID = ?)";
+    String deleteTeacherSchoolYearClass = "DELETE FROM Teacher_SchoolYear_Class WHERE SyC_ID IN (SELECT SyC_ID FROM SchoolYear_Class WHERE SyID = ?)";
+    String deleteStudentSchoolYearClass = "DELETE FROM Student_SchoolYear_Class WHERE SyC_ID IN (SELECT SyC_ID FROM SchoolYear_Class WHERE SyID = ?)";
+    String deleteSchoolYearClass = "DELETE FROM SchoolYear_Class WHERE SyID = ?";
+    String deleteSchoolYear = "DELETE FROM SchoolYear WHERE SyID = ?";
+    
+    try {
+        // Begin transaction
+        conn.setAutoCommit(false);
+
+        // Step 1: Delete records from dependent tables
+        try (PreparedStatement ps0 = conn.prepareStatement(deleteSchedules)) {
+            ps0.setInt(1, syID);
+            ps0.executeUpdate();
+        }
+
+        try (PreparedStatement ps1 = conn.prepareStatement(deleteTeacherSchoolYearClass)) {
+            ps1.setInt(1, syID);
+            ps1.executeUpdate();
+        }
+
+        try (PreparedStatement ps2 = conn.prepareStatement(deleteStudentSchoolYearClass)) {
+            ps2.setInt(1, syID);
+            ps2.executeUpdate();
+        }
+
+        try (PreparedStatement ps3 = conn.prepareStatement(deleteSchoolYearClass)) {
+            ps3.setInt(1, syID);
+            ps3.executeUpdate();
+        }
+
+        // Step 2: Delete the record from the SchoolYear table
+        try (PreparedStatement ps4 = conn.prepareStatement(deleteSchoolYear)) {
+            ps4.setInt(1, syID);
+            ps4.executeUpdate();
+        }
+
+        // Commit transaction
+        conn.commit();
+    } catch (SQLException e) {
+        // Rollback transaction in case of an error
         try {
-            // Bước 1: Xóa bản ghi trong các bảng liên quan
-            String deleteTeacherSchoolYearClass = "DELETE FROM Teacher_SchoolYear_Class WHERE SyC_ID IN (SELECT SyC_ID FROM SchoolYear_Class WHERE SyID = ?)";
-            try (PreparedStatement ps1 = conn.prepareStatement(deleteTeacherSchoolYearClass)) {
-                ps1.setInt(1, syID);
-                ps1.executeUpdate();
+            if (conn != null) {
+                conn.rollback();
             }
-
-            String deleteStudentSchoolYearClass = "DELETE FROM Student_SchoolYear_Class WHERE SyC_ID IN (SELECT SyC_ID FROM SchoolYear_Class WHERE SyID = ?)";
-            try (PreparedStatement ps2 = conn.prepareStatement(deleteStudentSchoolYearClass)) {
-                ps2.setInt(1, syID);
-                ps2.executeUpdate();
-            }
-
-            String deleteSchoolYearClass = "DELETE FROM SchoolYear_Class WHERE SyID = ?";
-            try (PreparedStatement ps3 = conn.prepareStatement(deleteSchoolYearClass)) {
-                ps3.setInt(1, syID);
-                ps3.executeUpdate();
-            }
-
-            // Bước 2: Xóa bản ghi trong bảng SchoolYear
-            String deleteSchoolYear = "DELETE FROM SchoolYear WHERE SyID = ?";
-            try (PreparedStatement ps4 = conn.prepareStatement(deleteSchoolYear)) {
-                ps4.setInt(1, syID);
-                ps4.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        e.printStackTrace();
+    } finally {
+        // Reset auto-commit to true
+        try {
+            if (conn != null) {
+                conn.setAutoCommit(true);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+}
+
 
     public Vector<SchoolYear> getAllSchoolYears(String sql) {
         Vector<SchoolYear> vector = new Vector<>();
