@@ -42,4 +42,30 @@ public class DAOStudent1 extends DBConnect {
         }
         return vector;
     }
+    
+    public Vector<Student1> getAllStudentsWithoutClass(String schoolYearId) {
+        Vector<Student1> students = new Vector<>();
+        String query = "SELECT s.* FROM Student s " +
+                       "LEFT JOIN Student_SchoolYear_Class ssc ON s.StudentID = ssc.StudentID " +
+                       "LEFT JOIN SchoolYear_Class syc ON ssc.SyC_ID = syc.SyC_ID " +
+                       "WHERE syc.SyID IS NULL OR syc.SyID != ?";
+        try  {
+            Statement state = conn.createStatement(
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = state.executeQuery(query);
+            while (rs.next()) {
+                Student1 student = new Student1();
+                student.setStudentID(rs.getInt("StudentID"));
+                student.setFullName(rs.getString("FullName"));
+                student.setDoB(rs.getString("DoB"));
+                student.setGender(rs.getString("Gender"));
+                student.setAddress(rs.getString("Address"));
+                students.add(student);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return students;
+    }
 }

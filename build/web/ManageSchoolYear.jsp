@@ -87,7 +87,7 @@
                                     
                                 </td>
                                 <td style="text-align: center;">
-                                    <a href="SchoolYearControllerURL?service=updateSchoolYearForm&SyID=<%= schoolYear.getSyID() %>" class="btn btn-outline-warning btn-icon-text">Edit</a>
+                                    <a href="SchoolYearControllerURL?service=updateSchoolYearForm&SyID=<%= schoolYear.getSyID() %>" class="btn btn-outline-warning btn-icon-text">Update</a>
                                     <a href="SchoolYearControllerURL?service=deleteSY&SyID=<%= schoolYear.getSyID() %>" class="btn btn-outline-danger btn-icon-text">Delete</a>
                                 </td>
                             </tr>
@@ -151,6 +151,7 @@
             <% } %>
         </div>
     </main>
+    <%@include file="Footer.jsp"%>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

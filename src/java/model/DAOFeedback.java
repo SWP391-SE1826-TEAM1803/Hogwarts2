@@ -108,7 +108,7 @@ public class DAOFeedback extends DBConnect {
                     + "INNER JOIN SchoolYear_Class syc ON ssc.SyC_ID = syc.SyC_ID "
                     + "INNER JOIN Teacher_SchoolYear_Class tsc ON syc.SyC_ID = tsc.SyC_ID "
                     + "INNER JOIN SchoolYear sy ON syc.SyID = sy.SyID "
-                    + "WHERE tsc.TeacherID = ? AND sy.SyID = (SELECT MAX(SyID) FROM SchoolYear)";
+                    + "WHERE tsc.TeacherID = ? AND sy.SyID = (SELECT MAX(SyID) FROM SchoolYear )";
 
             try (PreparedStatement insertPre = conn.prepareStatement(insertSql)) {
                 insertPre.setDate(1, date);
