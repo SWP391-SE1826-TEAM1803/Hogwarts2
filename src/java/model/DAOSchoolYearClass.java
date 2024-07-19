@@ -43,13 +43,48 @@ public class DAOSchoolYearClass extends DBConnect {
 
     public int deleteSchoolYearClass(int syC_ID) {
         int n = 0;
-        String sql = "DELETE FROM SchoolYear_Class WHERE SyC_ID = ?";
+        String deleteTeacherSQL = "DELETE FROM Teacher_SchoolYear_Class WHERE SyC_ID = ?";
+        String deleteStudentSQL = "DELETE FROM Student_SchoolYear_Class WHERE SyC_ID = ?";
+        String deleteSchoolYearClassSQL = "DELETE FROM SchoolYear_Class WHERE SyC_ID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, syC_ID);
-            n = pre.executeUpdate();
+            // Start transaction
+            conn.setAutoCommit(false);
+
+            // Delete from Teacher_SchoolYear_Class
+            try (PreparedStatement pre = conn.prepareStatement(deleteTeacherSQL)) {
+                pre.setInt(1, syC_ID);
+                pre.executeUpdate();
+            }
+
+            // Delete from Student_SchoolYear_Class
+            try (PreparedStatement pre = conn.prepareStatement(deleteStudentSQL)) {
+                pre.setInt(1, syC_ID);
+                pre.executeUpdate();
+            }
+
+            // Delete from SchoolYear_Class
+            try (PreparedStatement pre = conn.prepareStatement(deleteSchoolYearClassSQL)) {
+                pre.setInt(1, syC_ID);
+                n = pre.executeUpdate();
+            }
+
+            // Commit transaction
+            conn.commit();
         } catch (SQLException ex) {
+            try {
+                // Rollback transaction in case of error
+                conn.rollback();
+            } catch (SQLException rollbackEx) {
+                Logger.getLogger(DAOSchoolYearClass.class.getName()).log(Level.SEVERE, null, rollbackEx);
+            }
             Logger.getLogger(DAOSchoolYearClass.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                // Set auto-commit back to true
+                conn.setAutoCommit(true);
+            } catch (SQLException autoCommitEx) {
+                Logger.getLogger(DAOSchoolYearClass.class.getName()).log(Level.SEVERE, null, autoCommitEx);
+            }
         }
         return n;
     }
@@ -94,11 +129,11 @@ public class DAOSchoolYearClass extends DBConnect {
 
     public int getSycIDByTeacherID(int teacherID) {
         int syC_ID = -1;
-        String sql = "SELECT syc.Syc_ID FROM SchoolYear_Class syc\n"
-                + "	INNER JOIN Teacher_SchoolYear_class tsc ON tsc.Syc_ID = syc.Syc_ID\n"
-                + "	INNER JOIN Teacher t ON t.TeacherID = tsc.TeacherID\n"
-                + "	WHERE tsc.TeacherID = ?\n"
-                + "	AND syc.SyID = (SELECT MAX(SyID) FROM SchoolYear_Class)";
+        String sql = "SELECT syc.Syc_ID FROM SchoolYear_Class syc " +
+                     "INNER JOIN Teacher_SchoolYear_class tsc ON tsc.Syc_ID = syc.Syc_ID " +
+                     "INNER JOIN Teacher t ON t.TeacherID = tsc.TeacherID " +
+                     "WHERE tsc.TeacherID = ? " +
+                     "AND syc.SyID = (SELECT MAX(SyID) FROM SchoolYear_Class)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, teacherID);

@@ -115,12 +115,13 @@ public class UserController extends HttpServlet {
 
                 boolean result = dao.changePassword(email, oldPassword, newPassword);
                 if (result) {
-                    request.setAttribute("message", "Password changed successfully.");
+                    response.sendRedirect("Login.jsp");
                 } else {
                     request.setAttribute("message", "Failed to change password. Please check your current password.");
-                }
-                dispatcher = request.getRequestDispatcher("Changepassword.jsp");
+                    dispatcher = request.getRequestDispatcher("Changepassword.jsp");
                 dispatcher.forward(request, response);
+                }
+                
                 break;
 
             default:

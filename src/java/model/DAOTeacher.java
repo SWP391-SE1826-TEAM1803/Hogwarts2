@@ -69,41 +69,43 @@ public class DAOTeacher extends DBConnect {
         }
     }
 
-    public Vector<TeacherInfo> getTeacherInfo() {
-        Vector<TeacherInfo> teacherInfoVector = new Vector<>();
-        String sql = "SELECT "
-                + "    t.TeacherID, "
-                + "    u.FullName AS TeacherName, "
-                + "    c.ClassID, "
-                + "    c.ClassName AS ClassName, "
-                + "    syc.SyID, "
-                + "    t.Degree "
-                + "FROM "
-                + "    Teacher t "
-                + "    INNER JOIN [User] u ON t.UserID = u.UserID "
-                + "    LEFT JOIN Teacher_SchoolYear_Class tsc ON t.TeacherID = tsc.TeacherID "
-                + "    LEFT JOIN SchoolYear_Class syc ON tsc.SyC_ID = syc.SyC_ID "
-                + "    LEFT JOIN Class c ON syc.ClassID = c.ClassID";
+public Vector<TeacherInfo> getTeacherInfo() {
+    Vector<TeacherInfo> teacherInfoVector = new Vector<>();
+    String sql = "SELECT DISTINCT "
+            + "    t.TeacherID, "
+            + "    u.FullName AS TeacherName, "
+            + "    c.ClassID, "
+            + "    c.ClassName AS ClassName, "
+            + "    syc.SyID, "
+            + "    t.Degree "
+            + "FROM "
+            + "    Teacher t "
+            + "    INNER JOIN [User] u ON t.UserID = u.UserID "
+            + "    LEFT JOIN Teacher_SchoolYear_Class tsc ON t.TeacherID = tsc.TeacherID "
+            + "    LEFT JOIN SchoolYear_Class syc ON tsc.SyC_ID = syc.SyC_ID "
+            + "    LEFT JOIN Class c ON syc.ClassID = c.ClassID "
+            + "GROUP BY "
+            + "    t.TeacherID, u.FullName, c.ClassID, c.ClassName, syc.SyID, t.Degree";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+    try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
-            while (rs.next()) {
-                int teacherID = rs.getInt("TeacherID");
-                String teacherName = rs.getString("TeacherName");
-                int classID = rs.getInt("ClassID");
-                String className = rs.getString("ClassName");
-                int syID = rs.getInt("SyID");
-                String degree = rs.getString("Degree");
-                TeacherInfo teacherInfo = new TeacherInfo(teacherID, teacherName, classID, className, syID, degree);
-                teacherInfoVector.add(teacherInfo);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+        while (rs.next()) {
+            int teacherID = rs.getInt("TeacherID");
+            String teacherName = rs.getString("TeacherName");
+            int classID = rs.getInt("ClassID");
+            String className = rs.getString("ClassName");
+            int syID = rs.getInt("SyID");
+            String degree = rs.getString("Degree");
+            TeacherInfo teacherInfo = new TeacherInfo(teacherID, teacherName, classID, className, syID, degree);
+            teacherInfoVector.add(teacherInfo);
         }
 
-        return teacherInfoVector;
+    } catch (SQLException ex) {
+        Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    return teacherInfoVector;
+}
 
     public int updateTeacher(Teacher teacher) {
         int n = 0;

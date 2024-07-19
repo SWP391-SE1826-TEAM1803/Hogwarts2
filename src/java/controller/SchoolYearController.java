@@ -1,16 +1,16 @@
 package controller;
 
 import entity.SchoolYear;
+import model.DAOSchoolYear;
 import jakarta.servlet.RequestDispatcher;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Vector;
-import model.DAOSchoolYear;
 
 @WebServlet(name = "SchoolYearController", urlPatterns = {"/SchoolYearControllerURL"})
 public class SchoolYearController extends HttpServlet {
@@ -28,77 +28,98 @@ public class SchoolYearController extends HttpServlet {
 
         switch (service) {
             case "addSchoolYear":
-                String syName = request.getParameter("SyName");
-                String dateStart = request.getParameter("DateStart");
-                String dateEnd = request.getParameter("DateEnd");
-                SchoolYear schoolYear = new SchoolYear(0, syName, dateStart, dateEnd);
-                int result = dao.insertSchoolYear(schoolYear);
-                if (result > 0) {
-                    response.sendRedirect("SchoolYearControllerURL?service=listAll");
-                } else if (result == -1) {
-                    request.setAttribute("error", "Date range is overlapping. Please enter again.");
-                    request.setAttribute("schoolYear", schoolYear);
-                    RequestDispatcher addDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=addSchoolYearForm");
-                    addDispatcher.forward(request, response);
-                }
+                addSchoolYear(request, response, dao);
                 break;
 
             case "listAll":
-                Vector<SchoolYear> vector = dao.getAllSchoolYears("SELECT * FROM SchoolYear");
-                request.setAttribute("data", vector);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp");
-                dispatcher.forward(request, response);
+                listAllSchoolYears(request, response, dao);
                 break;
 
             case "updateSY":
-                String submit = request.getParameter("submit");
-                if (submit == null) {
-                    String syID = request.getParameter("SyID");
-                    SchoolYear schoolYearToUpdate = dao.getSchoolYearByID(Integer.parseInt(syID));
-                    request.setAttribute("schoolYear", schoolYearToUpdate);
-                    RequestDispatcher updateDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=updateSchoolYearForm");
-                    updateDispatcher.forward(request, response);
-                } else {
-                    String syID = request.getParameter("SyID");
-                    syName = request.getParameter("SyName");
-                    dateStart = request.getParameter("DateStart");
-                    dateEnd = request.getParameter("DateEnd");
-                    SchoolYear updatedSchoolYear = new SchoolYear(Integer.parseInt(syID), syName, dateStart, dateEnd);
-                    int updateResult = dao.updateSchoolYear(updatedSchoolYear);
-                    if (updateResult > 0) {
-                        response.sendRedirect("SchoolYearControllerURL?service=listAll");
-                    } else if (updateResult == -1) {
-                        request.setAttribute("error", "Date range is overlapping. Please enter again.");
-                        request.setAttribute("schoolYear", updatedSchoolYear);
-                        RequestDispatcher updateDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=updateSchoolYearForm");
-                        updateDispatcher.forward(request, response);
-                    }
-                }
+                updateSchoolYear(request, response, dao);
                 break;
 
             case "deleteSY":
-                String syID = request.getParameter("SyID");
-                dao.removeSchoolYear(Integer.parseInt(syID));
-                response.sendRedirect("SchoolYearControllerURL?service=listAll");
+                deleteSchoolYear(request, response, dao);
                 break;
 
             case "addSchoolYearForm":
-                RequestDispatcher addDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=addSchoolYearForm");
-                addDispatcher.forward(request, response);
+                showAddSchoolYearForm(request, response);
                 break;
 
             case "updateSchoolYearForm":
-                String syIDToUpdate = request.getParameter("SyID");
-                SchoolYear schoolYearToUpdateForm = dao.getSchoolYearByID(Integer.parseInt(syIDToUpdate));
-                request.setAttribute("schoolYear", schoolYearToUpdateForm);
-                RequestDispatcher updateFormDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=updateSchoolYearForm");
-                updateFormDispatcher.forward(request, response);
+                showUpdateSchoolYearForm(request, response, dao);
                 break;
 
             default:
-                response.sendRedirect("SchoolYearControllerURL?service=listAll");
+                listAllSchoolYears(request, response, dao);
                 break;
         }
+    }
+
+    private void addSchoolYear(HttpServletRequest request, HttpServletResponse response, DAOSchoolYear dao)
+            throws ServletException, IOException {
+        String syName = request.getParameter("SyName");
+        String dateStart = request.getParameter("DateStart");
+        String dateEnd = request.getParameter("DateEnd");
+        SchoolYear schoolYear = new SchoolYear(0, syName, dateStart, dateEnd);
+        int result = dao.insertSchoolYear(schoolYear);
+        if (result > 0) {
+            response.sendRedirect("SchoolYearControllerURL?service=listAll");
+        } else if (result == -1) {
+            request.setAttribute("error", "Date range is overlapping. Please enter again.");
+            request.setAttribute("schoolYear", schoolYear);
+            RequestDispatcher addDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=addSchoolYearForm");
+            addDispatcher.forward(request, response);
+        }
+    }
+
+    private void listAllSchoolYears(HttpServletRequest request, HttpServletResponse response, DAOSchoolYear dao)
+            throws ServletException, IOException {
+        Vector<SchoolYear> vector = dao.getAllSchoolYears("SELECT * FROM SchoolYear");
+        request.setAttribute("data", vector);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateSchoolYear(HttpServletRequest request, HttpServletResponse response, DAOSchoolYear dao)
+            throws ServletException, IOException {
+        String syID = request.getParameter("SyID");
+        String syName = request.getParameter("SyName");
+        String dateStart = request.getParameter("DateStart");
+        String dateEnd = request.getParameter("DateEnd");
+        SchoolYear schoolYear = new SchoolYear(Integer.parseInt(syID), syName, dateStart, dateEnd);
+        int result = dao.updateSchoolYear(schoolYear);
+        if (result > 0) {
+            response.sendRedirect("SchoolYearControllerURL?service=listAll");
+        } else if (result == -1) {
+            request.setAttribute("error", "Date range is overlapping. Please enter again.");
+            request.setAttribute("schoolYear", schoolYear);
+            RequestDispatcher updateDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=updateSchoolYearForm");
+            updateDispatcher.forward(request, response);
+        }
+    }
+
+    private void deleteSchoolYear(HttpServletRequest request, HttpServletResponse response, DAOSchoolYear dao)
+            throws IOException {
+        String syID = request.getParameter("SyID");
+        dao.removeSchoolYear(Integer.parseInt(syID));
+        response.sendRedirect("SchoolYearControllerURL?service=listAll");
+    }
+
+    private void showAddSchoolYearForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher addDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=addSchoolYearForm");
+        addDispatcher.forward(request, response);
+    }
+
+    private void showUpdateSchoolYearForm(HttpServletRequest request, HttpServletResponse response, DAOSchoolYear dao)
+            throws ServletException, IOException {
+        String syID = request.getParameter("SyID");
+        SchoolYear schoolYear = dao.getSchoolYearByID(Integer.parseInt(syID));
+        request.setAttribute("schoolYear", schoolYear);
+        RequestDispatcher updateDispatcher = request.getRequestDispatcher("ManageSchoolYear.jsp?service=updateSchoolYearForm");
+        updateDispatcher.forward(request, response);
     }
 
     @Override
@@ -115,6 +136,6 @@ public class SchoolYearController extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "School Year Management Controller";
     }
 }

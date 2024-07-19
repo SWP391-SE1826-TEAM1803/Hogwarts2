@@ -2,6 +2,7 @@
 package controller;
 
 import entity.SchoolYear;
+import entity.SchoolYearClass;
 import entity.StudentSchoolYearClass;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Vector;
 import model.DAOClass;
 import model.DAOSchoolYear;
+import model.DAOSchoolYearClass;
 import model.DAOStudentSchoolYearClass;
 
 @WebServlet(name = "StudentSYearClassController", urlPatterns = {"/StudentSYClassControllerURL"})
@@ -74,12 +76,19 @@ public class StudentSYClassController extends HttpServlet {
 //            }
 //        }
 
-//        if (service.equals("deleteStudentSchoolYearClass")) {
-//            String studentID = request.getParameter("StudentID");
-//            String syC_ID = request.getParameter("SyC_ID");
-//            dao.deleteStudentSchoolYearClass(studentID, syC_ID);
-//            response.sendRedirect("StudentSchoolYearClassControllerURL?service=listAll");
-//        }
+        if (service.equals("delete")) {
+            int studentId = Integer.parseInt(request.getParameter("studentId"));
+            int SyC_ID = Integer.parseInt(request.getParameter("SyC_ID"));
+             DAOSchoolYearClass daoSYC = new DAOSchoolYearClass();
+            Vector<SchoolYearClass> vector = daoSYC.getAllSchoolYearClasses("SELECT * FROM [SchoolYear_Class] WHERE SyC_ID = '" + SyC_ID + "'");
+            // Perform deletion logic here
+            dao.deleteStudentSchoolYearClass(studentId, SyC_ID);
+
+            // Redirect back to the class detail page
+                   response.sendRedirect("StudentSYClassControllerURL?service=viewSYClass&SyC_ID="+SyC_ID+"&cID="+vector.get(0).getClassID()+"&SyID="+vector.get(0).getSyID());
+
+        }
+        
         
         if (service.equals("viewSYClass")) {
             String SyC_ID = request.getParameter("SyC_ID");
@@ -94,11 +103,29 @@ public class StudentSYClassController extends HttpServlet {
                         request.setAttribute("syID", SyID);
 
             String cName = classx.get(0).getClassName();
+            request.setAttribute("SyC_ID", SyC_ID);
+            request.setAttribute("cID", cID);
             request.setAttribute("cName", cName);
             request.setAttribute("data", vector);
             RequestDispatcher dispatcher = request.getRequestDispatcher("SchoolYearClassDetail.jsp");
             dispatcher.forward(request, response);
         }
+        
+         if (service.equals("addStudents")) {
+             String SyC_ID = request.getParameter("SyC_ID");
+             DAOSchoolYearClass daoSYC = new DAOSchoolYearClass();
+            Vector<SchoolYearClass> vector = daoSYC.getAllSchoolYearClasses("SELECT * FROM [SchoolYear_Class] WHERE SyC_ID = '" + SyC_ID + "'");
+
+        String[] studentIds = request.getParameterValues("studentIds");
+        if (studentIds != null) {
+            for (String studentId : studentIds) {
+                dao.addStudentToClass(Integer.parseInt(studentId), Integer.parseInt(SyC_ID));
+            }
+        }
+
+        response.sendRedirect("StudentSYClassControllerURL?service=viewSYClass&SyC_ID="+SyC_ID+"&cID="+vector.get(0).getClassID()+"&SyID="+vector.get(0).getSyID());
+    
+         }
 
         
 
