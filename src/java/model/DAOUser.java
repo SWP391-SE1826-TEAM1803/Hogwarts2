@@ -55,7 +55,39 @@ public class DAOUser extends DBConnect {
         }
         return n;
     }
+    
+     public int insertUser2(UserAdd user) {
+        int userID = 0;
+        String sql = "INSERT INTO [User] (FullName, Gender, Address, Phone, Email, Role, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            // Check if email or phone number already exists
+            if (checkDuplicateEmail(user.getEmail())) {
+                return -1; // Return -1 or handle duplicate email scenario as needed
+            }
+            if (checkDuplicatePhone(user.getPhone())) {
+                return -2; // Return -2 or handle duplicate phone scenario as needed
+            }
 
+            PreparedStatement pre = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            pre.setString(1, user.getFullName());
+            pre.setString(2, user.getGender());
+            pre.setString(3, user.getAddress());
+            pre.setString(4, user.getPhone());
+            pre.setString(5, user.getEmail());
+            pre.setString(6, user.getRole());
+            pre.setString(7, user.getPassword());
+            pre.executeUpdate();
+
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) {
+                userID = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userID;
+    }
+    
     public int updateUser(User user) {
         int n = 0;
         String sql = "UPDATE [User] SET FullName = ?, Gender = ?, Address = ?, Phone = ?, Email = ?, Role = ?, Password = ? WHERE UserID = ?";
@@ -114,7 +146,37 @@ public class DAOUser extends DBConnect {
         return vector;
     }
 
-    
+     public boolean checkDuplicateEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM [User] WHERE Email = ?";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, email);
+            try (ResultSet rs = pre.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean checkDuplicatePhone(String phone) {
+        String sql = "SELECT COUNT(*) FROM [User] WHERE Phone = ?";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, phone);
+            try (ResultSet rs = pre.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }    
 
     public User getUserByID(int userID) {
         User user = null;

@@ -117,6 +117,9 @@
                                         %>
                                     </tbody>
                                 </table>
+                                    <div class="mb-3">
+                                    <a href="InsertClassCategory.jsp" class="btn btn-primary">Add New Class Category</a>
+                                </div>
                             </div>
                         </div>
                     </div>

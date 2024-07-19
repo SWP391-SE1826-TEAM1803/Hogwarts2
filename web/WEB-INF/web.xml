@@ -12,6 +12,10 @@
         <servlet-name>SchedulesController</servlet-name>
         <servlet-class>controller.SchedulesController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CategoryServlet</servlet-name>
+        <servlet-class>controller.CategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuController</servlet-name>
         <url-pattern>/MenuControllerURL</url-pattern>
@@ -23,5 +27,9 @@
     <servlet-mapping>
         <servlet-name>SchedulesController</servlet-name>
         <url-pattern>/SchedulesControllerURL</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryServlet</servlet-name>
+        <url-pattern>/CategoryServlet</url-pattern>
     </servlet-mapping>
 </web-app>
