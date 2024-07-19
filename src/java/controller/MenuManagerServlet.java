@@ -1,6 +1,7 @@
 package controller;
 
 import entity.ClassCategory;
+import entity.ClassCategoryListMenu;
 import entity.ClassCategoryMenu;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import model.DAOClassCategory;
 import model.DAOClassCategoryMenu;
 
@@ -32,7 +34,7 @@ public class MenuManagerServlet extends HttpServlet {
             ccm.setMenuID(Integer.parseInt(menuItem));
             ccm.setDate(date);
             ccm.setMeal(meal);
-            int result = daoClassCategoryMenu.insertClassCategoryMenu(ccm);
+            int result = daoClassCategoryMenu.insertClassCategoryMenu1(ccm);
             if (result == -1) {
                 success = false;
                 break;
@@ -47,6 +49,10 @@ public class MenuManagerServlet extends HttpServlet {
             request.setAttribute("submittedMeal", meal);
             request.setAttribute("submittedDate", date);
             request.setAttribute("submittedMenuItems", menuItems);
+
+            // Fetch today's submitted data
+            List<ClassCategoryListMenu> todaySubmittedData = daoClassCategoryMenu.getClassCategoryMenuByDate(date);
+            request.setAttribute("todaySubmittedData", todaySubmittedData);
         } else {
             request.setAttribute("errorMessage", "Failed to add menu. It might be duplicate.");
         }

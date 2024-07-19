@@ -3,24 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Final/Hogwarts2/web/AddMenuForClass.jsp</file>
-            <file>file:/D:/Final/Hogwarts2/src/java/model/DAOClassCategoryMenu.java</file>
-            <file>file:/D:/Final/Hogwarts2/src/java/controller/MenuManagerServlet.java</file>
-            <file>file:/D:/Final/Hogwarts2/src/java/model/DAOClassCategory.java</file>
-            <file>file:/D:/Final/Hogwarts2/src/java/model/DAOClass.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/model/DAOUser.java</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/src/java/controller/UserController.java</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/web/Changepassword.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/web/Login.jsp</file>
-            <file>file:/C:/Users/nntru/Hogwarts2/web/HeaderAdmin.jsp</file>
-=======
-            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/model/DBConnect.java</file>
-            <file>file:/D:/FULearning/Summer24/SWP391/CodeSwp/Hogwarts2/src/java/model/DAOTeacherSchoolYearClass.java</file>
->>>>>>> 8c942e38cc89e991dea4a2e6fd87ec8032f21f9f
->>>>>>> 5cc18281ea81e03fab9ddf5d0cb4a17b0ab84d34
+            <file>file:/D:/Final/Hogwarts2/src/java/model/DAOUser.java</file>
         </group>
     </open-files>
 </project-private>
