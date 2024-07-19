@@ -48,13 +48,23 @@
                         <tbody>
                             <% 
                                 Vector<ClassCategory> categories = (Vector<ClassCategory>) request.getAttribute("categories");
-                                for (ClassCategory category : categories) {
+                                if (categories != null) {
+                                    for (ClassCategory category : categories) {
                             %>
                             <tr>
                                 <td><%= category.getCateID() %></td>
                                 <td><%= category.getCateName() %></td>
                             </tr>
-                            <% } %>
+                            <% 
+                                    }
+                                } else {
+                            %>
+                            <tr>
+                                <td colspan="2">No categories available</td>
+                            </tr>
+                            <% 
+                                } 
+                            %>
                         </tbody>
                     </table>
                 </div>
