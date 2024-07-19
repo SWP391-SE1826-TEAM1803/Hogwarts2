@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Edit Student Information</h5>
-                    <form action="StudentControllerURL" method="post">
+                    <form action="StudentControllerURL" method="post" onsubmit="return validateForm()">
                         <input type="hidden" name="service" value="updateStudent">
                         <input type="hidden" name="studentID" value="<%= ((StudentSchoolYearClass) request.getAttribute("studentClass")).getStudent().getStudentID() %>">
                         <div class="row mb-3">
@@ -158,6 +158,22 @@
                 allowClear: false 
             });
         });
+        
+        function resetForm() {
+            $('#addStudentForm')[0].reset();
+            $('#classID').val(null).trigger('change'); // Reset the Select2 element for class selection
+            $('#userID').val(null).trigger('change'); // Reset the Select2 element for parent selection
+        }
+
+        function validateForm() {
+            const fullName = document.getElementById('fullName').value;
+            const namePattern = /^[a-zA-Z\s]+$/;
+            if (!namePattern.test(fullName)) {
+                alert("Full Name can only contain letters and spaces.");
+                return false;
+            }
+            return true;
+        }
 
     </script>
 </body>
