@@ -26,7 +26,7 @@ public class CategoryServlet extends HttpServlet {
         if (service.equals("listAll")) {
             Vector<ClassCategory> categories = dao.getAllCategoriesDuyLinh();
             request.setAttribute("categories", categories);
-            request.getRequestDispatcher("Categories.jsp").forward(request, response);
+            request.getRequestDispatcher("categories.jsp").forward(request, response);
         }
     }
 

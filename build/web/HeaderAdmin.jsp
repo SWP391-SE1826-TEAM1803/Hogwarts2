@@ -155,6 +155,13 @@
                 </li><!-- End Profile Page Nav --><!-- End Profile Page Nav -->
 
                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="CategoryServlet">
+                        <i class="bi bi-card-list"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="ClassControllerURL?service=listAll">
                         <i class="bi bi-door-open"></i>
                         <span>Classes</span>
