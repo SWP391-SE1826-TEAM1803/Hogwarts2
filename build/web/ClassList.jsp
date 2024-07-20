@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Vector" %>
-<%@ page import="entity.Class" %>
+<%@ page import="entity.Class, model.DAOClassCategory, entity.ClassCategory" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,9 +62,13 @@
                                     <div class="mb-3">
                                         <label for="cateID" class="form-label"> Choose Category Class</label>
                                         <select class="form-control" id="cateID" name="cateID" required>
-                                            <option value="1">Age 3</option>
-                                            <option value="2">Age 4</option>
-                                            <option value="3">Age 5</option>
+                                            <% 
+                                                    DAOClassCategory daoCC = new DAOClassCategory();
+                                                    Vector<ClassCategory> cc = daoCC.getAllClassCategories();
+                                                    for (ClassCategory c : cc) {
+                                                %>
+                                                <option value="<%=c.getCateID()%>"><%=c.getCateName()%></option>
+                                                <% } %>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Add Class</button>
@@ -81,6 +85,7 @@
                                 <table class="table table-borderless datatable mt-3">
                                     <thead>
                                         <tr>
+                                            <!--                                            <th scope="col">ID</th>-->
                                             <th scope="col">Class Name</th>
                                             <th scope="col">Category Class</th>
                                             <th scope="col">Detail</th>
@@ -100,6 +105,7 @@
                                                 <a class="btn btn-outline-info btn-sm" href="ClassControllerURL?service=detailClass&classID=<%= cls.getClassID() %>">Detail</a>
                                             </td>
                                             <td style="text-align: center;">
+                                                <a class="btn btn-outline-warning btn-sm" href="ClassControllerURL?service=updateClass&classID=<%= cls.getClassID() %>">Update</a>
                                                 <a class="btn btn-outline-danger btn-sm" href="ClassControllerURL?service=deleteClass&classID=<%= cls.getClassID() %>" onclick="return confirm('Are you sure you want to delete this class?')">Delete</a>
                                             </td>
                                         </tr>
@@ -115,7 +121,6 @@
                                         %>
                                     </tbody>
                                 </table>
-                                    
                             </div>
                         </div>
                     </div>

@@ -28,12 +28,13 @@ public class CurDateActController extends HttpServlet {
 
         if (service.equals("addCurDateAct")) {
             String act = request.getParameter("Act");
-            String timeStart = request.getParameter("TimeStart");
-            String timeEnd = request.getParameter("TimeEnd");
-            int curDateID = Integer.parseInt(request.getParameter("CurDateID"));
-            CurDateAct curDateAct = new CurDateAct(0, act, timeStart, timeEnd, curDateID);
-            dao.insertCurDateAct(curDateAct);
-            response.sendRedirect("CurDateActControllerURL?service=listAll");
+                String timeStart = request.getParameter("TimeStart");
+                String timeEnd = request.getParameter("TimeEnd");
+                int curDateID = Integer.parseInt(request.getParameter("CurDateID"));
+                CurDateAct curDateAct = new CurDateAct(0, act, timeStart, timeEnd, curDateID);
+                dao.insertCurDateAct(curDateAct);
+                int curID = Integer.parseInt(request.getParameter("CurID"));
+                response.sendRedirect("CurriculumDateControllerURL?service=searchByID&CurID=" + curID);
         }
 
         if (service.equals("listAll")) {
@@ -44,29 +45,25 @@ public class CurDateActController extends HttpServlet {
         }
 
         if (service.equals("update")) {
-            String submit = request.getParameter("submit");
-            if (submit == null) {
+                        int curID = Integer.parseInt(request.getParameter("CurID"));
                 int cdtID = Integer.parseInt(request.getParameter("CdtID"));
-                CurDateAct curDateAct = dao.getCurDateActByID(cdtID);
-                request.setAttribute("curDateAct", curDateAct);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateCurDateAct.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                int cdtID = Integer.parseInt(request.getParameter("CdtID"));
-                String act = request.getParameter("Act");
-                String timeStart = request.getParameter("TimeStart");
-                String timeEnd = request.getParameter("TimeEnd");
-                int curDateID = Integer.parseInt(request.getParameter("CurDateID"));
-                CurDateAct curDateAct = new CurDateAct(cdtID, act, timeStart, timeEnd, curDateID);
-                dao.updateCurDateAct(curDateAct);
-                response.sendRedirect("CurDateActControllerURL?service=listAll");
-            }
+                String actUpdate = request.getParameter("Act");
+                String timeStartUpdate = request.getParameter("TimeStart");
+                String timeEndUpdate = request.getParameter("TimeEnd");
+                int curDateIDUpdate = Integer.parseInt(request.getParameter("CurDateID"));
+                CurDateAct curDateActUpdate = new CurDateAct(cdtID, actUpdate, timeStartUpdate, timeEndUpdate, curDateIDUpdate);
+                dao.updateCurDateAct(curDateActUpdate);
+                response.sendRedirect("CurriculumDateControllerURL?service=searchByID&CurID=" + curID);
+                
+            
         }
 
         if (service.equals("delete")) {
+                                    int curID = Integer.parseInt(request.getParameter("CurID"));
+
             int cdtID = Integer.parseInt(request.getParameter("CdtID"));
             dao.deleteCurDateAct(cdtID);
-            response.sendRedirect("CurDateActControllerURL?service=listAll");
+                response.sendRedirect("CurriculumDateControllerURL?service=searchByID&CurID=" + curID);
         }
     }
 

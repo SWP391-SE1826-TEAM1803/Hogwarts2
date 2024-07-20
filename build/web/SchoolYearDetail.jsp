@@ -2,6 +2,8 @@
 <%@page import="java.util.Vector,entity.User,model.DAOUser, entity.SchoolYearClass, entity.TeacherSchoolYearClass, entity.SchoolYear, entity.Class,entity.Teacher ,model.DAOSchoolYearClass, model.DAOSchoolYear, model.DAOClass, model.DAOTeacherSchoolYearClass, model.DAOTeacher"%>
 <%@page import="entity.Curriculum, model.DAOCurriculum"%>
 <% String syname = (String) request.getAttribute("syname");%>
+<% String syID = (String) request.getAttribute("syID");%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,13 +55,123 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSchoolYearClassModal">
                         Add School Year Class
                     </button>
+
+                    <!-- Add School Year Class Modal -->
+                    <div class="modal fade" id="addSchoolYearClassModal" tabindex="-1" aria-labelledby="addSchoolYearClassModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addSchoolYearClassModalLabel">Add School Year Class</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="SchoolYearClassControllerURL" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="service" value="addSchoolYearClass">
+                                        <input type="hidden" name="SyID" value="<%=syID%>">
+
+                                        <div class="mb-3">
+                                            <label for="ClassID" class="form-label">Class</label>
+                                            <select class="form-control" id="ClassID" name="ClassID" required>
+                                                <% 
+                                                    DAOClass daoClass = new DAOClass();
+                                                    Vector<Class> classes = daoClass.getAllClasses();
+                                                    for (Class c : classes) {
+                                                %>
+                                                <option value="<%=c.getClassID()%>"><%=c.getClassName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="CurID" class="form-label">Curriculum</label>
+                                            <select class="form-control" id="CurID" name="CurID" required>
+                                                <% 
+                                                    DAOCurriculum daoCurriculum = new DAOCurriculum();
+                                                    Vector<Curriculum> curriculums = daoCurriculum.getAllCurriculum();
+                                                    for (Curriculum curriculum : curriculums) {
+                                                %>
+                                                <option value="<%=curriculum.getCurID()%>"><%=curriculum.getCurName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="TeacherID" class="form-label">Teacher</label>
+                                            <select class="form-control" id="TeacherID" name="TeacherID" required>
+                                                <% 
+                                                    DAOTeacher daoTeacher = new DAOTeacher();
+                                                    DAOUser daoUser = new DAOUser();
+                                                    Vector<Teacher> teachers = daoTeacher.getAllTeachers();
+                                                    for (Teacher teacher : teachers) {
+                                                %>
+                                                <option value="<%=teacher.getTeacherID()%>"><%=daoUser.getUserByID(teacher.getUserID()).getFullName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Update School Year Class Modal Template -->
+                    <div class="modal fade" id="updateSchoolYearClassModalTemplate" tabindex="-1" aria-labelledby="updateSchoolYearClassModalTemplateLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="updateSchoolYearClassModalTemplateLabel">Update School Year Class</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="SchoolYearClassControllerURL" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="service" value="updateSchoolYearClass">
+                                        <input type="hidden" id="updateSyC_ID" name="SyC_ID">
+                                        <input type="hidden" id="updateSyID" name="SyID">
+
+                                        <div class="mb-3">
+                                            <label for="updateCurID" class="form-label">Curriculum</label>
+                                            <select class="form-control" id="updateCurID" name="CurID" required>
+                                                <% 
+                                                    DAOCurriculum daoCurriculumUpdate = new DAOCurriculum();
+                                                    Vector<Curriculum> curriculumsUpdate = daoCurriculumUpdate.getAllCurriculum();
+                                                    for (Curriculum curriculum : curriculumsUpdate) {
+                                                %>
+                                                <option value="<%=curriculum.getCurID()%>"><%=curriculum.getCurName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="updateTeacherID" class="form-label">Teacher</label>
+                                            <select class="form-control" id="updateTeacherID" name="TeacherID" required>
+                                                <% 
+                                                    DAOTeacher daoTeacherUpdate = new DAOTeacher();
+                                                    DAOUser daoUserUpdate = new DAOUser();
+                                                    Vector<Teacher> teachersUpdate = daoTeacherUpdate.getAllTeachers();
+                                                    for (Teacher teacher : teachersUpdate) {
+                                                %>
+                                                <option value="<%=teacher.getTeacherID()%>"><%=daoUserUpdate.getUserByID(teacher.getUserID()).getFullName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-borderless datatable">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Class ID</th>
                                 <th scope="col">Class Name</th>
-                                <th scope="col">Curriculum ID</th>
+                                <th scope="col">Curriculum</th>
                                 <th scope="col">Teacher</th>
                                 <th scope="col" style="text-align: center;">Detail</th>
                                 <th scope="col" style="text-align: center;">Actions</th>
@@ -92,7 +204,7 @@
                                     </a>                                    
                                 </td>
                                 <td style="text-align: center;">
-                                    <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-toggle="modal" data-bs-target="#updateSchoolYearClassModal<%=syClass.getSyC_ID()%>">
+                                    <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-toggle="modal" data-bs-target="#updateSchoolYearClassModalTemplate" onclick="fillUpdateForm(<%=syClass.getSyC_ID()%>, <%=syClass.getCurID()%>, <%=teachersObj.getTeacherID()%>, '<%=syClass.getSyID()%>')">
                                         <i class="mdi mdi-refresh"></i> Update
                                     </button>
                                     <a class="btn btn-outline-danger btn-icon-text" href="SchoolYearClassControllerURL?service=deleteSchoolYearClass&SyC_ID=<%=syClass.getSyC_ID()%>&SyID=<%=syClass.getSyID()%>">
@@ -101,39 +213,6 @@
                                 </td>
                             </tr>
 
-                            <!-- Update School Year Class Modal -->
-                            <div class="modal fade" id="updateSchoolYearClassModal<%=syClass.getSyC_ID()%>" tabindex="-1" aria-labelledby="updateSchoolYearClassModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="updateSchoolYearClassModalLabel">Update School Year Class</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form action="SchoolYearClassControllerURL" method="post">
-                                            <div class="modal-body">
-                                                <input type="hidden" name="service" value="updateSchoolYearClass">
-                                                <input type="hidden" name="SyC_ID" value="<%=syClass.getSyC_ID()%>">
-                                                <div class="mb-3">
-                                                    <label for="SyID" class="form-label">School Year ID</label>
-                                                    <input type="number" class="form-control" id="SyID" name="SyID" value="<%=syClass.getSyID()%>" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="ClassID" class="form-label">Class ID</label>
-                                                    <input type="number" class="form-control" id="ClassID" name="ClassID" value="<%=syClass.getClassID()%>" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="CurID" class="form-label">Curriculum ID</label>
-                                                    <input type="number" class="form-control" id="CurID" name="CurID" value="<%=syClass.getCurID()%>" required>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             <% } %>
                         </tbody>
                     </table>
@@ -142,39 +221,6 @@
         </div>
     </main>
     <%@include file="Footer.jsp"%>
-
-    <!-- Add School Year Class Modal -->
-    <div class="modal fade" id="addSchoolYearClassModal" tabindex="-1" aria-labelledby="addSchoolYearClassModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addSchoolYearClassModalLabel">Add School Year Class</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="SchoolYearClassControllerURL" method="post">
-                    <div class="modal-body">
-                        <input type="hidden" name="service" value="addSchoolYearClass">
-                        <div class="mb-3">
-                            <label for="SyID" class="form-label">School Year ID</label>
-                            <input type="number" class="form-control" id="SyID" name="SyID" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ClassID" class="form-label">Class ID</label>
-                            <input type="number" class="form-control" id="ClassID" name="ClassID" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="CurID" class="form-label">Curriculum ID</label>
-                            <input type="number" class="form-control" id="CurID" name="CurID" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add School Year Class</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -188,6 +234,14 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script>
+        function fillUpdateForm(syC_ID, curID, teacherID, syID) {
+            document.getElementById('updateSyC_ID').value = syC_ID;
+            document.getElementById('updateCurID').value = curID;
+            document.getElementById('updateTeacherID').value = teacherID;
+            document.getElementById('updateSyID').value = syID;
+        }
+    </script>
 </body>
 
 </html>

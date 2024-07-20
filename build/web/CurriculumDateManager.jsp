@@ -1,5 +1,6 @@
 <%@ page import="java.util.Vector" %>
 <%@ page import="entity.CurriculumDate, entity.CurDateAct, model.DAOCurDateAct" %>
+<% String curID = (String) request.getAttribute("curID"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +38,11 @@
         .equal-table {
             table-layout: fixed;
         }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -68,8 +74,7 @@
                                     <input type="text" class="form-control" id="DateNumber" name="DateNumber" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="CurID" class="form-label">Curriculum ID</label>
-                                    <input type="number" class="form-control" id="CurID" name="CurID" required>
+                                    <input type="hidden" name="CurID" value="<%= curID %>">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Add Curriculum Date</button>
                             </form>
@@ -86,7 +91,13 @@
                                 Vector<CurriculumDate> curDates = (Vector<CurriculumDate>) request.getAttribute("curriculumDate");
                                 for (CurriculumDate curDate : curDates) {
                             %>
-                            <h5 class="card-title"><%= curDate.getDateNumber() %></h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title"><%= curDate.getDateNumber() %></h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addModal<%= curDate.getCurDateID() %>">New Action</button>
+                                    <a href="CurriculumDateControllerURL?service=delete&CurDateID=<%= curDate.getCurDateID() %>&CurID=<%= curID %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                </div>
+                            </div>
                             <table class="table table-bordered equal-table">
                                 <thead>
                                     <tr>
@@ -106,8 +117,41 @@
                                         <td><%= curDateAct.getTimeEnd() %></td>
                                         <td><%= curDateAct.getAct() %></td>
                                         <td>
-                                                        <a href="CurDateActControllerURL?service=update&CdtID=<%= curDateAct.getCdtID() %>" class="btn btn-outline-warning btn-sm">Update</a>
-                                            <a href="CurriculumDateControllerURL?service=delete&CurDateID=<%= curDate.getCurDateID() %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                            <!-- Update and Delete Actions -->
+                                            <a href="#" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateModal<%= curDateAct.getCdtID() %>">Update</a>
+                                            <a href="CurriculumDateControllerURL?service=delete&CurDateID=<%= curDate.getCurDateID() %>&CurID=<%= curID %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+
+                                            <!-- Update Modal -->
+                                            <div class="modal fade" id="updateModal<%= curDateAct.getCdtID() %>" tabindex="-1" aria-labelledby="updateModalLabel<%= curDateAct.getCdtID() %>" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="updateModalLabel<%= curDateAct.getCdtID() %>">Update Curriculum Date Activity</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="CurDateActControllerURL" method="post">
+                                                                <input type="hidden" name="service" value="updateCurDateAct">
+                                                                <input type="hidden" name="CdtID" value="<%= curDateAct.getCdtID() %>">
+                                                                <input type="hidden" name="CurID" value="<%= curID %>">
+                                                                <div class="mb-3">
+                                                                    <label for="TimeStart<%= curDateAct.getCdtID() %>" class="form-label">Time Start</label>
+                                                                    <input type="text" class="form-control" id="TimeStart<%= curDateAct.getCdtID() %>" name="TimeStart" value="<%= curDateAct.getTimeStart() %>" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="TimeEnd<%= curDateAct.getCdtID() %>" class="form-label">Time End</label>
+                                                                    <input type="text" class="form-control" id="TimeEnd<%= curDateAct.getCdtID() %>" name="TimeEnd" value="<%= curDateAct.getTimeEnd() %>" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="Act<%= curDateAct.getCdtID() %>" class="form-label">Activity</label>
+                                                                    <input type="text" class="form-control" id="Act<%= curDateAct.getCdtID() %>" name="Act" value="<%= curDateAct.getAct() %>" required>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <%
@@ -115,6 +159,39 @@
                                     %>
                                 </tbody>
                             </table>
+
+                            <!-- Add Modal -->
+                            <div class="modal fade" id="addModal<%= curDate.getCurDateID() %>" tabindex="-1" aria-labelledby="addModalLabel<%= curDate.getCurDateID() %>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addModalLabel<%= curDate.getCurDateID() %>">Add New Curriculum Date Activity</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="CurDateActControllerURL" method="post">
+                                                <input type="hidden" name="service" value="addCurDateAct">
+                                                <input type="hidden" name="CurDateID" value="<%= curDate.getCurDateID() %>">
+                                                <input type="hidden" name="CurID" value="<%= curID %>">
+                                                <div class="mb-3">
+                                                    <label for="TimeStartNew<%= curDate.getCurDateID() %>" class="form-label">Time Start</label>
+                                                    <input type="text" class="form-control" id="TimeStartNew<%= curDate.getCurDateID() %>" name="TimeStart" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="TimeEndNew<%= curDate.getCurDateID() %>" class="form-label">Time End</label>
+                                                    <input type="text" class="form-control" id="TimeEndNew<%= curDate.getCurDateID() %>" name="TimeEnd" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="ActNew<%= curDate.getCurDateID() %>" class="form-label">Activity</label>
+                                                    <input type="text" class="form-control" id="ActNew<%= curDate.getCurDateID() %>" name="Act" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <%
                                 }
                             %>

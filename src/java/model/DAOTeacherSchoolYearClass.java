@@ -72,4 +72,18 @@ public class DAOTeacherSchoolYearClass extends DBConnect {
         }
         return vector;
     }
+    
+    public int updateTeacherSchoolYearClass(TeacherSchoolYearClass teacherSchoolYearClass) {
+        int n = 0;
+        String sql = "UPDATE Teacher_SchoolYear_Class SET TeacherID = ? WHERE SyC_ID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, teacherSchoolYearClass.getTeacherID());
+            pre.setInt(2, teacherSchoolYearClass.getSyC_ID());
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTeacherSchoolYearClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
 }
