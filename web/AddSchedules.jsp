@@ -53,7 +53,6 @@
 
                 // Current date
                 var currentDate = yyyy + '-' + mm + '-' + dd;
-
                 // Tomorrow's date
                 //today.setDate(today.getDate() + 1);
                 //var ddTomorrow = String(today.getDate()).padStart(2, '0');
@@ -86,9 +85,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Choose a Curriculum</h5>
-                                <c:if test="${not empty errorMessage}">
-                                    <div class="alert alert-danger">${errorMessage}</div>
-                                </c:if>
                                 <form action="SchedulesControllerURL" method="post" class="w-100">
                                     <input type="hidden" name="service" value="insertSchedule">
                                     <div class="mb-3">
@@ -99,7 +95,7 @@
                                         <label for="curDateID" class="form-label">Curriculum Date:</label>
                                         <select class="form-control" id="curDateID" name="curDateID" required>
                                             <c:forEach var="curriculumDate" items="${curriculumDates}">
-                                                <option value="${curriculumDate.curDateID}">${curriculumDate.dateNumber} - ${curriculumDate.curName}</option>
+                                               <option value="${curriculumDate.curDateID}">${curriculumDate.dateNumber} - ${curriculumDate.curName}</option>
                                             </c:forEach>
                                         </select>
                                     </div>

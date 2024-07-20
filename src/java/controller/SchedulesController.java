@@ -48,9 +48,13 @@ public class SchedulesController extends HttpServlet {
 
         switch (service) {
             case "listAll":
-
-                Vector<Schedules> schedulesList = dao.getAllSchedulesBySycIDAndTeacherID(teacherID);
+                String filterDate = request.getParameter("filterDate");
+                if (filterDate == null || filterDate.isEmpty()) {
+                    filterDate = java.time.LocalDate.now().toString();
+                }
+                Vector<Schedules> schedulesList = dao.getAllSchedulesBySycIDAndTeacherID(teacherID, filterDate);
                 request.setAttribute("schedulesList", schedulesList);
+                request.setAttribute("filterDate", filterDate);
                 Vector<CurriculumDate> curriculumDates = daoCurriculumDate.getAllCurriculumDatesWithCurName(teacherID);
                 request.setAttribute("curriculumDates", curriculumDates);
                 dispatcher = request.getRequestDispatcher("Schedules.jsp");
@@ -58,7 +62,6 @@ public class SchedulesController extends HttpServlet {
                 break;
 
             case "addSchedule":
-
                 curriculumDates = daoCurriculumDate.getAllCurriculumDatesWithCurName(teacherID);
                 request.setAttribute("curriculumDates", curriculumDates);
                 dispatcher = request.getRequestDispatcher("AddSchedules.jsp");
@@ -69,55 +72,57 @@ public class SchedulesController extends HttpServlet {
                 String date = request.getParameter("date");
                 int curDateID = Integer.parseInt(request.getParameter("curDateID"));
                 int syC_ID = daoSchoolYearClass.getSycIDByTeacherID(teacherID);
-                
                 Schedules schedule = new Schedules(0, date, curDateID, syC_ID);
                 dao.insertSchedule(schedule);
                 response.sendRedirect("SchedulesControllerURL?service=listAll");
                 break;
-                
-//            case "search":
-//                String searchDateNumber = request.getParameter("searchDateNumber");
-//                Vector<CurDateAct> searchResults = daoAct.searchCurDateActByDateNumber(teacherID, searchDateNumber);
-//                request.setAttribute("curriculumDates", searchResults);
-//                dispatcher = request.getRequestDispatcher("AddSchedules.jsp");
-//                dispatcher.forward(request, response);
-//                break;
-                
+
             case "search":
                 String searchDateNumber = request.getParameter("searchDateNumber");
                 Vector<CurriculumDate> searchResults = daoCurriculumDate.searchCurriculumDatesByDateNumber(teacherID, searchDateNumber);
                 request.setAttribute("curriculumDates", searchResults);
                 dispatcher = request.getRequestDispatcher("AddSchedules.jsp");
                 dispatcher.forward(request, response);
-            break;
+                break;
 
-            case "editSchedule":
+            case "searchEdit":
+                searchDateNumber = request.getParameter("searchDateNumber");
+                searchResults = daoCurriculumDate.searchCurriculumDatesByDateNumber(teacherID, searchDateNumber);
+                request.setAttribute("curriculumDates", searchResults);
                 int schedulesID = Integer.parseInt(request.getParameter("schedulesID"));
                 Schedules existingSchedule = dao.getScheduleByID(schedulesID);
+                request.setAttribute("schedule", existingSchedule);
+                dispatcher = request.getRequestDispatcher("EditSchedules.jsp");
+                dispatcher.forward(request, response);
+                break;
+                
+            case "editSchedule":
+                schedulesID = Integer.parseInt(request.getParameter("schedulesID"));
+                existingSchedule = dao.getScheduleByID(schedulesID);
                 Vector<CurriculumDate> allCurriculumDates = daoCurriculumDate.getAllCurriculumDatesWithCurName(teacherID);
                 request.setAttribute("schedule", existingSchedule);
                 request.setAttribute("curriculumDates", allCurriculumDates);
                 dispatcher = request.getRequestDispatcher("EditSchedules.jsp");
                 dispatcher.forward(request, response);
                 break;
-                
+
             case "updateSchedule":
                 int schedulesIDToUpdate = Integer.parseInt(request.getParameter("schedulesID"));
                 String updatedDate = request.getParameter("date");
                 int updatedCurDateID = Integer.parseInt(request.getParameter("curDateID"));
                 int updatedSyC_ID = daoSchoolYearClass.getSycIDByTeacherID(teacherID);
-
+                
                 Schedules updatedSchedule = new Schedules(schedulesIDToUpdate, updatedDate, updatedCurDateID, updatedSyC_ID);
                 dao.updateSchedule(updatedSchedule);
                 response.sendRedirect("SchedulesControllerURL?service=listAll");
                 break;
-                
+
             case "deleteSchedule":
                 int scheduleIDToDelete = Integer.parseInt(request.getParameter("schedulesID"));
                 dao.deleteSchedule(scheduleIDToDelete);
                 response.sendRedirect("SchedulesControllerURL?service=listAll");
                 break;
-                
+
             default:
                 response.sendRedirect("SchedulesControllerURL?service=listAll");
                 break;

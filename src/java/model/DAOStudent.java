@@ -199,7 +199,7 @@ public class DAOStudent extends DBConnect {
 
     public void updateStudent(Student student, int classID) {
         String updateStudentSQL = "UPDATE Student SET FullName = ?, DoB = ?, Gender = ?, Address = ?, UserID = ? WHERE StudentID = ?";
-        String updateSSC_SQL = "UPDATE Student_SchoolYear_Class SET SyC_ID = (SELECT SyC_ID FROM SchoolYear_Class WHERE ClassID = ? AND SyID = (SELECT MAX(SyID) FROM SchoolYear_Class WHERE ClassID = ?)) WHERE StudentID = ?";
+        //String updateSSC_SQL = "UPDATE Student_SchoolYear_Class SET SyC_ID = (SELECT SyC_ID FROM SchoolYear_Class WHERE ClassID = ? AND SyID = (SELECT MAX(SyID) FROM SchoolYear_Class WHERE ClassID = ?)) WHERE StudentID = ?";
 
         try {
             // Update student in Student table
@@ -214,12 +214,12 @@ public class DAOStudent extends DBConnect {
             }
 
             // Update Student_SchoolYear_Class
-            try (PreparedStatement pre = conn.prepareStatement(updateSSC_SQL)) {
-                pre.setInt(1, classID);
-                pre.setInt(2, classID);
-                pre.setInt(3, student.getStudentID());
-                pre.executeUpdate();
-            }
+//            try (PreparedStatement pre = conn.prepareStatement(updateSSC_SQL)) {
+//                pre.setInt(1, classID);
+//                pre.setInt(2, classID);
+//                pre.setInt(3, student.getStudentID());
+//                pre.executeUpdate();
+//            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOStudent.class.getName()).log(Level.SEVERE, null, ex);
         }

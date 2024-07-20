@@ -158,6 +158,12 @@
                 allowClear: false 
             });
         });
+        
+        function resetForm() {
+            $('#addStudentForm')[0].reset();
+            $('#classID').val(null).trigger('change'); // Reset the Select2 element for class selection
+            $('#userID').val(null).trigger('change'); // Reset the Select2 element for parent selection
+        }
 
     </script>
 </body>

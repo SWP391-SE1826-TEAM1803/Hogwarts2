@@ -1,12 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Vector" %>
 <%@ page import="entity.CurriculumDate, entity.CurDateAct, model.DAOCurDateAct, entity.Schedules" %>
-<%@ page import="java.time.LocalDate" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     String filterDate = (String) request.getAttribute("filterDate");
     if (filterDate == null || filterDate.isEmpty()) {
-        filterDate = LocalDate.now().toString();
+        filterDate = java.time.LocalDate.now().toString();
     }
 %>
 <!DOCTYPE html>
@@ -96,22 +96,6 @@
                     </div>
                 </div>
 
-<!--                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Search Curriculum Date</h5>
-                            <form action="SchedulesControllerURL" method="get" class="w-100">
-                                <input type="hidden" name="service" value="search">
-                                <div class="mb-3">
-                                    <label for="searchDateNumber" class="form-label">Date Number:</label>
-                                    <input type="text" id="searchDateNumber" name="searchDateNumber" class="form-control">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>-->
-
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -120,10 +104,12 @@
                             <%
                                 DAOCurDateAct daoCDA = new DAOCurDateAct();
                                 Vector<CurriculumDate> curDates = (Vector<CurriculumDate>) request.getAttribute("curriculumDates");
+                                schedulesList = (Vector<Schedules>) request.getAttribute("schedulesList");
+                                
                                 if (curDates != null) {
-                                    for (CurriculumDate curDate : curDates) {
+                                    for (Schedules sche : schedulesList) {
                             %>
-                            <h5 class="card-title"><%= curDate.getDateNumber() %></h5>
+                            <h5 class="card-title">Date: <%= sche.getDate() %></h5>
                             <table class="table table-bordered equal-table">
                                 <thead>
                                     <tr>
@@ -134,7 +120,7 @@
                                 </thead>
                                 <tbody>
                                     <%
-                                        Vector<CurDateAct> vectorCurDateAct = daoCDA.getAllCurDateActs("SELECT * FROM CurDateAct WHERE CurDateID = '" + curDate.getCurDateID() + "'");
+                                        Vector<CurDateAct> vectorCurDateAct = daoCDA.getAllCurDateActs("SELECT cda.* FROM CurDateAct cda Join CurriculumDate cd On cd.CurDateID = cda.CurDateID Join Schedules s On s.CurDateID = cd.CurDateID WHERE cda.CurDateID = '" + sche.getCurDateID() + "' AND s.Date = '" + filterDate +"'" );
                                         for (CurDateAct curDateAct : vectorCurDateAct) {
                                     %>
                                     <tr>
