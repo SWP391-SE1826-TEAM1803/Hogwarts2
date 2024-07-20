@@ -42,7 +42,7 @@ public class TeacherController extends HttpServlet {
 
             // Create user object
             UserAdd user = new UserAdd(fullName, gender, address, phone, email, "Teacher", password);
-            int userID = daoUser.insertUser1(user);
+            int userID = daoUser.insertUser2(user);
 
             if (userID > 0) {
                 // Create teacher object
@@ -54,6 +54,16 @@ public class TeacherController extends HttpServlet {
                 } else {
                     response.sendRedirect("error.jsp");
                 }
+            } else if (userID == -1) {
+                // Duplicate email error handling
+                request.setAttribute("errorMessage", "Email already exists.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("AddUserAndTeacher.jsp");
+                dispatcher.forward(request, response);
+            } else if (userID == -2) {
+                // Duplicate phone error handling
+                request.setAttribute("errorMessage", "Phone number already exists.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("AddUserAndTeacher.jsp");
+                dispatcher.forward(request, response);
             } else {
                 response.sendRedirect("error.jsp");
             }

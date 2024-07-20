@@ -55,7 +55,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">New Student Information</h5>
-                    <form id="addStudentForm" action="StudentControllerURL" method="post">
+                    <form id="addStudentForm" action="StudentControllerURL" method="post" onsubmit="return validateForm()">
                         <input type="hidden" name="service" value="addStudent">
                         <div class="row mb-3">
                             <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
@@ -76,7 +76,7 @@
                                     <option value="" disabled selected>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
+                                    
                                 </select>
                             </div>
                         </div>
@@ -165,6 +165,16 @@
             $('#addStudentForm')[0].reset();
             $('#classID').val(null).trigger('change'); // Reset the Select2 element for class selection
             $('#userID').val(null).trigger('change'); // Reset the Select2 element for parent selection
+        }
+
+        function validateForm() {
+            const fullName = document.getElementById('fullName').value;
+            const namePattern = /^[a-zA-Z\s]+$/;
+            if (!namePattern.test(fullName)) {
+                alert("Full Name can only contain letters and spaces.");
+                return false;
+            }
+            return true;
         }
     </script>
 </body>

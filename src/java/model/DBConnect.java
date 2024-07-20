@@ -28,8 +28,14 @@ public class DBConnect {
     }
 
     public DBConnect() {
+<<<<<<< HEAD
         this("jdbc:sqlserver://localhost:1433;databaseName=hw12",
                 "sa","123456");
+=======
+
+        this("jdbc:sqlserver://localhost:1433;databaseName=howart11",
+                "sa", "123123");
+>>>>>>> 411b7581c6a7d9c18ec09280ce586cd0ea996449
 
     }
 

@@ -52,11 +52,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <form class="form-inline" action="StudentControllerURL" method="get">
+                                <form class="form-inline" action="StudentControllerURL" method="get" onsubmit="return validateSearchForm()">
                                     <div class="input-group">
                                         <input type="hidden" name="service" value="listAll">
                                         <input type="hidden" name="year" value="<%= request.getParameter("year") != null ? request.getParameter("year") : "" %>">
-                                        <input type="text" class="form-control mr-2" name="name" placeholder="Search by name" value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>">
+                                        <input type="text" class="form-control mr-2" id="searchName" name="name" placeholder="Search by name" value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>">
                                         <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </form>
@@ -80,9 +80,7 @@
                                     </div>
                                 </form>
 
-
-                            <!-- Add New Student Button -->
-
+                                <!-- Add New Student Button -->
                                 <a href="StudentControllerURL?service=showAddStudent" class="btn btn-success">Add New Student</a>
                             </div>
 
@@ -151,6 +149,18 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        function validateSearchForm() {
+            const searchName = document.getElementById('searchName').value;
+            const namePattern = /^[a-zA-Z\s]+$/;
+            if (!namePattern.test(searchName)) {
+                alert("Search name can only contain letters and spaces.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 
 </html>

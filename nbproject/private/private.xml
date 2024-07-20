@@ -3,12 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/model/DAOSchedules.java</file>
             <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/model/DAOFeedback.java</file>
             <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/web/Schedules.jsp</file>
             <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/controller/FeedbackController.java</file>
             <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/entity/Schedules.java</file>
             <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/controller/SchedulesController.java</file>
+=======
+            <file>file:/D:/SWP/Hogwarts2/src/java/controller/CategoryServlet.java</file>
+            <file>file:/D:/SWP/Hogwarts2/web/InsertClassCategory.jsp</file>
+            <file>file:/D:/SWP/Hogwarts2/web/Categories.jsp</file>
+>>>>>>> 411b7581c6a7d9c18ec09280ce586cd0ea996449
         </group>
     </open-files>
 </project-private>
