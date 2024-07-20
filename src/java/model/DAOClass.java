@@ -11,32 +11,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOClass extends DBConnect {
-    
+
     public boolean isClassNameExists(String className) {
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
         boolean exists = false;
 
         try {
-            
+
             String query = "SELECT * FROM Class WHERE ClassName=?";
             ps = conn.prepareStatement(query);
             ps.setString(1, className);
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 exists = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-           
+
         }
 
         return exists;
     }
-     public boolean insertClass1(Class classObj) {
+
+    public boolean insertClass1(Class classObj) {
         String sql = "INSERT INTO Class (ClassName, CateID) VALUES (?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -49,18 +50,35 @@ public class DAOClass extends DBConnect {
         }
         return false;
     }
+
     public int insertClass(Class cls) {
         int n = 0;
-        String sql = "INSERT INTO Class (ClassName, CateID) VALUES (?, ?)";
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, cls.getClassName());
-            pre.setInt(2, cls.getCateID());
-            n = pre.executeUpdate();
+        if (!isDuplicateClassName(cls.getClassName())) {
+            String sql = "INSERT INTO Class (ClassName, CateID) VALUES (?, ?)";
+            try {
+                PreparedStatement pre = conn.prepareStatement(sql);
+                pre.setString(1, cls.getClassName());
+                pre.setInt(2, cls.getCateID());
+                n = pre.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return n;
+        }
+        return 0;
+    }
+
+    public boolean isDuplicateClassName(String className) {
+        String sql = "SELECT * FROM Class WHERE ClassName = ? ";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, className);
+            try (ResultSet rs = pre.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOClass.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
+        return false;
     }
 
     public int updateClass(Class cls) {

@@ -12,13 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DAOMenu extends DBConnect {
-    
+
     public Vector<Menu> getAllMenus1() {
         Vector<Menu> menus = new Vector<>();
         String query = "SELECT * FROM Menu";
 
-        try (PreparedStatement ps = conn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Menu menu = new Menu();
                 menu.setMenuID(rs.getInt("MenuID"));
@@ -30,32 +29,45 @@ public class DAOMenu extends DBConnect {
         }
         return menus;
     }
-    
-    public int insertMenu(Menu menu) {
-        int n = 0;
-        String sql = "INSERT INTO Menu (Food) VALUES (?)";
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, menu.getFood());
-            n = pre.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOMenu.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void insertMenu(Menu menu) {
+        if (!isDuplicateMenu(menu.getFood())) {
+            String sql = "INSERT INTO Menu (Food) VALUES (?)";
+            try {
+                PreparedStatement pre = conn.prepareStatement(sql);
+                pre.setString(1, menu.getFood());
+                pre.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        return n;
     }
 
-    public int updateMenu(Menu menu) {
-        int n = 0;
-        String sql = "UPDATE Menu SET Food = ? WHERE MenuID = ?";
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, menu.getFood());
-            pre.setInt(2, menu.getMenuID());
-            n = pre.executeUpdate();
+    public boolean isDuplicateMenu(String food) {
+        String sql = "SELECT * FROM Menu WHERE Food = ?";
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            pre.setString(1, food);
+            try (ResultSet rs = pre.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
+        return false;
+    }
+
+    public void updateMenu(Menu menu) {
+        if (!isDuplicateMenu(menu.getFood())) {
+            String sql = "UPDATE Menu SET Food = ? WHERE MenuID = ?";
+            try {
+                PreparedStatement pre = conn.prepareStatement(sql);
+                pre.setString(1, menu.getFood());
+                pre.setInt(2, menu.getMenuID());
+                pre.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public int deleteMenu(int menuID) {
@@ -88,7 +100,7 @@ public class DAOMenu extends DBConnect {
         }
         return vector;
     }
-    
+
     public Vector<Menu> getAllMenus(String sql) {
         Vector<Menu> vector = new Vector<>();
         try {
@@ -105,13 +117,12 @@ public class DAOMenu extends DBConnect {
         }
         return vector;
     }
-    
+
     public int getMenuCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM [Menu]";
         try (
-             PreparedStatement pre = conn.prepareStatement(sql);
-             ResultSet rs = pre.executeQuery()) {
+                PreparedStatement pre = conn.prepareStatement(sql); ResultSet rs = pre.executeQuery()) {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -137,12 +148,12 @@ public class DAOMenu extends DBConnect {
         }
         return menu;
     }
-    
+
     public static void main(String[] args) {
         DAOClassCategory dao = new DAOClassCategory();
         DAOMenu me = new DAOMenu();
         Vector<Menu> vc1 = me.getAllMenus1();
-        for(Menu c : vc1){
+        for (Menu c : vc1) {
             System.out.println(c);
         }
     }
