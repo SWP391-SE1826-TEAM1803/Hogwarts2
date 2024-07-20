@@ -106,7 +106,7 @@
                                 <div class="mb-3">
                                     <a href="AddMenuForClass.jsp" class="btn btn-primary">Select Menu For Class</a>
                                 </div>
-
+                                    
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector"%>
+<%@page import="entity.ClassCategory"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,16 +59,19 @@
                             </tr>
                             <% 
                                     }
-                                } else {
+                                } else { 
                             %>
                             <tr>
-                                <td colspan="2">No categories available</td>
+                                <td colspan="2">No categories found.</td>
                             </tr>
                             <% 
                                 } 
                             %>
                         </tbody>
                     </table>
+                        <div class="mb-3">
+                                    <a href="InsertClassCategory.jsp" class="btn btn-primary">Add New Class Category</a>
+                                </div>
                 </div>
             </div>
         </div>

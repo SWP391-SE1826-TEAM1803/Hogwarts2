@@ -10,7 +10,23 @@ import java.util.logging.Logger;
 
 public class DAOClassCategory extends DBConnect {
         
-    
+     public Vector<ClassCategory> getAllCategoriesDuyLinh() {
+    Vector<ClassCategory> categories = new Vector<>();
+    String query = "SELECT * FROM ClassCategory";
+
+    try (PreparedStatement ps = conn.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            ClassCategory category = new ClassCategory();
+            category.setCateID(rs.getInt("CateID"));
+            category.setCateName(rs.getString("CateName"));
+            categories.add(category);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return categories;
+}
     public boolean isCategoryNameExists(String cateName) {
         
         PreparedStatement ps = null;
