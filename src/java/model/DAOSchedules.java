@@ -13,7 +13,7 @@ public class DAOSchedules extends DBConnect {
     public void insertSchedule(Schedules schedule) {
         if (!isDuplicateDateAndCurDate(schedule.getDate(), schedule.getCurDateID(), schedule.getSyC_ID())
             &&!isDuplicateDate(schedule.getDate(),schedule.getSyC_ID())
-            //&&!isDuplicateCurDate(schedule.getCurDateID(), schedule.getSyC_ID())
+            &&!isDuplicateCurDate(schedule.getCurDateID(), schedule.getSyC_ID())
             ) {
             String sql = "INSERT INTO Schedules (Date, CurDateID, SyC_ID) VALUES (?, ?, ?)";
             try {
@@ -29,7 +29,9 @@ public class DAOSchedules extends DBConnect {
     }
 
     public void updateSchedule(Schedules schedule) {
-        if (!isDuplicateDateAndCurDate(schedule.getDate(), schedule.getCurDateID(), schedule.getSyC_ID())) {
+        if (!isDuplicateDateAndCurDate(schedule.getDate(), schedule.getCurDateID(), schedule.getSyC_ID())
+                &&!isDuplicateCurDate(schedule.getCurDateID(), schedule.getSyC_ID())) {
+            
             String sql = "UPDATE Schedules SET Date = ?, CurDateID = ?, SyC_ID = ? WHERE SchedulesID = ?";
             try {
                 PreparedStatement pre = conn.prepareStatement(sql);
