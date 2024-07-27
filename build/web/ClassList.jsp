@@ -105,7 +105,6 @@
                                                 <a class="btn btn-outline-info btn-sm" href="ClassControllerURL?service=detailClass&classID=<%= cls.getClassID() %>">Detail</a>
                                             </td>
                                             <td style="text-align: center;">
-                                                <a class="btn btn-outline-warning btn-sm" href="ClassControllerURL?service=updateClass&classID=<%= cls.getClassID() %>">Update</a>
                                                 <a class="btn btn-outline-danger btn-sm" href="ClassControllerURL?service=deleteClass&classID=<%= cls.getClassID() %>" onclick="return confirm('Are you sure you want to delete this class?')">Delete</a>
                                             </td>
                                         </tr>

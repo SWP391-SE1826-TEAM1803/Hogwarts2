@@ -61,7 +61,6 @@
                     <table class="table table-borderless datatable">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Start Date</th>
                                 <th scope="col">End Date</th>
@@ -76,7 +75,6 @@
                                     for (SchoolYear schoolYear : vector) {
                             %>
                             <tr>
-                                <td><%= schoolYear.getSyID() %></td>
                                 <td><%= schoolYear.getSyName() %></td>
                                 <td><%= schoolYear.getDateStart() %></td>
                                 <td><%= schoolYear.getDateEnd() %></td>

@@ -28,7 +28,7 @@ public class DBConnect {
     }
 
     public DBConnect() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=hw14",
+        this("jdbc:sqlserver://localhost:1433;databaseName=hw16",
                 "sa","12345678");
 
     }

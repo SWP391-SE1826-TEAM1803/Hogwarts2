@@ -168,8 +168,7 @@
                     <table class="table table-borderless datatable">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Class ID</th>
+                                
                                 <th scope="col">Class Name</th>
                                 <th scope="col">Curriculum</th>
                                 <th scope="col">Teacher</th>
@@ -193,8 +192,7 @@
                                     Curriculum cur = daoC.getCurriculumByID(syClass.getCurID());
                             %>
                             <tr>
-                                <td><%= syClass.getSyC_ID() %></td>
-                                <td><%= syClass.getClassID() %></td>
+                               
                                 <td><%= classObj != null ? classObj.getClassName() : "N/A" %></td>
                                 <td><%= cur != null ? cur.getCurName() : "N/A" %></td>
                                 <td><%= teachersObj != null ? user.getFullName() : "N/A" %></td>

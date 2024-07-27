@@ -3,18 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/model/DAOSchedules.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/model/DAOFeedback.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/web/Schedules.jsp</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/controller/FeedbackController.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/entity/Schedules.java</file>
-            <file>file:/D:/Season%205/SWP391/NewCodeSWP1807/Hogwarts2/src/java/controller/SchedulesController.java</file>
-=======
-            <file>file:/D:/SWP/Hogwarts2/src/java/controller/CategoryServlet.java</file>
-            <file>file:/D:/SWP/Hogwarts2/web/InsertClassCategory.jsp</file>
-            <file>file:/D:/SWP/Hogwarts2/web/Categories.jsp</file>
->>>>>>> 411b7581c6a7d9c18ec09280ce586cd0ea996449
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/ManageSchoolYear.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/controller/CurriculumDateController.java</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/categories.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/controller/CategoryServlet.java</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/SchoolYearClassDetail.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/controller/CurDateActController.java</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/model/DAOSchoolYearClass.java</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/SchoolYearDetail.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/controller/SchoolYearClassController.java</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/CurriculumManager.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/ClassList.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/model/DBConnect.java</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/CurriculumDateManager.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/web/HeaderAdmin.jsp</file>
+            <file>file:/D:/SU24/New%20folder%20(2)/Hogwarts2/src/java/model/DAOTeacherSchoolYearClass.java</file>
         </group>
     </open-files>
 </project-private>

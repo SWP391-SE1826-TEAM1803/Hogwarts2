@@ -136,11 +136,11 @@
                                                                 <input type="hidden" name="CurID" value="<%= curID %>">
                                                                 <div class="mb-3">
                                                                     <label for="TimeStart<%= curDateAct.getCdtID() %>" class="form-label">Time Start</label>
-                                                                    <input type="text" class="form-control" id="TimeStart<%= curDateAct.getCdtID() %>" name="TimeStart" value="<%= curDateAct.getTimeStart() %>" required>
+                                                                    <input type="time" class="form-control" id="TimeStart<%= curDateAct.getCdtID() %>" name="TimeStart" value="<%= curDateAct.getTimeStart() %>" required>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="TimeEnd<%= curDateAct.getCdtID() %>" class="form-label">Time End</label>
-                                                                    <input type="text" class="form-control" id="TimeEnd<%= curDateAct.getCdtID() %>" name="TimeEnd" value="<%= curDateAct.getTimeEnd() %>" required>
+                                                                    <input type="time" class="form-control" id="TimeEnd<%= curDateAct.getCdtID() %>" name="TimeEnd" value="<%= curDateAct.getTimeEnd() %>" required>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="Act<%= curDateAct.getCdtID() %>" class="form-label">Activity</label>
@@ -175,11 +175,11 @@
                                                 <input type="hidden" name="CurID" value="<%= curID %>">
                                                 <div class="mb-3">
                                                     <label for="TimeStartNew<%= curDate.getCurDateID() %>" class="form-label">Time Start</label>
-                                                    <input type="text" class="form-control" id="TimeStartNew<%= curDate.getCurDateID() %>" name="TimeStart" required>
+                                                    <input type="time" class="form-control" id="TimeStartNew<%= curDate.getCurDateID() %>" name="TimeStart" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="TimeEndNew<%= curDate.getCurDateID() %>" class="form-label">Time End</label>
-                                                    <input type="text" class="form-control" id="TimeEndNew<%= curDate.getCurDateID() %>" name="TimeEnd" required>
+                                                    <input type="time" class="form-control" id="TimeEndNew<%= curDate.getCurDateID() %>" name="TimeEnd" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="ActNew<%= curDate.getCurDateID() %>" class="form-label">Activity</label>

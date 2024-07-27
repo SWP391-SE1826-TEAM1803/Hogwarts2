@@ -37,7 +37,7 @@
         <%@include file="HeaderAdmin.jsp"%>
         <main id="main" class="main">
             <div class="pagetitle">
-                <h1>Menu List in Hogwarts</h1>
+                <h1>Menu List</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="HomeAdmin.jsp">Home</a></li>

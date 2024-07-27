@@ -57,7 +57,6 @@
                                 <th scope="col">Class Name</th>
                                 <th scope="col">Degree</th>
                                 <th scope="col">Status</th>
-                                <th scope="col" style="text-align: center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,12 +70,7 @@
                                     <td><%= teacherInfo.getClassName() %></td>
                                     <td><%= teacherInfo.getDegree() %></td>
                                     <td><%= nameClass %></td>
-                                    <td style="text-align: center;">
-                                        <a class="btn btn-outline-warning btn-icon-text"
-                                            href="TeacherControllerURL?service=update&TeacherID=<%= teacherInfo.getTeacherID() %>">
-                                            <i class="mdi mdi-refresh"></i> Update Class For Teacher
-                                        </a>
-                                    </td>
+                                   
                                 </tr>
                             <% } } %>
                         </tbody>
